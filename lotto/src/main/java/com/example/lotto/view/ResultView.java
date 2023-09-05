@@ -1,4 +1,4 @@
-package com.example.view;
+package com.example.lotto.view;
 
 import com.example.io.CommandLineIo;
 
@@ -19,7 +19,9 @@ public class ResultView {
         CommandLineIo.output(String.format(PURCHASED_LOTTO_MSG, lottoNum));
     }
 
-    public void winningStatistics(Map<Integer, Integer> matchCnt, int reward, int purchasedAmount) {
+    public void winningStatistics(Map<Integer, Integer> matchCnt,
+                                  int reward,
+                                  int purchasedAmount) {
         CommandLineIo.output(WINNING_STATISTICS);
 
         CommandLineIo.output(String.format(WINNING_MATCH_THREE, matchCnt.get(3)));
@@ -27,6 +29,7 @@ public class ResultView {
         CommandLineIo.output(String.format(WINNING_MATCH_FIVE, matchCnt.get(5)));
         CommandLineIo.output(String.format(WINNING_MATCH_SIX, matchCnt.get(6)));
 
-        CommandLineIo.output(String.format(WINNING_PROFIT_RATE, (double) reward/purchasedAmount));
+        CommandLineIo.output(
+            String.format(WINNING_PROFIT_RATE, (double) reward/purchasedAmount));
     }
 }

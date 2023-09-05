@@ -1,4 +1,4 @@
-package com.example.view;
+package com.example.lotto.view;
 
 import com.example.io.CommandLineIo;
 

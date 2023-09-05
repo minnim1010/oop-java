@@ -1,22 +1,26 @@
-package com.example.lotto;
+package com.example.lotto.service;
+
+import com.example.lotto.domain.RewardPerMatchingCount;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class WinningCalculator {
+public class WinningStatisticsCalculator {
+
+    public static final int MIN_MATCHING_COUNT_FOR_REWARD = 3;
+    public static final int MAX_MATCHING_COUNT_FOR_REWARD = 6;
 
     private final List<Integer> winningNumbers;
     private final Map<Integer, Integer> matchCnt;
     private int reward;
 
-    public WinningCalculator(List<Integer> winningNumbers) {
+    public WinningStatisticsCalculator(List<Integer> winningNumbers) {
         this.winningNumbers = winningNumbers;
         matchCnt = new HashMap<>();
-        matchCnt.put(3, 0);
-        matchCnt.put(4, 0);
-        matchCnt.put(5, 0);
-        matchCnt.put(6, 0);
+        for (int i = MIN_MATCHING_COUNT_FOR_REWARD; i <= MAX_MATCHING_COUNT_FOR_REWARD; i++) {
+            matchCnt.put(i, 0);
+        }
     }
 
     public void calculate(List<List<Integer>> lottos) {
@@ -28,9 +32,11 @@ public class WinningCalculator {
         calculateReward();
     }
 
-    private void updateMatchCnt(int cnt) {
-        if(3 <= cnt && cnt <= 6){
-            matchCnt.put(cnt, matchCnt.get(cnt) + 1);
+    private void updateMatchCnt(int matchingCnt) {
+        if (MIN_MATCHING_COUNT_FOR_REWARD <= matchingCnt
+                && matchingCnt <= MAX_MATCHING_COUNT_FOR_REWARD) {
+            int updateCnt = matchCnt.get(matchingCnt) + 1;
+            matchCnt.put(matchingCnt, updateCnt);
         }
     }
 
@@ -42,15 +48,14 @@ public class WinningCalculator {
         return matchingCnt;
     }
 
-    private boolean isMatch(int number){
+    private boolean isMatch(int number) {
         return winningNumbers.contains(number);
     }
 
     private void calculateReward() {
-        reward = matchCnt.get(3) * RewardPerMatchingCount.MATCH_THREE.getReward()
-            + matchCnt.get(4) * RewardPerMatchingCount.MATCH_FOUR.getReward()
-            + matchCnt.get(5) * RewardPerMatchingCount.MATCH_FIVE.getReward()
-            + matchCnt.get(6) * RewardPerMatchingCount.MATCH_SIX.getReward();
+        for (int i = MIN_MATCHING_COUNT_FOR_REWARD; i <= MAX_MATCHING_COUNT_FOR_REWARD; i++) {
+            reward += matchCnt.get(i) * RewardPerMatchingCount.getReward(i);
+        }
     }
 
     public Map<Integer, Integer> getMatchCnt() {

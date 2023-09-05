@@ -1,6 +1,6 @@
 package com.example;
 
-import com.example.lotto.LottoProvider;
+import com.example.lotto.service.LottoProvider;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -12,17 +12,20 @@ class LottoProviderTest {
 
     private final LottoProvider lottoProvider = new LottoProvider();
 
-    @DisplayName("무작위 로또 숫자 6개를 반환한다.")
+    @DisplayName("로또 개수가 주어지면 숫자 6개를 무작위로 뽑은 로또를 주어진 개수만큼 반환한다.")
     @Test
-    void successReturnLottoNumbers() {
+    void successReturnLottos() {
         //given
+        int lottoSize = 3;
 
         //when
-        List<Integer> lotto = lottoProvider.getLotto();
+        List<List<Integer>> lottos = lottoProvider.getLottos(lottoSize);
 
         //then
-        assertThat(lotto).hasSize(6)
-            .allSatisfy(elem ->
-                assertThat(elem).isLessThanOrEqualTo(45));
+        assertThat(lottos).hasSize(3)
+            .allSatisfy(lotto ->
+                assertThat(lotto).hasSize(6)
+                    .allSatisfy(number ->
+                        assertThat(number).isLessThanOrEqualTo(45)));
     }
 }

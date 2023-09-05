@@ -1,6 +1,6 @@
 package com.example;
 
-import com.example.lotto.WinningNumberProvider;
+import com.example.lotto.service.WinningNumberProvider;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

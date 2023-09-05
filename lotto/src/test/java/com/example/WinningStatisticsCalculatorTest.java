@@ -1,6 +1,6 @@
 package com.example;
 
-import com.example.lotto.WinningCalculator;
+import com.example.lotto.service.WinningStatisticsCalculator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -11,10 +11,10 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class WinningCalculatorTest {
+class WinningStatisticsCalculatorTest {
 
     private final List<Integer> winningNumbers = List.of(1, 2, 3, 4, 5, 6);
-    private final WinningCalculator winningCalculator = new WinningCalculator(winningNumbers);
+    private final WinningStatisticsCalculator winningStatisticsCalculator = new WinningStatisticsCalculator(winningNumbers);
 
     @DisplayName("여러 개의 로또와 당첨 로또를 비교해 일치하는 숫자의 개수와 상금을 계산한다.")
     @Test
@@ -30,16 +30,16 @@ class WinningCalculatorTest {
         );
 
         //when
-        winningCalculator.calculate(lottos);
+        winningStatisticsCalculator.calculate(lottos);
 
         //then
-        Map<Integer, Integer> matchCnt = winningCalculator.getMatchCnt();
+        Map<Integer, Integer> matchCnt = winningStatisticsCalculator.getMatchCnt();
         assertThat(matchCnt).hasSize(4)
             .containsEntry(3, 1)
             .containsEntry(4, 1)
             .containsEntry(5, 1)
             .containsEntry(6, 1);
 
-        assertThat(winningCalculator.getReward()).isEqualTo(2001555000);
+        assertThat(winningStatisticsCalculator.getReward()).isEqualTo(2001555000);
     }
 }

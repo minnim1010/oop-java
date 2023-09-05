@@ -1,6 +1,6 @@
 package com.example;
 
-import com.example.lotto.LottoSeller;
+import com.example.lotto.service.LottoSeller;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ class LottoSellerTest {
         void successReturnPurchasedLottoNum(int money, int expected){
             //given
             //when
-            int lotto = lottoSeller.calculatePurchasedLotto(money);
+            int lotto = lottoSeller.calculatePurchasedLottos(money);
 
             //then
             assertThat(lotto).isEqualTo(expected);
@@ -36,7 +36,7 @@ class LottoSellerTest {
             int money = 0;
 
             //when then
-            assertThatThrownBy(() -> lottoSeller.calculatePurchasedLotto(money))
+            assertThatThrownBy(() -> lottoSeller.calculatePurchasedLottos(money))
                 .isInstanceOf(IllegalStateException.class);
         }
     }

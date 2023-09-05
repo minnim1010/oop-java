@@ -1,4 +1,4 @@
-package com.example.lotto;
+package com.example.lotto.service;
 
 import java.util.Arrays;
 import java.util.List;
