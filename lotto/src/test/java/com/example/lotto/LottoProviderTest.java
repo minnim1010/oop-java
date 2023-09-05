@@ -1,5 +1,6 @@
 package com.example.lotto;
 
+import com.example.lotto.domain.Lotto;
 import com.example.lotto.service.LottoProvider;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,13 +20,13 @@ class LottoProviderTest {
         int lottoSize = 3;
 
         //when
-        List<List<Integer>> lottos = lottoProvider.getLottos(lottoSize);
+        List<Lotto> lottos = lottoProvider.getLottos(lottoSize);
 
         //then
-        assertThat(lottos).hasSize(3)
+        assertThat(lottos).hasSize(lottoSize)
             .allSatisfy(lotto ->
-                assertThat(lotto).hasSize(6)
+                assertThat(lotto.getNumbers()).hasSize(LottoProvider.LOTTO_SIZE)
                     .allSatisfy(number ->
-                        assertThat(number).isLessThanOrEqualTo(45)));
+                        assertThat(number).isLessThanOrEqualTo(LottoProvider.LOTTO_MAX_NUMBER)));
     }
 }

@@ -1,6 +1,7 @@
 package com.example.lotto.service;
 
-import com.example.lotto.domain.RewardPerMatchingCount;
+import com.example.lotto.domain.Lotto;
+import com.example.lotto.domain.LottoReward;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,20 +15,21 @@ public class WinningStatisticsCalculator {
     public static final int MIN_MATCHING_COUNT_FOR_REWARD = 3;
     public static final int MAX_MATCHING_COUNT_FOR_REWARD = 6;
 
-    private final List<Integer> winningNumbers;
+    private final Lotto winningLotto;
     private final Map<Integer, Integer> matchCnt;
     private int reward;
 
-    public WinningStatisticsCalculator(List<Integer> winningNumbers) {
-        this.winningNumbers = winningNumbers;
+    public WinningStatisticsCalculator(Lotto winningLotto) {
+        this.winningLotto = winningLotto;
+        
         matchCnt = new HashMap<>();
         for (int i = MIN_MATCHING_COUNT_FOR_REWARD; i <= MAX_MATCHING_COUNT_FOR_REWARD; i++) {
             matchCnt.put(i, 0);
         }
     }
 
-    public void calculate(List<List<Integer>> lottos) {
-        for (List<Integer> lotto : lottos) {
+    public void calculate(List<Lotto> lottos) {
+        for (Lotto lotto : lottos) {
             int cnt = countMatchingNumber(lotto);
             updateMatchCnt(cnt);
         }
@@ -43,21 +45,15 @@ public class WinningStatisticsCalculator {
         }
     }
 
-    private int countMatchingNumber(List<Integer> lotto) {
-        int matchingCnt = 0;
-        for (int number : lotto) {
-            matchingCnt += isMatch(number) ? 1 : 0;
-        }
-        return matchingCnt;
-    }
-
-    private boolean isMatch(int number) {
-        return winningNumbers.contains(number);
+    private int countMatchingNumber(Lotto lotto) {
+        return (int) lotto.getNumbers().stream()
+            .filter(winningLotto::contains)
+            .count();
     }
 
     private void calculateReward() {
         for (int i = MIN_MATCHING_COUNT_FOR_REWARD; i <= MAX_MATCHING_COUNT_FOR_REWARD; i++) {
-            reward += matchCnt.get(i) * RewardPerMatchingCount.getReward(i);
+            reward += matchCnt.get(i) * LottoReward.getReward(i);
         }
     }
 

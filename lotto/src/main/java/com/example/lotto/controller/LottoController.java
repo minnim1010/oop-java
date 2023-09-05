@@ -1,9 +1,9 @@
 package com.example.lotto.controller;
 
 import com.example.converter.InputTypeConverter;
+import com.example.lotto.domain.Lotto;
 import com.example.lotto.service.LottoProvider;
 import com.example.lotto.service.LottoSeller;
-import com.example.lotto.service.WinningLottoProvider;
 import com.example.lotto.service.WinningStatisticsCalculator;
 import com.example.lotto.view.ErrorView;
 import com.example.lotto.view.InputView;
@@ -18,25 +18,24 @@ public class LottoController {
 
     private final LottoSeller lottoSeller = new LottoSeller();
     private final LottoProvider lottoProvider = new LottoProvider();
-    private final WinningLottoProvider winningLottoProvider = new WinningLottoProvider();
     private WinningStatisticsCalculator winningStatisticsCalculator;
 
     private int money;
 
     public void run() {
-        List<List<Integer>> lottos;
-        List<Integer> winningNumbers;
+        List<Lotto> lottos;
+        Lotto winningLotto;
 
         try {
             int lottoNum = buyLottos();
             lottos = getLottos(lottoNum);
-            winningNumbers = getWinningNumbers();
+            winningLotto = getWinningNumbers();
         } catch (IllegalArgumentException ex) {
             errorView.showIllegalArgumentException(ex);
             return;
         }
 
-        calculateWinningStatistics(winningNumbers, lottos);
+        calculateWinningStatistics(winningLotto, lottos);
         printWinningStatistics();
     }
 
@@ -50,22 +49,26 @@ public class LottoController {
         return lottoNum;
     }
 
-    private List<List<Integer>> getLottos(int lottoNum) {
+    private List<Lotto> getLottos(int lottoNum) {
         return lottoProvider.getLottos(lottoNum);
     }
 
-    private List<Integer> getWinningNumbers() {
+    private Lotto getWinningNumbers() {
         String input = inputView.inputWinningLottoNumbers();
-        return winningLottoProvider.getWinningNumbers(input);
+        List<Integer> numbers = InputTypeConverter.convertStringToIntegerList(input);
+
+        return new Lotto(numbers);
     }
 
-    private void calculateWinningStatistics(List<Integer> winningNumbers, List<List<Integer>> lottos) {
-        winningStatisticsCalculator = new WinningStatisticsCalculator(winningNumbers);
+    private void calculateWinningStatistics(Lotto winningLotto, List<Lotto> lottos) {
+        winningStatisticsCalculator = new WinningStatisticsCalculator(winningLotto);
         winningStatisticsCalculator.calculate(lottos);
     }
 
     private void printWinningStatistics() {
         resultView.winningStatistics(
-            winningStatisticsCalculator.getMatchCnt(), winningStatisticsCalculator.getReward(), money);
+            winningStatisticsCalculator.getMatchCnt(),
+            winningStatisticsCalculator.getReward(),
+            money);
     }
 }

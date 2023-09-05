@@ -6,13 +6,15 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class InputTypeConverterTest {
 
     @Nested
-    @DisplayName("String 타입을 int 타입으로 바꿀 때 ")
+    @DisplayName("문자열을 int로 바꿀 때 ")
     class convertStringToInt {
         @DisplayName("성공 시 변환된 int를 반환한다.")
         @Test
@@ -39,5 +41,21 @@ class InputTypeConverterTest {
         }
     }
 
+    @Nested
+    @DisplayName("문자열을 Integer형 리스트로 바꿀 때 ")
+    class convertStringToIntegerList {
+        @DisplayName("성공 시 Integer형 리스트를 반환한다.")
+        @Test
+        void successReturnIntegerList() {
+            //given
+            String str = "23, 45, 2, 3, 4, 1";
+            List<Integer> expected = List.of(23, 45, 2, 3, 4, 1);
 
+            //when
+            List<Integer> result = InputTypeConverter.convertStringToIntegerList(str);
+
+            //then
+            assertThat(result).isEqualTo(expected);
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.lotto;
 
+import com.example.lotto.domain.Lotto;
 import com.example.lotto.service.WinningStatisticsCalculator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,19 +14,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class WinningStatisticsCalculatorTest {
 
-    private final List<Integer> winningNumbers = List.of(1, 2, 3, 4, 5, 6);
-    private final WinningStatisticsCalculator winningStatisticsCalculator = new WinningStatisticsCalculator(winningNumbers);
+    private final Lotto winningLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+    private final WinningStatisticsCalculator winningStatisticsCalculator =
+        new WinningStatisticsCalculator(winningLotto);
 
     @DisplayName("여러 개의 로또와 당첨 로또를 비교해 일치하는 숫자의 개수와 상금을 계산한다.")
     @Test
     void calculate() {
         //given
-        List<List<Integer>> lottos = new ArrayList<>(
+        List<Lotto> lottos = new ArrayList<>(
             Arrays.asList(
-                List.of(1, 3, 34, 9, 6, 45),
-                List.of(3, 5, 7, 8, 2, 1),
-                List.of(1, 2, 3, 4, 5, 9),
-                List.of(1, 2, 3, 4, 5, 6)
+                new Lotto(List.of(1, 3, 34, 9, 6, 45)),
+                new Lotto(List.of(3, 5, 7, 8, 2, 1)),
+                new Lotto(List.of(1, 2, 3, 4, 5, 9)),
+                new Lotto(List.of(1, 2, 3, 4, 5, 6))
             )
         );
 
