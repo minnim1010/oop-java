@@ -27,6 +27,7 @@ class LottoProviderTest {
             .allSatisfy(lotto ->
                 assertThat(lotto.getNumbers()).hasSize(LottoProvider.LOTTO_SIZE)
                     .allSatisfy(number ->
-                        assertThat(number).isBetween(1, 45)));
+                        assertThat(number)
+                            .isBetween(LottoProvider.LOTTO_MIN_NUMBER, LottoProvider.LOTTO_MAX_NUMBER)));
     }
 }
