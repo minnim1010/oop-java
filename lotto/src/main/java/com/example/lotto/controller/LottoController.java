@@ -57,8 +57,12 @@ public class LottoController {
     }
 
     private Lotto getWinningNumbers() {
-        String input = inputView.inputWinningLottoNumbers();
-        List<Integer> numbers = InputTypeConverter.convertStringToIntegerList(input);
+        String winningLottoNumbers = inputView.inputWinningLottoNumbers();
+        List<Integer> numbers = InputTypeConverter
+            .convertStringToIntegerList(winningLottoNumbers);
+
+        String bonusBall = inputView.inputBonusBall();
+        int bonusBallNumber = InputTypeConverter.convertStringToInt(bonusBall);
 
         return new Lotto(numbers);
     }
