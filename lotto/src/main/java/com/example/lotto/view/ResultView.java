@@ -1,7 +1,9 @@
 package com.example.lotto.view;
 
 import com.example.io.CommandLineOutput;
+import com.example.lotto.domain.Lotto;
 
+import java.util.List;
 import java.util.Map;
 
 public class ResultView {
@@ -15,13 +17,18 @@ public class ResultView {
     public static final String WINNING_MATCH_SIX = "6개 일치 (2000000000원)- %s개";
     public static final String WINNING_PROFIT_RATE = "총 수익률은 %.2f입니다.";
 
-    public void purchasedLotto(int lottoNum){
+    public void showPurchasedLotto(int lottoNum) {
         CommandLineOutput.output(String.format(PURCHASED_LOTTO_MSG, lottoNum));
     }
 
-    public void winningStatistics(Map<Integer, Integer> matchCnt,
-                                  int reward,
-                                  int purchasedAmount) {
+    public void showPurchasedLottos(List<Lotto> lottos) {
+        lottos.stream()
+            .forEach(lotto -> CommandLineOutput.output(lotto.toString()));
+    }
+
+    public void showWinningStatistics(Map<Integer, Integer> matchCnt,
+                                      int reward,
+                                      int purchasedAmount) {
         CommandLineOutput.output(WINNING_STATISTICS);
 
         CommandLineOutput.output(String.format(WINNING_MATCH_THREE, matchCnt.get(3)));

@@ -45,12 +45,15 @@ public class LottoController {
 
         int lottoNum = lottoSeller.calculatePurchasedLottos(money);
 
-        resultView.purchasedLotto(lottoNum);
+        resultView.showPurchasedLotto(lottoNum);
         return lottoNum;
     }
 
     private List<Lotto> getLottos(int lottoNum) {
-        return lottoProvider.getLottos(lottoNum);
+        List<Lotto> lottos = lottoProvider.getLottos(lottoNum);
+        resultView.showPurchasedLottos(lottos);
+
+        return lottos;
     }
 
     private Lotto getWinningNumbers() {
@@ -66,7 +69,7 @@ public class LottoController {
     }
 
     private void printWinningStatistics() {
-        resultView.winningStatistics(
+        resultView.showWinningStatistics(
             winningStatisticsCalculator.getMatchCnt(),
             winningStatisticsCalculator.getReward(),
             money);

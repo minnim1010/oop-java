@@ -23,4 +23,15 @@ public class Lotto {
     public boolean contains(int number) {
         return numbers.contains(number);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        numbers.forEach(i -> sb.append(i).append(", "));
+        sb.delete(sb.length() - 2, sb.length());
+        sb.append("]");
+
+        return sb.toString();
+    }
 }
