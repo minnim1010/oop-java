@@ -1,67 +1,81 @@
 package com.example.lotto.service;
 
 import com.example.lotto.domain.Lotto;
-import com.example.lotto.domain.LottoReward;
+import com.example.lotto.domain.LottoPurchaseResult;
+import com.example.lotto.domain.LottoRank;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 /*
 * 당첨 통계를 계산한다.
 */
 public class WinningStatisticsCalculator {
 
-    public static final int MIN_MATCHING_COUNT_FOR_REWARD = 3;
-    public static final int MAX_MATCHING_COUNT_FOR_REWARD = 6;
+    public static final int HIGHEST_MATCH_COUNT = LottoRank.FIRST.getMatchCount();
+    public static final int LOWEST_MATCH_COUNT = LottoRank.FIFTH.getMatchCount();
+    private final int amount;
+    private final LottoPurchaseResult lottoPurchaseResult;
 
-    private final Lotto winningLotto;
-    private final Map<Integer, Integer> matchCnt;
     private int reward;
+    private double profitRate;
 
-    public WinningStatisticsCalculator(Lotto winningLotto) {
-        this.winningLotto = winningLotto;
-        
-        matchCnt = new HashMap<>();
-        for (int i = MIN_MATCHING_COUNT_FOR_REWARD; i <= MAX_MATCHING_COUNT_FOR_REWARD; i++) {
-            matchCnt.put(i, 0);
-        }
+    public WinningStatisticsCalculator(int amount) {
+        this.amount = amount;
+        lottoPurchaseResult = new LottoPurchaseResult();
     }
 
-    public void calculate(List<Lotto> lottos) {
+    public int getReward() {
+        return reward;
+    }
+
+    public double getProfitRate() {
+        return profitRate;
+    }
+
+    public void calculate(Lotto winningLotto, int bonusBall, List<Lotto> lottos) {
         for (Lotto lotto : lottos) {
-            int cnt = countMatchingNumber(lotto);
-            updateMatchCnt(cnt);
+            int cnt = countMatchNumber(winningLotto, lotto);
+            boolean hasBonusBall = hasBonusBall(bonusBall, lotto);
+            updateResult(cnt, hasBonusBall);
         }
 
         calculateReward();
+        calculateProfitRate();
     }
 
-    private void updateMatchCnt(int matchingCnt) {
-        if (MIN_MATCHING_COUNT_FOR_REWARD <= matchingCnt
-                && matchingCnt <= MAX_MATCHING_COUNT_FOR_REWARD) {
-            int updateCnt = matchCnt.get(matchingCnt) + 1;
-            matchCnt.put(matchingCnt, updateCnt);
-        }
-    }
-
-    private int countMatchingNumber(Lotto lotto) {
+    private int countMatchNumber(Lotto winningLotto, Lotto lotto) {
         return (int) lotto.getNumbers().stream()
             .filter(winningLotto::contains)
             .count();
     }
 
+    private boolean hasBonusBall(int bonusBall, Lotto lotto) {
+        return lotto.contains(bonusBall);
+    }
+
+    private void updateResult(int cnt, boolean hasBonusBall) {
+        getRank(cnt, hasBonusBall)
+            .ifPresent(lottoPurchaseResult::update);
+    }
+
+    private Optional<LottoRank> getRank(int cnt, boolean hasBonusBall) {
+        if (cnt != LottoRank.SECOND.getMatchCount())
+            hasBonusBall = false;
+        return LottoRank.from(cnt, hasBonusBall);
+    }
+
     private void calculateReward() {
-        for (int cnt = MIN_MATCHING_COUNT_FOR_REWARD; cnt <= MAX_MATCHING_COUNT_FOR_REWARD; cnt++) {
-            reward += matchCnt.get(cnt) * LottoReward.getReward(cnt);
+        for (LottoRank rank : LottoRank.values()) {
+            reward += (int) (lottoPurchaseResult.get(rank) * rank.getReward());
         }
     }
 
-    public Map<Integer, Integer> getMatchCnt() {
-        return this.matchCnt;
+    private void calculateProfitRate() {
+        profitRate = (double) reward / amount;
     }
 
-    public int getReward() {
-        return reward;
+    public LottoPurchaseResult getRankResult() {
+        return this.lottoPurchaseResult;
     }
 }

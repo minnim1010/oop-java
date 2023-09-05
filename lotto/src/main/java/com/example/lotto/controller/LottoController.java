@@ -20,30 +20,32 @@ public class LottoController {
     private final LottoProvider lottoProvider = new LottoProvider();
     private WinningStatisticsCalculator winningStatisticsCalculator;
 
-    private int money;
+    private int amount;
 
     public void run() {
         List<Lotto> lottos;
         Lotto winningLotto;
+        int bonusBall;
 
         try {
             int lottoNum = buyLottos();
             lottos = getLottos(lottoNum);
             winningLotto = getWinningNumbers();
+            bonusBall = getBonusBall();
         } catch (IllegalArgumentException ex) {
             errorView.showIllegalArgumentException(ex);
             return;
         }
 
-        calculateWinningStatistics(winningLotto, lottos);
+        calculateWinningStatistics(winningLotto, bonusBall, lottos);
         printWinningStatistics();
     }
 
     private int buyLottos() {
         String input = inputView.inputPurchaseAmount();
-        money = InputTypeConverter.convertStringToInt(input);
+        amount = InputTypeConverter.convertStringToInt(input);
 
-        int lottoNum = lottoSeller.calculatePurchasedLottos(money);
+        int lottoNum = lottoSeller.calculatePurchasedLottos(amount);
 
         resultView.showPurchasedLotto(lottoNum);
         return lottoNum;
@@ -61,21 +63,22 @@ public class LottoController {
         List<Integer> numbers = InputTypeConverter
             .convertStringToIntegerList(winningLottoNumbers);
 
-        String bonusBall = inputView.inputBonusBall();
-        int bonusBallNumber = InputTypeConverter.convertStringToInt(bonusBall);
-
         return new Lotto(numbers);
     }
 
-    private void calculateWinningStatistics(Lotto winningLotto, List<Lotto> lottos) {
-        winningStatisticsCalculator = new WinningStatisticsCalculator(winningLotto);
-        winningStatisticsCalculator.calculate(lottos);
+    private int getBonusBall() {
+        String bonusBall = inputView.inputBonusBall();
+        return InputTypeConverter.convertStringToInt(bonusBall);
+    }
+
+    private void calculateWinningStatistics(Lotto winningLotto, int bonusBall, List<Lotto> lottos) {
+        winningStatisticsCalculator = new WinningStatisticsCalculator(amount);
+        winningStatisticsCalculator.calculate(winningLotto, bonusBall, lottos);
     }
 
     private void printWinningStatistics() {
         resultView.showWinningStatistics(
-            winningStatisticsCalculator.getMatchCnt(),
-            winningStatisticsCalculator.getReward(),
-            money);
+            winningStatisticsCalculator.getRankResult(),
+            winningStatisticsCalculator.getProfitRate());
     }
 }

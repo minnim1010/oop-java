@@ -1,7 +1,6 @@
-package com.example.lotto;
+package com.example.lotto.service;
 
 import com.example.lotto.domain.Lotto;
-import com.example.lotto.service.LottoProvider;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
