@@ -57,5 +57,27 @@ class InputTypeConverterTest {
             //then
             assertThat(result).isEqualTo(expected);
         }
+
+        @DisplayName("구분자가 ', '가 아니라면 예외가 발생한다.")
+        @ValueSource(strings = {"1, 2, 3, 4, 5,6", "1.2.3.4.5.6", "1/2/3/4/5/6", "1,2,3,4,5,6"})
+        @ParameterizedTest
+        void failWithInvalidDelimiter(String str) {
+            //given
+
+            //when then
+            assertThatThrownBy(() -> InputTypeConverter.convertStringToIntegerList(str))
+                .isInstanceOf(IllegalArgumentException.class);
+        }
+
+        @DisplayName("-나 숫자 이외 문자가 포함되었다면 예외가 발생한다.")
+        @ValueSource(strings = {"123j, 3", "zxcv, 23", "484*, 45", " ", "", ";"})
+        @ParameterizedTest
+        void failWithInvalidCharacter(String str) {
+            //given
+
+            //when && then
+            assertThatThrownBy(() -> InputTypeConverter.convertStringToIntegerList(str))
+                .isInstanceOf(IllegalArgumentException.class);
+        }
     }
 }

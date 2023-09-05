@@ -12,7 +12,8 @@ public class Lotto {
 
     private void validate(List<Integer> numbers) {
         if (numbers.size() != 6) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(
+                String.format("현재 로또 번호 자릿수 %s: 로또 번호는 6자리입니다.", numbers.size()));
         }
     }
 

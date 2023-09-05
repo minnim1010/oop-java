@@ -2,10 +2,13 @@ package com.example.converter;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.PatternSyntaxException;
 
 public class InputTypeConverter {
     public static final String CANNOT_CONVERT_STRING_TO_INT =
         "[Error] 현재 입력값 %s: 입력값은 숫자만 포함해야 합니다.";
+    public static final String CANNOT_SPLIT_STRING_TO_INTEGER_TOKEN =
+        "[Error] 현재 입력값 %s: 각 숫자들은 ', '로 구분되어야 합니다.";
 
     private InputTypeConverter() {
     }
@@ -20,10 +23,19 @@ public class InputTypeConverter {
     }
 
     public static List<Integer> convertStringToIntegerList(String str) {
-        String[] split = str.split(", ");
+        String[] split = getIntegerTokens(str);
 
         return Arrays.stream(split)
-            .map(Integer::parseInt)
+            .map(InputTypeConverter::convertStringToInt)
             .toList();
+    }
+
+    private static String[] getIntegerTokens(String str) {
+        try {
+            return str.split(", ");
+        } catch (PatternSyntaxException ex) {
+            throw new IllegalArgumentException(
+                String.format(CANNOT_SPLIT_STRING_TO_INTEGER_TOKEN, str));
+        }
     }
 }
