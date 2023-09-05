@@ -17,7 +17,7 @@ class LottoProviderTest {
     @Test
     void successReturnLottos() {
         //given
-        int lottoSize = 3;
+        int lottoSize = 100;
 
         //when
         List<Lotto> lottos = lottoProvider.getLottos(lottoSize);
@@ -27,6 +27,6 @@ class LottoProviderTest {
             .allSatisfy(lotto ->
                 assertThat(lotto.getNumbers()).hasSize(LottoProvider.LOTTO_SIZE)
                     .allSatisfy(number ->
-                        assertThat(number).isLessThanOrEqualTo(LottoProvider.LOTTO_MAX_NUMBER)));
+                        assertThat(number).isBetween(1, 45)));
     }
 }

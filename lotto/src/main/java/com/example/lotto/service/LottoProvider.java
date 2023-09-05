@@ -44,6 +44,6 @@ public class LottoProvider {
     }
 
     private int getLottoNumber() {
-        return rand.nextInt(LOTTO_MAX_NUMBER + 1);
+        return rand.nextInt(LOTTO_MAX_NUMBER) + 1;
     }
 }
