@@ -1,6 +1,6 @@
 package com.example.lotto.view;
 
-import com.example.io.CommandLineIo;
+import com.example.io.CommandLineOutput;
 
 import java.util.Map;
 
@@ -16,20 +16,20 @@ public class ResultView {
     public static final String WINNING_PROFIT_RATE = "총 수익률은 %.2f입니다.";
 
     public void purchasedLotto(int lottoNum){
-        CommandLineIo.output(String.format(PURCHASED_LOTTO_MSG, lottoNum));
+        CommandLineOutput.output(String.format(PURCHASED_LOTTO_MSG, lottoNum));
     }
 
     public void winningStatistics(Map<Integer, Integer> matchCnt,
                                   int reward,
                                   int purchasedAmount) {
-        CommandLineIo.output(WINNING_STATISTICS);
+        CommandLineOutput.output(WINNING_STATISTICS);
 
-        CommandLineIo.output(String.format(WINNING_MATCH_THREE, matchCnt.get(3)));
-        CommandLineIo.output(String.format(WINNING_MATCH_FOUR, matchCnt.get(4)));
-        CommandLineIo.output(String.format(WINNING_MATCH_FIVE, matchCnt.get(5)));
-        CommandLineIo.output(String.format(WINNING_MATCH_SIX, matchCnt.get(6)));
+        CommandLineOutput.output(String.format(WINNING_MATCH_THREE, matchCnt.get(3)));
+        CommandLineOutput.output(String.format(WINNING_MATCH_FOUR, matchCnt.get(4)));
+        CommandLineOutput.output(String.format(WINNING_MATCH_FIVE, matchCnt.get(5)));
+        CommandLineOutput.output(String.format(WINNING_MATCH_SIX, matchCnt.get(6)));
 
-        CommandLineIo.output(
+        CommandLineOutput.output(
             String.format(WINNING_PROFIT_RATE, (double) reward/purchasedAmount));
     }
 }
