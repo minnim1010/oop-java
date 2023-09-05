@@ -1,9 +1,11 @@
 package com.example.lotto.controller;
 
+import com.example.converter.InputTypeConverter;
 import com.example.lotto.service.LottoProvider;
 import com.example.lotto.service.LottoSeller;
-import com.example.lotto.service.WinningStatisticsCalculator;
 import com.example.lotto.service.WinningLottoProvider;
+import com.example.lotto.service.WinningStatisticsCalculator;
+import com.example.lotto.view.ErrorView;
 import com.example.lotto.view.InputView;
 import com.example.lotto.view.ResultView;
 
@@ -12,6 +14,7 @@ import java.util.List;
 public class LottoController {
     private final InputView inputView = new InputView();
     private final ResultView resultView = new ResultView();
+    private final ErrorView errorView = new ErrorView();
 
     private final LottoSeller lottoSeller = new LottoSeller();
     private final LottoProvider lottoProvider = new LottoProvider();
@@ -19,24 +22,28 @@ public class LottoController {
     private WinningStatisticsCalculator winningStatisticsCalculator;
 
     private int money;
-    private List<List<Integer>> lottos;
-    private List<Integer> winningNumbers;
-
 
     public void run() {
-        int lottoNum = buyLottos();
-        lottos = getLottos(lottoNum);
+        List<List<Integer>> lottos;
+        List<Integer> winningNumbers;
 
-        winningNumbers = getWinningNumbers();
+        try {
+            int lottoNum = buyLottos();
+            lottos = getLottos(lottoNum);
+            winningNumbers = getWinningNumbers();
+        } catch (IllegalArgumentException ex) {
+            errorView.showIllegalArgumentException(ex);
+            return;
+        }
 
-        calculateWinningStatistics();
+        calculateWinningStatistics(winningNumbers, lottos);
         printWinningStatistics();
     }
 
     private int buyLottos() {
         String input = inputView.inputPurchaseAmount();
+        money = InputTypeConverter.convertStringToInt(input);
 
-        this.money = Integer.parseInt(input);
         int lottoNum = lottoSeller.calculatePurchasedLottos(money);
 
         resultView.purchasedLotto(lottoNum);
@@ -52,7 +59,7 @@ public class LottoController {
         return winningLottoProvider.getWinningNumbers(input);
     }
 
-    private void calculateWinningStatistics() {
+    private void calculateWinningStatistics(List<Integer> winningNumbers, List<List<Integer>> lottos) {
         winningStatisticsCalculator = new WinningStatisticsCalculator(winningNumbers);
         winningStatisticsCalculator.calculate(lottos);
     }

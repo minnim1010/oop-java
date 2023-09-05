@@ -29,15 +29,15 @@ class LottoSellerTest {
             assertThat(lotto).isEqualTo(expected);
         }
 
-        @DisplayName("구매 금액이 0 이하라면 예외가 발생한다.")
+        @DisplayName("구매 금액이 1000 미만이라면 예외가 발생한다.")
         @Test
-        void failWithPurchaseAmountLessOrEqualZero(){
+        void failWithPurchaseAmountLessOrEqual1000() {
             //given
-            int money = 0;
+            int money = 999;
 
             //when then
             assertThatThrownBy(() -> lottoSeller.calculatePurchasedLottos(money))
-                .isInstanceOf(IllegalStateException.class);
+                .isInstanceOf(IllegalArgumentException.class);
         }
     }
 
