@@ -1,4 +1,4 @@
-package com.example;
+package com.example.lotto;
 
 import com.example.lotto.service.LottoProvider;
 import org.junit.jupiter.api.DisplayName;

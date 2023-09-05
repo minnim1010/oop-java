@@ -3,7 +3,7 @@ package com.example.lotto.controller;
 import com.example.lotto.service.LottoProvider;
 import com.example.lotto.service.LottoSeller;
 import com.example.lotto.service.WinningStatisticsCalculator;
-import com.example.lotto.service.WinningNumberProvider;
+import com.example.lotto.service.WinningLottoProvider;
 import com.example.lotto.view.InputView;
 import com.example.lotto.view.ResultView;
 
@@ -15,7 +15,7 @@ public class LottoController {
 
     private final LottoSeller lottoSeller = new LottoSeller();
     private final LottoProvider lottoProvider = new LottoProvider();
-    private final WinningNumberProvider winningNumberProvider = new WinningNumberProvider();
+    private final WinningLottoProvider winningLottoProvider = new WinningLottoProvider();
     private WinningStatisticsCalculator winningStatisticsCalculator;
 
     private int money;
@@ -49,7 +49,7 @@ public class LottoController {
 
     private List<Integer> getWinningNumbers() {
         String input = inputView.inputWinningLottoNumbers();
-        return winningNumberProvider.getWinningNumbers(input);
+        return winningLottoProvider.getWinningNumbers(input);
     }
 
     private void calculateWinningStatistics() {

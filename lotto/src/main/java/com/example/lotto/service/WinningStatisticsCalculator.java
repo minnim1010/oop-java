@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/*
+* 당첨 통계를 계산한다.
+*/
 public class WinningStatisticsCalculator {
 
     public static final int MIN_MATCHING_COUNT_FOR_REWARD = 3;
