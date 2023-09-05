@@ -52,8 +52,8 @@ public class WinningStatisticsCalculator {
     }
 
     private void calculateReward() {
-        for (int i = MIN_MATCHING_COUNT_FOR_REWARD; i <= MAX_MATCHING_COUNT_FOR_REWARD; i++) {
-            reward += matchCnt.get(i) * LottoReward.getReward(i);
+        for (int cnt = MIN_MATCHING_COUNT_FOR_REWARD; cnt <= MAX_MATCHING_COUNT_FOR_REWARD; cnt++) {
+            reward += matchCnt.get(cnt) * LottoReward.getReward(cnt);
         }
     }
 
