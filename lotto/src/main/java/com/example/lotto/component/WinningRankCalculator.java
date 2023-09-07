@@ -5,6 +5,7 @@ import com.example.lotto.domain.LottoRank;
 import com.example.lotto.domain.WinningRank;
 import com.example.lotto.model.BonusBall;
 import com.example.lotto.model.PurchasedLottos;
+import com.example.lotto.model.WinningLottoTicket;
 
 import java.util.Optional;
 
@@ -19,12 +20,11 @@ public class WinningRankCalculator {
         this.winningRank = new WinningRank();
     }
 
-    public WinningRank calculate(Lotto winningLotto,
-                                 BonusBall bonusBall,
+    public WinningRank calculate(WinningLottoTicket winningLottoTicket,
                                  PurchasedLottos lottos) {
         for (Lotto lotto : lottos.getLottos()) {
-            int matchCnt = countMatchNumber(winningLotto, lotto);
-            boolean hasBonusBall = hasBonusBall(bonusBall, lotto);
+            int matchCnt = countMatchNumber(winningLottoTicket.getWinningLotto(), lotto);
+            boolean hasBonusBall = hasBonusBall(winningLottoTicket.getBonusBall(), lotto);
             updateResult(matchCnt, hasBonusBall);
         }
         return this.winningRank;
@@ -44,12 +44,11 @@ public class WinningRankCalculator {
         return lotto.contains(bonusBall.getNumber());
     }
 
-    private void updateResult(int cnt, boolean hasBonusBall) {
-        getRank(cnt, hasBonusBall)
-            .ifPresent(winningRank::update);
+    private void updateResult(int matchCnt, boolean hasBonusBall) {
+        getLottoRank(matchCnt, hasBonusBall).ifPresent(winningRank::update);
     }
 
-    private Optional<LottoRank> getRank(int matchCnt, boolean hasBonusBall) {
+    private Optional<LottoRank> getLottoRank(int matchCnt, boolean hasBonusBall) {
         if (matchCnt != LottoRank.SECOND.getMatchCount())
             hasBonusBall = false;
         return LottoRank.findByMatchCountAndBonusBall(matchCnt, hasBonusBall);

@@ -77,6 +77,7 @@ class LottoServiceTest {
             //given
             Lotto winningLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
             BonusBall bonusBall = new BonusBall(9);
+            WinningLottoTicket winningLottoTicket = new WinningLottoTicket(winningLotto, bonusBall);
             PurchasedLottos lottos = new PurchasedLottos(List.of(
                 new Lotto(List.of(1, 2, 3, 4, 5, 9)),
                 new Lotto(List.of(7, 8, 9, 10, 11, 12)),
@@ -87,7 +88,7 @@ class LottoServiceTest {
 
             //when
             LottoStatistics lottoStatistics = lottoService.calculateStatistics(
-                winningLotto, bonusBall, lottos, amount);
+                winningLottoTicket, lottos, amount);
 
             //then
             assertThat(lottoStatistics.getWinningRank().getRank())

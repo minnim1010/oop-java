@@ -30,6 +30,29 @@ class WinningLottoTicketTest {
             assertThat(winningLottoTicket.getBonusBall()).isEqualTo(bonusBall);
         }
 
+        @DisplayName("winningLotto가 널이라면 예외가 발생한다.")
+        @Test
+        void failWithInvalidBonusBall() {
+            // given
+            Lotto winningLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+
+            // when, then
+            assertThatThrownBy(() -> new WinningLottoTicket(winningLotto, null))
+                .isInstanceOf(IllegalArgumentException.class);
+        }
+
+        @DisplayName("보너스볼이 널이라면 예외가 발생한다.")
+        @Test
+        void failWithInvalidWinningLotto() {
+            // given
+            BonusBall bonusBall = new BonusBall(10);
+
+            // when, then
+            assertThatThrownBy(() -> new WinningLottoTicket(null, bonusBall))
+                .isInstanceOf(IllegalArgumentException.class);
+        }
+
+
         @DisplayName("WinningLotto와 BonusBall 간 중복이 있다면 예외가 발생한다.")
         @Test
         void failWithDuplicatedWinningLottoAndBonusBall() {

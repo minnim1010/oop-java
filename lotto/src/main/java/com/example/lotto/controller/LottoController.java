@@ -22,10 +22,9 @@ public class LottoController {
     public void run() {
         try {
             PurchasedLottos purchasedLottos = getLottos();
-            Lotto winningLotto = getWinningNumbers();
-            BonusBall bonusBall = getBonusBall();
+            WinningLottoTicket winningLottoTicket = getWinningLottoTicket();
             LottoStatistics lottoStatistics = getLottoStatistics(
-                winningLotto, bonusBall, purchasedLottos, amount);
+                winningLottoTicket, purchasedLottos, amount);
             printWinningStatistics(lottoStatistics);
         } catch (IllegalArgumentException ex) {
             errorView.showIllegalArgumentException(ex);
@@ -46,26 +45,23 @@ public class LottoController {
         return purchasedLottos;
     }
 
-    private Lotto getWinningNumbers() {
-        String winningLottoNumbers = inputView.readWinningLottoNumbers();
+    private WinningLottoTicket getWinningLottoTicket() {
+        String winningLottoNumbersInput = inputView.readWinningLottoNumbers();
         List<Integer> numbers = InputTypeConverter
-            .convertStringToIntegerList(winningLottoNumbers);
+            .convertStringToIntegerList(winningLottoNumbersInput);
+        Lotto winningLotto = new Lotto(numbers);
 
-        return new Lotto(numbers);
+        String bonusBallInput = inputView.readBonusBall();
+        int bonusBallNumber = InputTypeConverter.convertStringToInt(bonusBallInput);
+        BonusBall bonusBall = new BonusBall(bonusBallNumber);
+
+        return new WinningLottoTicket(winningLotto, bonusBall);
     }
 
-    private BonusBall getBonusBall() {
-        String bonusBall = inputView.readBonusBall();
-        int bonusBallNumber = InputTypeConverter.convertStringToInt(bonusBall);
-        return new BonusBall(bonusBallNumber);
-    }
-
-    private LottoStatistics getLottoStatistics(Lotto winningLotto,
-                                               BonusBall bonusBall,
+    private LottoStatistics getLottoStatistics(WinningLottoTicket winningLotto,
                                                PurchasedLottos lottos,
                                                PurchaseAmount amount) {
-        return lottoService.calculateStatistics(
-            winningLotto, bonusBall, lottos, amount);
+        return lottoService.calculateStatistics(winningLotto, lottos, amount);
     }
 
     private void printWinningStatistics(LottoStatistics lottoStatistics) {

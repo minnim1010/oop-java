@@ -28,11 +28,10 @@ public class LottoService {
         return new PurchasedLottos(lottos);
     }
 
-    public LottoStatistics calculateStatistics(Lotto winningLotto,
-                                               BonusBall bonusBall,
+    public LottoStatistics calculateStatistics(WinningLottoTicket winningLottoTicket,
                                                PurchasedLottos lottos,
                                                PurchaseAmount amount) {
-        lottoStatsCalculator.init(winningLotto, bonusBall, lottos);
+        lottoStatsCalculator.init(winningLottoTicket, lottos);
 
         double profitRate = lottoStatsCalculator.calculateProfitRate(
             lottoStatsCalculator.calculateReward(), amount.getAmount());

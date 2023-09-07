@@ -1,6 +1,7 @@
 package com.example.lotto.model;
 
 import com.example.lotto.domain.Lotto;
+import com.example.lotto.validator.CommonValidator;
 import com.example.lotto.validator.LottoValidator;
 
 public class WinningLottoTicket {
@@ -8,6 +9,8 @@ public class WinningLottoTicket {
     private final BonusBall bonusBall;
 
     public WinningLottoTicket(Lotto winningLotto, BonusBall bonusBall) {
+        CommonValidator.validateNotNull(winningLotto);
+        CommonValidator.validateNotNull(bonusBall);
         LottoValidator.validateWinningLottoNumbersNotContainBonusBall(winningLotto, bonusBall);
         this.winningLotto = winningLotto;
         this.bonusBall = bonusBall;

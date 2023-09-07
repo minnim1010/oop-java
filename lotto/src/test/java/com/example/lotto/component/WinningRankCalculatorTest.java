@@ -5,6 +5,7 @@ import com.example.lotto.domain.LottoRank;
 import com.example.lotto.domain.WinningRank;
 import com.example.lotto.model.BonusBall;
 import com.example.lotto.model.PurchasedLottos;
+import com.example.lotto.model.WinningLottoTicket;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -20,6 +21,7 @@ class WinningRankCalculatorTest {
         //given
         Lotto winningLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
         BonusBall bonusBall = new BonusBall(9);
+        WinningLottoTicket winningLottoTicket = new WinningLottoTicket(winningLotto, bonusBall);
         PurchasedLottos lottos = new PurchasedLottos(List.of(
             new Lotto(List.of(1, 2, 3, 4, 5, 9)),
             new Lotto(List.of(7, 8, 9, 10, 11, 12)),
@@ -28,7 +30,7 @@ class WinningRankCalculatorTest {
         ));
 
         //when
-        WinningRank rank = new WinningRankCalculator().calculate(winningLotto, bonusBall, lottos);
+        WinningRank rank = new WinningRankCalculator().calculate(winningLottoTicket, lottos);
 
         //then
         assertThat(rank.getRank())
