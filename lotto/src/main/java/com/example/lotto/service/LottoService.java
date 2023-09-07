@@ -1,6 +1,6 @@
 package com.example.lotto.service;
 
-import com.example.lotto.component.LottoProvider;
+import com.example.lotto.component.LottoGenerator;
 import com.example.lotto.component.LottoStatsCalculator;
 import com.example.lotto.constants.LottoConstants;
 import com.example.lotto.domain.Lotto;
@@ -10,22 +10,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoService {
-    private final LottoProvider lottoProvider = new LottoProvider();
+    private final LottoGenerator lottoGenerator = new LottoGenerator();
     private final LottoStatsCalculator lottoStatsCalculator = new LottoStatsCalculator();
 
-    public PurchasedLottoCount getPurchasedLottoCount(PurchaseAmount amount) {
+    public LottoCount getLottoCount(PurchaseAmount amount) {
         int lottoCount = amount.getAmount() / LottoConstants.PRICE;
-        return new PurchasedLottoCount(lottoCount);
+        return new LottoCount(lottoCount);
     }
 
-    public PurchasedLottos getLottos(PurchasedLottoCount purchasedLottoCount) {
-        int lottoCnt = purchasedLottoCount.getLottoCount();
+    public PurchasedLottos getLottos(LottoCount totalLottoCount,
+                                     LottoCount manualLottoCount,
+                                     List<Lotto> manualLottos) {
+        int totalLottoCnt = totalLottoCount.getLottoCount();
+        List<Lotto> lottos = new ArrayList<>(totalLottoCnt);
 
-        List<Lotto> lottos = new ArrayList<>(lottoCnt);
-        for (int i = 0; i < lottoCnt; i++) {
-            lottos.add(lottoProvider.createLotto());
-        }
+        lottos.addAll(manualLottos);
+        lottos.addAll(getAutoLottos(totalLottoCnt - manualLottoCount.getLottoCount()));
+
         return new PurchasedLottos(lottos);
+    }
+
+    private List<Lotto> getAutoLottos(int autoLottoCount) {
+        List<Lotto> lottos = new ArrayList<>(autoLottoCount);
+        for (int i = 0; i < autoLottoCount; i++) {
+            lottos.add(lottoGenerator.createAutoLotto());
+        }
+        return lottos;
     }
 
     public LottoStatistics calculateStatistics(WinningLottoTicket winningLottoTicket,

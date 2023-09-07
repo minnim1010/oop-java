@@ -52,7 +52,7 @@ class BasicConverterTest {
             List<Integer> expected = List.of(23, 45, 2, 3, 4, 1);
 
             //when
-            List<Integer> result = BasicConverter.convertStringToIntegerList(str);
+            List<Integer> result = BasicConverter.convertStringToIntegerList(str, ",");
 
             //then
             assertThat(result).isEqualTo(expected);
@@ -65,7 +65,7 @@ class BasicConverterTest {
             //given
 
             //when then
-            assertThatThrownBy(() -> BasicConverter.convertStringToIntegerList(str))
+            assertThatThrownBy(() -> BasicConverter.convertStringToIntegerList(str, ","))
                 .isInstanceOf(IllegalArgumentException.class);
         }
 
@@ -76,7 +76,7 @@ class BasicConverterTest {
             //given
 
             //when && then
-            assertThatThrownBy(() -> BasicConverter.convertStringToIntegerList(str))
+            assertThatThrownBy(() -> BasicConverter.convertStringToIntegerList(str, ","))
                 .isInstanceOf(IllegalArgumentException.class);
         }
     }

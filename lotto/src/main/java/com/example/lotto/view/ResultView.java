@@ -2,8 +2,8 @@ package com.example.lotto.view;
 
 import com.example.io.CommandLineOutput;
 import com.example.lotto.domain.LottoRank;
+import com.example.lotto.model.LottoCount;
 import com.example.lotto.model.LottoStatistics;
-import com.example.lotto.model.PurchasedLottoCount;
 import com.example.lotto.model.PurchasedLottos;
 
 import java.text.NumberFormat;
@@ -11,16 +11,16 @@ import java.util.Arrays;
 
 public class ResultView {
 
-    public static final String PURCHASED_LOTTO_MSG = "%s개를 구매했습니다.";
+    public static final String PURCHASED_LOTTO_MSG = "수동으로 %d장, 자동으로 %d장을 구매했습니다.";
 
     public static final String WINNING_STATISTICS = "당첨 통계\n---------";
-    public static final String LOTTO_MATCH_RESULT = "%d개 일치%s (%s원)- %d개";
     public static final String WINNING_PROFIT_RATE = "총 수익률은 %.2f입니다.";
 
     NumberFormat numberFormat = NumberFormat.getInstance();
 
-    public void showPurchasedLotto(PurchasedLottoCount lottoCount) {
-        CommandLineOutput.output(String.format(PURCHASED_LOTTO_MSG, lottoCount.getLottoCount()));
+    public void showPurchasedLottoCount(LottoCount manulLottoCnt, LottoCount autoLottoCnt) {
+        CommandLineOutput.output(String.format(
+            PURCHASED_LOTTO_MSG, manulLottoCnt.getLottoCount(), autoLottoCnt.getLottoCount()));
     }
 
     public void showPurchasedLottos(PurchasedLottos purchasedLottos) {
@@ -32,19 +32,9 @@ public class ResultView {
         CommandLineOutput.output(WINNING_STATISTICS);
 
         Arrays.stream(LottoRank.values())
-            .forEach(rank -> CommandLineOutput.output(String.format(
-                LOTTO_MATCH_RESULT,
-                rank.getMatchCount(),
-                getWinningStatisticsDetailString(rank),
-                numberFormat.format(rank.getReward()),
-                lottoStatistics.getWinningRank().getCount(rank))));
+            .forEach(rank -> CommandLineOutput.output(
+                rank.getMessage() + lottoStatistics.getWinningRank().getCount(rank) + "개"));
 
         CommandLineOutput.output(String.format(WINNING_PROFIT_RATE, lottoStatistics.getProfitRate()));
-    }
-
-    private String getWinningStatisticsDetailString(LottoRank lottoRank) {
-        if (lottoRank.equals(LottoRank.SECOND))
-            return ", 보너스 볼 일치";
-        return "";
     }
 }

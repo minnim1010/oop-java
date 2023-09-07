@@ -14,4 +14,19 @@ public class PurchaseAmount {
     public int getAmount() {
         return amount;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PurchaseAmount amount1 = (PurchaseAmount) o;
+
+        return amount == amount1.amount;
+    }
+
+    @Override
+    public int hashCode() {
+        return amount;
+    }
 }

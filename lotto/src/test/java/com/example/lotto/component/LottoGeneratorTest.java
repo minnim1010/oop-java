@@ -7,17 +7,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class LottoProviderTest {
+class LottoGeneratorTest {
 
-    private final LottoProvider lottoProvider = new LottoProvider();
+    private final LottoGenerator lottoGenerator = new LottoGenerator();
 
-    @DisplayName("숫자 6개를 무작위로 뽑은 로또를 반환한다.")
+    @DisplayName("자동 로또를 생성할 때 생성한 로또를 반환한다.")
     @Test
-    void createLotto() {
+    void createAutoLotto() {
         //given
 
         //when
-        Lotto lotto = lottoProvider.createLotto();
+        Lotto lotto = lottoGenerator.createAutoLotto();
 
         //then
         assertThat(lotto.getNumbers()).hasSize(LottoConstants.NUMBERS_SIZE)

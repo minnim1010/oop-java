@@ -2,7 +2,6 @@ package com.example.lotto.component;
 
 import com.example.lotto.domain.Lotto;
 import com.example.lotto.domain.LottoRank;
-import com.example.lotto.domain.WinningRank;
 import com.example.lotto.model.BonusBall;
 import com.example.lotto.model.PurchasedLottos;
 import com.example.lotto.model.WinningLottoTicket;

@@ -21,14 +21,14 @@ class LottoServiceTest {
 
     @Nested
     @DisplayName("구매한 금액으로 산 로또 개수를 계산할 때 ")
-    class getPurchasedLottoCountConstants {
+    class getLottoCountConstants {
         @DisplayName("계산 성공 시 살 수 있는 최대 로또 개수를 반환한다.")
         @CsvSource(value = {"15000:15", "1000:1", "14400:14"}, delimiter = ':')
         @ParameterizedTest
         void successReturnPurchasedLottoCount(int amount, int expected) {
             //given
             //when
-            PurchasedLottoCount lottoCount = lottoService.getPurchasedLottoCount(
+            LottoCount lottoCount = lottoService.getLottoCount(
                 new PurchaseAmount(amount));
 
             //then
@@ -42,29 +42,42 @@ class LottoServiceTest {
             int amount = 999;
 
             //when then
-            assertThatThrownBy(() -> lottoService.getPurchasedLottoCount(
+            assertThatThrownBy(() -> lottoService.getLottoCount(
                 new PurchaseAmount(amount)))
                 .isInstanceOf(IllegalArgumentException.class);
         }
     }
 
     @Nested
-    @DisplayName("주어진 로또 개수만큼 로또를 생성할 때 ")
+    @DisplayName("자동, 수동 로또를 생성할 때 ")
     class getLottos {
         @DisplayName("성공 시 생성된 로또들을 반환한다.")
         @Test
         void successReturnCreatedLottos() {
             //given
-            PurchasedLottoCount lottoCount = new PurchasedLottoCount(100);
+            LottoCount totalLottoCnt = new LottoCount(103);
+            List<Lotto> manualLottos = List.of(
+                new Lotto(List.of(1, 2, 3, 4, 5, 6)),
+                new Lotto(List.of(4, 5, 6, 7, 8, 9)),
+                new Lotto(List.of(10, 11, 12, 13, 14, 15))
+            );
+            LottoCount manualLottoCnt = new LottoCount(3);
 
             //when
-            PurchasedLottos lottos = lottoService.getLottos(lottoCount);
+            PurchasedLottos lottos = lottoService.getLottos(
+                totalLottoCnt, manualLottoCnt, manualLottos);
 
             //then
-            assertThat(lottos.getLottos()).hasSize(lottoCount.getLottoCount())
+            assertThat(lottos.getLottos()).hasSize(totalLottoCnt.getLottoCount())
                 .allSatisfy(lotto -> assertThat(lotto.getNumbers()).hasSize(LottoConstants.NUMBERS_SIZE)
                     .allSatisfy(number -> assertThat(number)
                         .isBetween(LottoConstants.MIN_NUMBER, LottoConstants.MAX_NUMBER)));
+            assertThat(lottos.getLottos().stream().limit(manualLottoCnt.getLottoCount()).toList())
+                .containsExactly(
+                    new Lotto(List.of(1, 2, 3, 4, 5, 6)),
+                    new Lotto(List.of(4, 5, 6, 7, 8, 9)),
+                    new Lotto(List.of(10, 11, 12, 13, 14, 15))
+                );
         }
     }
 
