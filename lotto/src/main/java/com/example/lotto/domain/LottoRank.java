@@ -20,13 +20,6 @@ public enum LottoRank {
         this.reward = reward;
     }
 
-    public static Optional<LottoRank> from(int matchCount, boolean hasBonusBall) {
-        return Arrays.stream(LottoRank.values())
-            .filter(lottoRank -> lottoRank.matchCount == matchCount
-                && lottoRank.hasBonusBall() == hasBonusBall)
-            .findFirst();
-    }
-
     public long getReward() {
         return reward;
     }
@@ -37,5 +30,12 @@ public enum LottoRank {
 
     public boolean hasBonusBall() {
         return hasBonusBall;
+    }
+
+    public static Optional<LottoRank> findByMatchCountAndBonusBall(int matchCount, boolean hasBonusBall) {
+        return Arrays.stream(LottoRank.values())
+            .filter(lottoRank -> lottoRank.matchCount == matchCount
+                && lottoRank.hasBonusBall() == hasBonusBall)
+            .findFirst();
     }
 }

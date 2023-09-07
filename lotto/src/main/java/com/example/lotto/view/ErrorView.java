@@ -6,6 +6,7 @@ public class ErrorView {
 
     public void showIllegalArgumentException(IllegalArgumentException ex) {
         CommandLineOutput.output(ex.getMessage());
+        ex.printStackTrace();
     }
 
 }

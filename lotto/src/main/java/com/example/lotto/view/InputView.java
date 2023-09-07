@@ -13,17 +13,17 @@ public class InputView {
         return CommandLineInput.input();
     }
 
-    public String inputPurchaseAmount(){
+    public String readPurchaseAmount() {
         CommandLineOutput.output(INPUT_BUY_LOTTO_MSG);
         return input();
     }
 
-    public String inputWinningLottoNumbers(){
+    public String readWinningLottoNumbers() {
         CommandLineOutput.output(INPUT_WINNING_LOTTO_NUMBERS);
         return input();
     }
 
-    public String inputBonusBall() {
+    public String readBonusBall() {
         CommandLineOutput.output(INPUT_BONUS_BALL);
         return input();
     }

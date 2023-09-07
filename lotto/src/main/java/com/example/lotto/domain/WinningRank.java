@@ -3,11 +3,10 @@ package com.example.lotto.domain;
 import java.util.EnumMap;
 import java.util.Map;
 
-public class LottoPurchaseResult {
-    private final Map<LottoRank, Integer> rank;
+public class WinningRank {
+    private final Map<LottoRank, Integer> rank = new EnumMap<>(LottoRank.class);
 
-    public LottoPurchaseResult() {
-        this.rank = new EnumMap<>(LottoRank.class);
+    public WinningRank() {
         for (LottoRank lottoRank : LottoRank.values()) {
             rank.put(lottoRank, 0);
         }
@@ -18,7 +17,7 @@ public class LottoPurchaseResult {
     }
 
     public void update(LottoRank lottoRank) {
-        Integer update = rank.get(lottoRank) + 1;
+        Integer update = this.rank.get(lottoRank) + 1;
         rank.put(lottoRank, update);
     }
 

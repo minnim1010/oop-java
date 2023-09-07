@@ -13,7 +13,7 @@ class LottoTest {
 
     @Nested
     @DisplayName("새 로또를 생성할 때")
-    class CreateLotto {
+    class CreateLottoConstants {
         @DisplayName("성공 시 새로운 로또를 생성한다.")
         @Test
         void createLotto() {

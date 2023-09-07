@@ -5,21 +5,21 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class LottoPurchaseResultTest {
+class PurchaseResultTest {
 
     @DisplayName("로또 순위가 주어지면 로또 순위 결과를 업데이트한다.")
     @Test
     void add() {
         //given
-        LottoPurchaseResult lottoPurchaseResult = new LottoPurchaseResult();
+        WinningRank purchaseResult = new WinningRank();
 
         //when
-        lottoPurchaseResult.update(LottoRank.FOURTH);
-        lottoPurchaseResult.update(LottoRank.FOURTH);
-        lottoPurchaseResult.update(LottoRank.FIRST);
+        purchaseResult.update(LottoRank.FOURTH);
+        purchaseResult.update(LottoRank.FOURTH);
+        purchaseResult.update(LottoRank.FIRST);
 
         //then
-        assertThat(lottoPurchaseResult.getRank()).hasSize(5)
+        assertThat(purchaseResult.getRank()).hasSize(5)
             .containsEntry(LottoRank.FIRST, 1)
             .containsEntry(LottoRank.FOURTH, 2);
     }
@@ -28,13 +28,13 @@ class LottoPurchaseResultTest {
     @Test
     void get() {
         //given
-        LottoPurchaseResult lottoPurchaseResult = new LottoPurchaseResult();
+        WinningRank purchaseResult = new WinningRank();
 
-        lottoPurchaseResult.update(LottoRank.FOURTH);
-        lottoPurchaseResult.update(LottoRank.FOURTH);
+        purchaseResult.update(LottoRank.FOURTH);
+        purchaseResult.update(LottoRank.FOURTH);
 
         //when then
-        assertThat(lottoPurchaseResult.get(LottoRank.FOURTH))
+        assertThat(purchaseResult.get(LottoRank.FOURTH))
             .isEqualTo(2);
     }
 }

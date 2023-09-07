@@ -18,7 +18,7 @@ public class InputTypeConverter {
             return Integer.parseInt(str);
         } catch (NumberFormatException ex) {
             throw new IllegalArgumentException(
-                String.format(CANNOT_CONVERT_STRING_TO_INT, str));
+                String.format(CANNOT_CONVERT_STRING_TO_INT, str), ex);
         }
     }
 
@@ -35,7 +35,7 @@ public class InputTypeConverter {
             return str.split(", ");
         } catch (PatternSyntaxException ex) {
             throw new IllegalArgumentException(
-                String.format(CANNOT_SPLIT_STRING_TO_INTEGER_TOKEN, str));
+                String.format(CANNOT_SPLIT_STRING_TO_INTEGER_TOKEN, str), ex);
         }
     }
 }

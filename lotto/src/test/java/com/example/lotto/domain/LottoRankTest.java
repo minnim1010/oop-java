@@ -17,10 +17,9 @@ class LottoRankTest {
         boolean hasBonusBall = false;
 
         //when
-        Optional<LottoRank> lottoRank = LottoRank.from(matchCnt, hasBonusBall);
+        Optional<LottoRank> lottoRank = LottoRank.findByMatchCountAndBonusBall(matchCnt, hasBonusBall);
 
         //then
-        assertThat(lottoRank.get())
-            .isEqualTo(LottoRank.THIRD);
+        assertThat(lottoRank.orElse(null)).isEqualTo(LottoRank.THIRD);
     }
 }
