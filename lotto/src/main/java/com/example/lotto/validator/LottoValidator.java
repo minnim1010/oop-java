@@ -1,7 +1,10 @@
 package com.example.lotto.validator;
 
 import com.example.lotto.constants.LottoConstants;
+import com.example.lotto.domain.Lotto;
+import com.example.lotto.model.BonusBall;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,8 +14,21 @@ public class LottoValidator {
         "[Error] 유효하지 않은 로또 번호 %d: 로또 번호는 %d부터 %d 사이의 숫자여야 합니다.";
     private static final String PURCHASED_AMOUNT_LESS_THAN_A_LOTTO_PRICE_EXCEPTION =
         "[Error] 현재 구매 금액 %d원: 구매 금액은 %s원 이상이어야 합니다.";
+    private static final String DUPLICATED_NUMBERS_EXCEPTION =
+        "[Error] 로또 번호들은 서로 중복되지 않아야 합니다.";
+    private static final String DUPLICATED_BETWEEN_BONUSBALL_AND_WINNING_LOTTO_EXCEPTION =
+        "[Error] 보너스볼과 로또 번호는 중복되지 않아야 합니다.";
 
     private LottoValidator() {
+    }
+
+    public static void validateLottoPurchaseAmount(int amount) {
+        if (amount < LottoConstants.PRICE) {
+            throw new IllegalArgumentException(
+                String.format(PURCHASED_AMOUNT_LESS_THAN_A_LOTTO_PRICE_EXCEPTION,
+                    amount,
+                    LottoConstants.PRICE));
+        }
     }
 
     public static void validateLottoSize(List<Integer> numbers) {
@@ -45,12 +61,17 @@ public class LottoValidator {
         }
     }
 
-    public static void validateLottoPurchaseAmount(int amount) {
-        if (amount < LottoConstants.PRICE) {
-            throw new IllegalArgumentException(
-                String.format(PURCHASED_AMOUNT_LESS_THAN_A_LOTTO_PRICE_EXCEPTION,
-                    amount,
-                    LottoConstants.PRICE));
+    public static void validateNonDuplicateNumbers(List<Integer> numbers) {
+        HashSet<Integer> nonDuplicatedNumbers = new HashSet<>(numbers);
+        if (nonDuplicatedNumbers.size() != LottoConstants.NUMBERS_SIZE) {
+            throw new IllegalArgumentException(DUPLICATED_NUMBERS_EXCEPTION);
+        }
+    }
+
+    public static void validateWinningLottoNumbersNotContainBonusBall(Lotto winningLotto,
+                                                                      BonusBall bonusBall) {
+        if (winningLotto.contains(bonusBall.getNumber())) {
+            throw new IllegalArgumentException(DUPLICATED_BETWEEN_BONUSBALL_AND_WINNING_LOTTO_EXCEPTION);
         }
     }
 }

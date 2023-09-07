@@ -10,6 +10,7 @@ public class Lotto {
     public Lotto(List<Integer> numbers) {
         LottoValidator.validateLottoSize(numbers);
         LottoValidator.validateLottoNumberRange(numbers);
+        LottoValidator.validateNonDuplicateNumbers(numbers);
         this.numbers = numbers;
     }
 

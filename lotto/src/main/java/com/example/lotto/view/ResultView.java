@@ -20,7 +20,7 @@ public class ResultView {
     NumberFormat numberFormat = NumberFormat.getInstance();
 
     public void showPurchasedLotto(TotalPurchasedLottoCount lottoCount) {
-        CommandLineOutput.output(String.format(PURCHASED_LOTTO_MSG, lottoCount));
+        CommandLineOutput.output(String.format(PURCHASED_LOTTO_MSG, lottoCount.getLottoCount()));
     }
 
     public void showPurchasedLottos(PurchasedLottos purchasedLottos) {
