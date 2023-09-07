@@ -34,7 +34,7 @@ class PurchaseResultTest {
         purchaseResult.update(LottoRank.FOURTH);
 
         //when then
-        assertThat(purchaseResult.get(LottoRank.FOURTH))
+        assertThat(purchaseResult.getCount(LottoRank.FOURTH))
             .isEqualTo(2);
     }
 }

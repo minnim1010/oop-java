@@ -20,6 +20,10 @@ public class WinningRankCalculator {
         this.winningRank = new WinningRank();
     }
 
+    public WinningRank getWinningRank() {
+        return winningRank;
+    }
+
     public WinningRank calculate(WinningLottoTicket winningLottoTicket,
                                  PurchasedLottos lottos) {
         for (Lotto lotto : lottos.getLottos()) {

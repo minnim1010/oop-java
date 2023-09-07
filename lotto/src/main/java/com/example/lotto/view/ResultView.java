@@ -37,7 +37,7 @@ public class ResultView {
                 rank.getMatchCount(),
                 getWinningStatisticsDetailString(rank),
                 numberFormat.format(rank.getReward()),
-                lottoStatistics.getWinningRank().get(rank))));
+                lottoStatistics.getWinningRank().getCount(rank))));
 
         CommandLineOutput.output(String.format(WINNING_PROFIT_RATE, lottoStatistics.getProfitRate()));
     }

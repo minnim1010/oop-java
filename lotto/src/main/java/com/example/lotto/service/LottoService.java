@@ -34,7 +34,7 @@ public class LottoService {
         lottoStatsCalculator.init(winningLottoTicket, lottos);
 
         double profitRate = lottoStatsCalculator.calculateProfitRate(
-            lottoStatsCalculator.calculateReward(), amount.getAmount());
+            lottoStatsCalculator.calculateReward(), amount);
 
         return new LottoStatistics(
             lottoStatsCalculator.getCalculatedWinningRank(),

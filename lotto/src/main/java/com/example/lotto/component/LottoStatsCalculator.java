@@ -2,8 +2,11 @@ package com.example.lotto.component;
 
 import com.example.lotto.domain.LottoRank;
 import com.example.lotto.domain.WinningRank;
+import com.example.lotto.model.PurchaseAmount;
 import com.example.lotto.model.PurchasedLottos;
 import com.example.lotto.model.WinningLottoTicket;
+
+import java.util.Arrays;
 
 /*
  * 당첨 통계를 계산한다.
@@ -11,25 +14,25 @@ import com.example.lotto.model.WinningLottoTicket;
 public class LottoStatsCalculator {
 
     private final WinningRankCalculator winningRankCalculator = new WinningRankCalculator();
-    private WinningRank calculatedWinningRank;
 
     public void init(WinningLottoTicket winningLottoTicket, PurchasedLottos lottos) {
-        this.calculatedWinningRank = winningRankCalculator.calculate(winningLottoTicket, lottos);
+        winningRankCalculator.calculate(winningLottoTicket, lottos);
     }
 
     public WinningRank getCalculatedWinningRank() {
-        return this.calculatedWinningRank;
+        return winningRankCalculator.getWinningRank();
     }
 
     public long calculateReward() {
-        long reward = 0L;
-        for (LottoRank lottoRank : LottoRank.values()) {
-            reward += (int) (calculatedWinningRank.get(lottoRank) * lottoRank.getReward());
-        }
-        return reward;
+        WinningRank calculatedWinningRank = winningRankCalculator.getWinningRank();
+
+        return Arrays.stream(LottoRank.values())
+            .mapToLong(lottoRank ->
+                calculatedWinningRank.getCount(lottoRank) * lottoRank.getReward())
+            .sum();
     }
 
-    public double calculateProfitRate(long reward, int amount) {
-        return (double) reward / amount;
+    public double calculateProfitRate(long reward, PurchaseAmount purchaseAmount) {
+        return (double) reward / purchaseAmount.getAmount();
     }
 }

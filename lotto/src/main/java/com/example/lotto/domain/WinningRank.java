@@ -21,7 +21,7 @@ public class WinningRank {
         rank.put(lottoRank, update);
     }
 
-    public int get(LottoRank lottoRank) {
+    public int getCount(LottoRank lottoRank) {
         return rank.get(lottoRank);
     }
 }
