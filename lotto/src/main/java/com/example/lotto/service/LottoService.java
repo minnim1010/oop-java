@@ -13,13 +13,13 @@ public class LottoService {
     private final LottoProvider lottoProvider = new LottoProvider();
     private final LottoStatsCalculator lottoStatsCalculator = new LottoStatsCalculator();
 
-    public TotalPurchasedLottoCount getTotalPurchasedLottoCount(PurchaseAmount amount) {
+    public PurchasedLottoCount getPurchasedLottoCount(PurchaseAmount amount) {
         int lottoCount = amount.getAmount() / LottoConstants.PRICE;
-        return new TotalPurchasedLottoCount(lottoCount);
+        return new PurchasedLottoCount(lottoCount);
     }
 
-    public PurchasedLottos getLottos(TotalPurchasedLottoCount totalPurchasedLottoCount) {
-        int lottoCnt = totalPurchasedLottoCount.getLottoCount();
+    public PurchasedLottos getLottos(PurchasedLottoCount purchasedLottoCount) {
+        int lottoCnt = purchasedLottoCount.getLottoCount();
 
         List<Lotto> lottos = new ArrayList<>(lottoCnt);
         for (int i = 0; i < lottoCnt; i++) {

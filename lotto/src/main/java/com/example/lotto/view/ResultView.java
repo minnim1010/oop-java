@@ -3,8 +3,8 @@ package com.example.lotto.view;
 import com.example.io.CommandLineOutput;
 import com.example.lotto.domain.LottoRank;
 import com.example.lotto.model.LottoStatistics;
+import com.example.lotto.model.PurchasedLottoCount;
 import com.example.lotto.model.PurchasedLottos;
-import com.example.lotto.model.TotalPurchasedLottoCount;
 
 import java.text.NumberFormat;
 import java.util.Arrays;
@@ -19,7 +19,7 @@ public class ResultView {
 
     NumberFormat numberFormat = NumberFormat.getInstance();
 
-    public void showPurchasedLotto(TotalPurchasedLottoCount lottoCount) {
+    public void showPurchasedLotto(PurchasedLottoCount lottoCount) {
         CommandLineOutput.output(String.format(PURCHASED_LOTTO_MSG, lottoCount.getLottoCount()));
     }
 

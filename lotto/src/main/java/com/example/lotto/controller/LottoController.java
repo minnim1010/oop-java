@@ -1,6 +1,6 @@
 package com.example.lotto.controller;
 
-import com.example.converter.InputTypeConverter;
+import com.example.converter.BasicConverter;
 import com.example.lotto.domain.Lotto;
 import com.example.lotto.model.*;
 import com.example.lotto.service.LottoService;
@@ -17,26 +17,24 @@ public class LottoController {
 
     private final LottoService lottoService = new LottoService();
 
-    private PurchaseAmount amount;
+    private PurchaseAmount purchaseAmount;
 
     public void run() {
         try {
             PurchasedLottos purchasedLottos = getLottos();
             WinningLottoTicket winningLottoTicket = getWinningLottoTicket();
             LottoStatistics lottoStatistics = getLottoStatistics(
-                winningLottoTicket, purchasedLottos, amount);
+                winningLottoTicket, purchasedLottos, purchaseAmount);
             printWinningStatistics(lottoStatistics);
         } catch (IllegalArgumentException ex) {
             errorView.showIllegalArgumentException(ex);
         }
     }
 
-    private PurchasedLottos getLottos() {
+    public PurchasedLottos getLottos() {
         String input = inputView.readPurchaseAmount();
-        amount = new PurchaseAmount(InputTypeConverter.convertStringToInt(input));
-
-        TotalPurchasedLottoCount lottoCount = lottoService.getTotalPurchasedLottoCount(amount);
-
+        purchaseAmount = new PurchaseAmount(BasicConverter.convertStringToInt(input));
+        PurchasedLottoCount lottoCount = lottoService.getPurchasedLottoCount(purchaseAmount);
         resultView.showPurchasedLotto(lottoCount);
 
         PurchasedLottos purchasedLottos = lottoService.getLottos(lottoCount);
@@ -45,20 +43,20 @@ public class LottoController {
         return purchasedLottos;
     }
 
-    private WinningLottoTicket getWinningLottoTicket() {
+    public WinningLottoTicket getWinningLottoTicket() {
         String winningLottoNumbersInput = inputView.readWinningLottoNumbers();
-        List<Integer> numbers = InputTypeConverter
+        List<Integer> numbers = BasicConverter
             .convertStringToIntegerList(winningLottoNumbersInput);
         Lotto winningLotto = new Lotto(numbers);
 
         String bonusBallInput = inputView.readBonusBall();
-        int bonusBallNumber = InputTypeConverter.convertStringToInt(bonusBallInput);
+        int bonusBallNumber = BasicConverter.convertStringToInt(bonusBallInput);
         BonusBall bonusBall = new BonusBall(bonusBallNumber);
 
         return new WinningLottoTicket(winningLotto, bonusBall);
     }
 
-    private LottoStatistics getLottoStatistics(WinningLottoTicket winningLotto,
+    public LottoStatistics getLottoStatistics(WinningLottoTicket winningLotto,
                                                PurchasedLottos lottos,
                                                PurchaseAmount amount) {
         return lottoService.calculateStatistics(winningLotto, lottos, amount);

@@ -21,14 +21,14 @@ class LottoServiceTest {
 
     @Nested
     @DisplayName("구매한 금액으로 산 로또 개수를 계산할 때 ")
-    class getTotalPurchasedLottoCountConstants {
+    class getPurchasedLottoCountConstants {
         @DisplayName("계산 성공 시 살 수 있는 최대 로또 개수를 반환한다.")
         @CsvSource(value = {"15000:15", "1000:1", "14400:14"}, delimiter = ':')
         @ParameterizedTest
         void successReturnPurchasedLottoCount(int amount, int expected) {
             //given
             //when
-            TotalPurchasedLottoCount lottoCount = lottoService.getTotalPurchasedLottoCount(
+            PurchasedLottoCount lottoCount = lottoService.getPurchasedLottoCount(
                 new PurchaseAmount(amount));
 
             //then
@@ -42,7 +42,7 @@ class LottoServiceTest {
             int amount = 999;
 
             //when then
-            assertThatThrownBy(() -> lottoService.getTotalPurchasedLottoCount(
+            assertThatThrownBy(() -> lottoService.getPurchasedLottoCount(
                 new PurchaseAmount(amount)))
                 .isInstanceOf(IllegalArgumentException.class);
         }
@@ -55,7 +55,7 @@ class LottoServiceTest {
         @Test
         void successReturnCreatedLottos() {
             //given
-            TotalPurchasedLottoCount lottoCount = new TotalPurchasedLottoCount(100);
+            PurchasedLottoCount lottoCount = new PurchasedLottoCount(100);
 
             //when
             PurchasedLottos lottos = lottoService.getLottos(lottoCount);

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class TotalPurchasedLottoCountTest {
+class PurchasedLottoCountTest {
 
     @Nested
     @DisplayName("새로운 TotalPurchasedLottoCount를 생성할 때")
@@ -20,7 +20,7 @@ class TotalPurchasedLottoCountTest {
             int totalPurchasedLottoCount = 10;
 
             // when
-            TotalPurchasedLottoCount purchasedLottoCount = new TotalPurchasedLottoCount(totalPurchasedLottoCount);
+            PurchasedLottoCount purchasedLottoCount = new PurchasedLottoCount(totalPurchasedLottoCount);
 
             // then
             assertThat(purchasedLottoCount.getLottoCount()).isEqualTo(totalPurchasedLottoCount);
@@ -33,7 +33,7 @@ class TotalPurchasedLottoCountTest {
             int totalPurchasedLottoCount = 0; // Invalid totalPurchasedLottoCount
 
             // when, then
-            assertThatThrownBy(() -> new TotalPurchasedLottoCount(totalPurchasedLottoCount))
+            assertThatThrownBy(() -> new PurchasedLottoCount(totalPurchasedLottoCount))
                 .isInstanceOf(IllegalArgumentException.class);
         }
     }

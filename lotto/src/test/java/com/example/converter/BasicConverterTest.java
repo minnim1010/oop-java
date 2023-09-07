@@ -11,7 +11,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class InputTypeConverterTest {
+class BasicConverterTest {
 
     @Nested
     @DisplayName("문자열을 int로 바꿀 때 ")
@@ -23,7 +23,7 @@ class InputTypeConverterTest {
             String str = "123";
 
             //when
-            int result = InputTypeConverter.convertStringToInt(str);
+            int result = BasicConverter.convertStringToInt(str);
 
             //then
             assertThat(result).isEqualTo(123);
@@ -36,7 +36,7 @@ class InputTypeConverterTest {
             //given
 
             //when && then
-            assertThatThrownBy(() -> InputTypeConverter.convertStringToInt(str))
+            assertThatThrownBy(() -> BasicConverter.convertStringToInt(str))
                 .isInstanceOf(IllegalArgumentException.class);
         }
     }
@@ -52,7 +52,7 @@ class InputTypeConverterTest {
             List<Integer> expected = List.of(23, 45, 2, 3, 4, 1);
 
             //when
-            List<Integer> result = InputTypeConverter.convertStringToIntegerList(str);
+            List<Integer> result = BasicConverter.convertStringToIntegerList(str);
 
             //then
             assertThat(result).isEqualTo(expected);
@@ -65,7 +65,7 @@ class InputTypeConverterTest {
             //given
 
             //when then
-            assertThatThrownBy(() -> InputTypeConverter.convertStringToIntegerList(str))
+            assertThatThrownBy(() -> BasicConverter.convertStringToIntegerList(str))
                 .isInstanceOf(IllegalArgumentException.class);
         }
 
@@ -76,7 +76,7 @@ class InputTypeConverterTest {
             //given
 
             //when && then
-            assertThatThrownBy(() -> InputTypeConverter.convertStringToIntegerList(str))
+            assertThatThrownBy(() -> BasicConverter.convertStringToIntegerList(str))
                 .isInstanceOf(IllegalArgumentException.class);
         }
     }

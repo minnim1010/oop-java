@@ -4,13 +4,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
-public class InputTypeConverter {
+public class BasicConverter {
     public static final String CANNOT_CONVERT_STRING_TO_INT =
         "[Error] 현재 입력값 %s: 입력값은 숫자만 포함해야 합니다.";
     public static final String CANNOT_SPLIT_STRING_TO_INTEGER_TOKEN =
         "[Error] 현재 입력값 %s: 각 숫자들은 ', '로 구분되어야 합니다.";
 
-    private InputTypeConverter() {
+    private BasicConverter() {
     }
 
     public static int convertStringToInt(String str) {
@@ -26,7 +26,7 @@ public class InputTypeConverter {
         String[] split = getIntegerTokens(str);
 
         return Arrays.stream(split)
-            .map(InputTypeConverter::convertStringToInt)
+            .map(BasicConverter::convertStringToInt)
             .toList();
     }
 
