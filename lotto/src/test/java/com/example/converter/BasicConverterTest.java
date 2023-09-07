@@ -58,8 +58,8 @@ class BasicConverterTest {
             assertThat(result).isEqualTo(expected);
         }
 
-        @DisplayName("구분자가 ', '가 아니라면 예외가 발생한다.")
-        @ValueSource(strings = {"1, 2, 3, 4, 5,6", "1.2.3.4.5.6", "1/2/3/4/5/6", "1,2,3,4,5,6"})
+        @DisplayName("구분자가 ','가 아니라면 예외가 발생한다.")
+        @ValueSource(strings = {"1'2'3'4'5'6", "1.2.3.4.5.6", "1/2/3/4/5/6", "1-2-3-4-5-6"})
         @ParameterizedTest
         void failWithInvalidDelimiter(String str) {
             //given

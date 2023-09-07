@@ -14,9 +14,9 @@ class PurchaseResultTest {
         WinningRank purchaseResult = new WinningRank();
 
         //when
-        purchaseResult.update(LottoRank.FOURTH);
-        purchaseResult.update(LottoRank.FOURTH);
-        purchaseResult.update(LottoRank.FIRST);
+        purchaseResult.increase(LottoRank.FOURTH);
+        purchaseResult.increase(LottoRank.FOURTH);
+        purchaseResult.increase(LottoRank.FIRST);
 
         //then
         assertThat(purchaseResult.getRank()).hasSize(5)
@@ -30,8 +30,8 @@ class PurchaseResultTest {
         //given
         WinningRank purchaseResult = new WinningRank();
 
-        purchaseResult.update(LottoRank.FOURTH);
-        purchaseResult.update(LottoRank.FOURTH);
+        purchaseResult.increase(LottoRank.FOURTH);
+        purchaseResult.increase(LottoRank.FOURTH);
 
         //when then
         assertThat(purchaseResult.getCount(LottoRank.FOURTH))

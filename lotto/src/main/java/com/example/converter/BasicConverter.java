@@ -31,8 +31,9 @@ public class BasicConverter {
     }
 
     private static String[] getIntegerTokens(String str) {
+        String trimmedString = str.replace(" ", "");
         try {
-            return str.split(", ");
+            return trimmedString.replace(" ", "").split(",");
         } catch (PatternSyntaxException ex) {
             throw new IllegalArgumentException(
                 String.format(CANNOT_SPLIT_STRING_TO_INTEGER_TOKEN, str), ex);

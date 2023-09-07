@@ -49,10 +49,10 @@ public class WinningRankCalculator {
     }
 
     private void updateResult(int matchCnt, boolean hasBonusBall) {
-        getLottoRank(matchCnt, hasBonusBall).ifPresent(winningRank::update);
+        findLottoRank(matchCnt, hasBonusBall).ifPresent(winningRank::increase);
     }
 
-    private Optional<LottoRank> getLottoRank(int matchCnt, boolean hasBonusBall) {
+    private Optional<LottoRank> findLottoRank(int matchCnt, boolean hasBonusBall) {
         if (matchCnt != LottoRank.SECOND.getMatchCount())
             hasBonusBall = false;
         return LottoRank.findByMatchCountAndBonusBall(matchCnt, hasBonusBall);

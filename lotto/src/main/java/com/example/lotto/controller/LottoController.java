@@ -62,7 +62,7 @@ public class LottoController {
         return lottoService.calculateStatistics(winningLotto, lottos, amount);
     }
 
-    private void printWinningStatistics(LottoStatistics lottoStatistics) {
+    public void printWinningStatistics(LottoStatistics lottoStatistics) {
         resultView.showWinningStatistics(lottoStatistics);
     }
 }
