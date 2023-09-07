@@ -11,11 +11,11 @@ import java.util.Random;
 /*
  * 무작위, 중복 없는 숫자 6개로 이루어진 로또를 주어진 개수만큼 발급한다.
  */
-public class LottoProvider {
+public class LottoGenerator {
 
     private final Random rand = new Random();
 
-    public Lotto createLotto() {
+    public Lotto createAutoLotto() {
         List<Integer> lottoNumbers = new ArrayList<>();
         for (int i = 0; i < LottoConstants.NUMBERS_SIZE; i++) {
             addNonDuplicatedNumber(lottoNumbers);

@@ -1,6 +1,6 @@
 package com.example.lotto.model;
 
-import com.example.lotto.domain.WinningRank;
+import com.example.lotto.component.WinningRank;
 import com.example.lotto.validator.CommonValidator;
 
 public class LottoStatistics {
@@ -9,7 +9,7 @@ public class LottoStatistics {
 
     public LottoStatistics(WinningRank winningRank, double profitRate) {
         CommonValidator.validateNotNull(winningRank);
-        CommonValidator.validatePositiveNumber(profitRate);
+        CommonValidator.validatePositiveNumberOrZero(profitRate);
         this.winningRank = winningRank;
         this.profitRate = profitRate;
     }

@@ -3,6 +3,7 @@ package com.example.converter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
+import java.util.stream.Collectors;
 
 public class BasicConverter {
     public static final String CANNOT_CONVERT_STRING_TO_INT =
@@ -22,18 +23,18 @@ public class BasicConverter {
         }
     }
 
-    public static List<Integer> convertStringToIntegerList(String str) {
-        String[] split = getIntegerTokens(str);
+    public static List<Integer> convertStringToIntegerList(String str, String regex) {
+        String[] split = getSplitString(str, regex);
 
         return Arrays.stream(split)
             .map(BasicConverter::convertStringToInt)
-            .toList();
+            .collect(Collectors.toList());
     }
 
-    private static String[] getIntegerTokens(String str) {
+    public static String[] getSplitString(String str, String regex) {
         String trimmedString = str.replace(" ", "");
         try {
-            return trimmedString.replace(" ", "").split(",");
+            return trimmedString.replace(" ", "").split(regex);
         } catch (PatternSyntaxException ex) {
             throw new IllegalArgumentException(
                 String.format(CANNOT_SPLIT_STRING_TO_INTEGER_TOKEN, str), ex);

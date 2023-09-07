@@ -1,4 +1,6 @@
-package com.example.lotto.domain;
+package com.example.lotto.component;
+
+import com.example.lotto.domain.LottoRank;
 
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -17,8 +19,8 @@ public class WinningRank {
     }
 
     public void increase(LottoRank lottoRank) {
-        Integer update = this.rank.get(lottoRank) + 1;
-        rank.put(lottoRank, update);
+        Integer next = this.rank.get(lottoRank) + 1;
+        rank.put(lottoRank, next);
     }
 
     public int getCount(LottoRank lottoRank) {

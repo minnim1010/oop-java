@@ -1,6 +1,5 @@
 package com.example.lotto.controller;
 
-import com.example.converter.BasicConverter;
 import com.example.lotto.domain.Lotto;
 import com.example.lotto.model.*;
 import com.example.lotto.service.LottoService;
@@ -32,33 +31,32 @@ public class LottoController {
     }
 
     public PurchasedLottos getLottos() {
-        String input = inputView.readPurchaseAmount();
-        purchaseAmount = new PurchaseAmount(BasicConverter.convertStringToInt(input));
-        PurchasedLottoCount lottoCount = lottoService.getPurchasedLottoCount(purchaseAmount);
-        resultView.showPurchasedLotto(lottoCount);
+        purchaseAmount = inputView.readPurchaseAmount();
+        LottoCount totalLottoCnt = lottoService.getLottoCount(purchaseAmount);
 
-        PurchasedLottos purchasedLottos = lottoService.getLottos(lottoCount);
+        LottoCount manualLottoCnt = inputView.readManualLottoCount();
+        List<Lotto> manualLottos = inputView.readManualLottos(manualLottoCnt);
+        resultView.showPurchasedLottoCount(
+            manualLottoCnt,
+            new LottoCount(totalLottoCnt.getLottoCount() - manualLottoCnt.getLottoCount()));
+
+        PurchasedLottos purchasedLottos = lottoService.getLottos(
+            totalLottoCnt, manualLottoCnt, manualLottos);
         resultView.showPurchasedLottos(purchasedLottos);
 
         return purchasedLottos;
     }
 
     public WinningLottoTicket getWinningLottoTicket() {
-        String winningLottoNumbersInput = inputView.readWinningLottoNumbers();
-        List<Integer> numbers = BasicConverter
-            .convertStringToIntegerList(winningLottoNumbersInput);
-        Lotto winningLotto = new Lotto(numbers);
-
-        String bonusBallInput = inputView.readBonusBall();
-        int bonusBallNumber = BasicConverter.convertStringToInt(bonusBallInput);
-        BonusBall bonusBall = new BonusBall(bonusBallNumber);
+        Lotto winningLotto = inputView.readWinningLotto();
+        BonusBall bonusBall = inputView.readBonusBall();
 
         return new WinningLottoTicket(winningLotto, bonusBall);
     }
 
     public LottoStatistics getLottoStatistics(WinningLottoTicket winningLotto,
-                                               PurchasedLottos lottos,
-                                               PurchaseAmount amount) {
+                                              PurchasedLottos lottos,
+                                              PurchaseAmount amount) {
         return lottoService.calculateStatistics(winningLotto, lottos, amount);
     }
 
