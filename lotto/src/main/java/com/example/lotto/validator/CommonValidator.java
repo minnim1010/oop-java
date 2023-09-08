@@ -1,7 +1,7 @@
 package com.example.lotto.validator;
 
 public class CommonValidator {
-    private static final String POSITIVE_NUMBER_EXCEPTION = "양수만 입력되어야 합니다.";
+    private static final String POSITIVE_NUMBER_EXCEPTION = "0이나 양수만 입력되어야 합니다.";
     private static final String NULL_EXCEPTION = "NULL일 수 없습니다.";
     private CommonValidator() {
     }

@@ -1,4 +1,4 @@
-package com.example.lotto.model;
+package com.example.lotto.vo;
 
 import com.example.lotto.domain.Lotto;
 import com.example.lotto.validator.CommonValidator;
@@ -10,6 +10,7 @@ public class PurchasedLottos {
 
     public PurchasedLottos(List<Lotto> lottos) {
         CommonValidator.validateNotNull(lottos);
+
         this.lottos = lottos;
     }
 

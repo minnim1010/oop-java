@@ -1,4 +1,4 @@
-package com.example.lotto.model;
+package com.example.lotto.vo;
 
 import com.example.lotto.validator.CommonValidator;
 
@@ -7,6 +7,7 @@ public class LottoCount {
 
     public LottoCount(int count) {
         CommonValidator.validatePositiveNumberOrZero(count);
+
         this.count = count;
     }
 

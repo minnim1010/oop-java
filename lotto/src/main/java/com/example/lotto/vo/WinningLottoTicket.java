@@ -1,4 +1,4 @@
-package com.example.lotto.model;
+package com.example.lotto.vo;
 
 import com.example.lotto.domain.Lotto;
 import com.example.lotto.validator.CommonValidator;
@@ -12,6 +12,7 @@ public class WinningLottoTicket {
         CommonValidator.validateNotNull(winningLotto);
         CommonValidator.validateNotNull(bonusBall);
         LottoValidator.validateWinningLottoNumbersNotContainBonusBall(winningLotto, bonusBall);
+
         this.winningLotto = winningLotto;
         this.bonusBall = bonusBall;
     }

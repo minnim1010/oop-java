@@ -1,4 +1,4 @@
-package com.example.lotto.model;
+package com.example.lotto.vo;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

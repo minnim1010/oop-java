@@ -2,9 +2,9 @@ package com.example.lotto.component;
 
 import com.example.lotto.domain.Lotto;
 import com.example.lotto.domain.LottoRank;
-import com.example.lotto.model.BonusBall;
-import com.example.lotto.model.PurchasedLottos;
-import com.example.lotto.model.WinningLottoTicket;
+import com.example.lotto.vo.BonusBall;
+import com.example.lotto.vo.PurchasedLottos;
+import com.example.lotto.vo.WinningLottoTicket;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

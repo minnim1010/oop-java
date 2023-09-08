@@ -2,14 +2,16 @@ package com.example.lotto.validator;
 
 import com.example.lotto.constants.LottoConstants;
 import com.example.lotto.domain.Lotto;
-import com.example.lotto.model.BonusBall;
+import com.example.lotto.vo.BonusBall;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 public class LottoValidator {
-    private static final String LOTTO_SIZE_EXCEPTION = "[Error] 현재 로또 번호 자릿수 %d: 로또 번호는 %d자리입니다.";
+    private static final String LOTTO_SIZE_EXCEPTION =
+        "[Error] 현재 로또 번호 자릿수 %d: 로또 번호는 %d자리입니다.";
     private static final String LOTTO_NUMBER_RANGE_EXCEPTION =
         "[Error] 유효하지 않은 로또 번호 %d: 로또 번호는 %d부터 %d 사이의 숫자여야 합니다.";
     private static final String PURCHASED_AMOUNT_LESS_THAN_A_LOTTO_PRICE_EXCEPTION =
@@ -18,6 +20,8 @@ public class LottoValidator {
         "[Error] 로또 번호들은 서로 중복되지 않아야 합니다.";
     private static final String DUPLICATED_BETWEEN_BONUSBALL_AND_WINNING_LOTTO_EXCEPTION =
         "[Error] 보너스볼과 로또 번호는 중복되지 않아야 합니다.";
+    private static final String NON_ASCEDNING_SORTED_EXCEPTION =
+        "[Error] 로또 번호들은 오름차순으로 정렬되어야 합니다.";
 
     private LottoValidator() {
     }
@@ -68,10 +72,19 @@ public class LottoValidator {
         }
     }
 
+    public static void validateAscendingSorted(List<Integer> numbers) {
+        boolean isSorted = IntStream.range(0, LottoConstants.NUMBERS_SIZE - 1)
+            .noneMatch(i -> numbers.get(i) > numbers.get(i + 1));
+        if (!isSorted) {
+            throw new IllegalArgumentException(NON_ASCEDNING_SORTED_EXCEPTION);
+        }
+    }
+
     public static void validateWinningLottoNumbersNotContainBonusBall(Lotto winningLotto,
                                                                       BonusBall bonusBall) {
         if (winningLotto.contains(bonusBall.getNumber())) {
             throw new IllegalArgumentException(DUPLICATED_BETWEEN_BONUSBALL_AND_WINNING_LOTTO_EXCEPTION);
         }
     }
+
 }

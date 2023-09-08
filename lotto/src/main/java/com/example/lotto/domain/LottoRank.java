@@ -44,6 +44,4 @@ public enum LottoRank {
                 && lottoRank.hasBonusBall() == hasBonusBall)
             .findFirst();
     }
-
-
 }

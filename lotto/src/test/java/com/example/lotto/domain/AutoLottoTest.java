@@ -1,23 +1,19 @@
-package com.example.lotto.component;
+package com.example.lotto.domain;
 
 import com.example.lotto.constants.LottoConstants;
-import com.example.lotto.domain.Lotto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class LottoGeneratorTest {
-
-    private final LottoGenerator lottoGenerator = new LottoGenerator();
-
+class AutoLottoTest {
     @DisplayName("자동 로또를 생성할 때 생성한 로또를 반환한다.")
     @Test
     void createAutoLotto() {
         //given
 
         //when
-        Lotto lotto = lottoGenerator.createAutoLotto();
+        Lotto lotto = AutoLotto.create();
 
         //then
         assertThat(lotto.getNumbers()).hasSize(LottoConstants.NUMBERS_SIZE)

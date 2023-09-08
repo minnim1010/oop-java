@@ -3,7 +3,7 @@ package com.example.lotto.service;
 import com.example.lotto.constants.LottoConstants;
 import com.example.lotto.domain.Lotto;
 import com.example.lotto.domain.LottoRank;
-import com.example.lotto.model.*;
+import com.example.lotto.vo.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

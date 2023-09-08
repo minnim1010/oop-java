@@ -1,4 +1,4 @@
-package com.example.lotto.model;
+package com.example.lotto.vo;
 
 import com.example.lotto.component.WinningRank;
 import org.junit.jupiter.api.DisplayName;

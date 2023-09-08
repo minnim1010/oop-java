@@ -4,9 +4,9 @@ import com.example.converter.BasicConverter;
 import com.example.io.CommandLineInput;
 import com.example.io.CommandLineOutput;
 import com.example.lotto.domain.Lotto;
-import com.example.lotto.model.BonusBall;
-import com.example.lotto.model.LottoCount;
-import com.example.lotto.model.PurchaseAmount;
+import com.example.lotto.vo.BonusBall;
+import com.example.lotto.vo.LottoCount;
+import com.example.lotto.vo.PurchaseAmount;
 
 import java.util.ArrayList;
 import java.util.List;

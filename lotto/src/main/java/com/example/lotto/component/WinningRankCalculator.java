@@ -2,9 +2,8 @@ package com.example.lotto.component;
 
 import com.example.lotto.domain.Lotto;
 import com.example.lotto.domain.LottoRank;
-import com.example.lotto.model.BonusBall;
-import com.example.lotto.model.PurchasedLottos;
-import com.example.lotto.model.WinningLottoTicket;
+import com.example.lotto.vo.PurchasedLottos;
+import com.example.lotto.vo.WinningLottoTicket;
 
 import java.util.Optional;
 
@@ -27,7 +26,7 @@ public class WinningRankCalculator {
                                  PurchasedLottos lottos) {
         for (Lotto lotto : lottos.getLottos()) {
             int matchCnt = countMatchNumber(winningLottoTicket.getWinningLotto(), lotto);
-            boolean hasBonusBall = hasBonusBall(winningLottoTicket.getBonusBall(), lotto);
+            boolean hasBonusBall = lotto.contains(winningLottoTicket.getBonusBall().getNumber());
             updateResult(matchCnt, hasBonusBall);
         }
         return this.winningRank;
@@ -35,16 +34,8 @@ public class WinningRankCalculator {
 
     private int countMatchNumber(Lotto winningLotto, Lotto lotto) {
         return (int) lotto.getNumbers().stream()
-            .filter(num -> isMatch(winningLotto, num))
+            .filter(winningLotto::contains)
             .count();
-    }
-
-    private boolean isMatch(Lotto lotto, int number) {
-        return lotto.contains(number);
-    }
-
-    private boolean hasBonusBall(BonusBall bonusBall, Lotto lotto) {
-        return lotto.contains(bonusBall.getNumber());
     }
 
     private void updateResult(int matchCnt, boolean hasBonusBall) {

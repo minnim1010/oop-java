@@ -1,4 +1,4 @@
-package com.example.lotto.model;
+package com.example.lotto.vo;
 
 import com.example.lotto.validator.LottoValidator;
 
@@ -8,6 +8,7 @@ public class PurchaseAmount {
 
     public PurchaseAmount(int amount) {
         LottoValidator.validateLottoPurchaseAmount(amount);
+
         this.amount = amount;
     }
 

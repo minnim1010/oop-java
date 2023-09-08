@@ -1,16 +1,15 @@
 package com.example.lotto.service;
 
-import com.example.lotto.component.LottoGenerator;
 import com.example.lotto.component.LottoStatsCalculator;
 import com.example.lotto.constants.LottoConstants;
+import com.example.lotto.domain.AutoLotto;
 import com.example.lotto.domain.Lotto;
-import com.example.lotto.model.*;
+import com.example.lotto.vo.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LottoService {
-    private final LottoGenerator lottoGenerator = new LottoGenerator();
     private final LottoStatsCalculator lottoStatsCalculator = new LottoStatsCalculator();
 
     public LottoCount getLottoCount(PurchaseAmount amount) {
@@ -33,7 +32,7 @@ public class LottoService {
     private List<Lotto> getAutoLottos(int autoLottoCount) {
         List<Lotto> lottos = new ArrayList<>(autoLottoCount);
         for (int i = 0; i < autoLottoCount; i++) {
-            lottos.add(lottoGenerator.createAutoLotto());
+            lottos.add(AutoLotto.create());
         }
         return lottos;
     }

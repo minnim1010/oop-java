@@ -6,21 +6,21 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class PurchaseResultTest {
+class WinningRankTest {
 
     @DisplayName("로또 순위가 주어지면 로또 순위 결과를 업데이트한다.")
     @Test
     void add() {
         //given
-        WinningRank purchaseResult = new WinningRank();
+        WinningRank winningRank = new WinningRank();
 
         //when
-        purchaseResult.increase(LottoRank.FOURTH);
-        purchaseResult.increase(LottoRank.FOURTH);
-        purchaseResult.increase(LottoRank.FIRST);
+        winningRank.increase(LottoRank.FOURTH);
+        winningRank.increase(LottoRank.FOURTH);
+        winningRank.increase(LottoRank.FIRST);
 
         //then
-        assertThat(purchaseResult.getRank()).hasSize(5)
+        assertThat(winningRank.getRank()).hasSize(5)
             .containsEntry(LottoRank.FIRST, 1)
             .containsEntry(LottoRank.FOURTH, 2);
     }
@@ -29,13 +29,13 @@ class PurchaseResultTest {
     @Test
     void get() {
         //given
-        WinningRank purchaseResult = new WinningRank();
+        WinningRank winningRank = new WinningRank();
 
-        purchaseResult.increase(LottoRank.FOURTH);
-        purchaseResult.increase(LottoRank.FOURTH);
+        winningRank.increase(LottoRank.FOURTH);
+        winningRank.increase(LottoRank.FOURTH);
 
         //when then
-        assertThat(purchaseResult.getCount(LottoRank.FOURTH))
+        assertThat(winningRank.getCount(LottoRank.FOURTH))
             .isEqualTo(2);
     }
 }

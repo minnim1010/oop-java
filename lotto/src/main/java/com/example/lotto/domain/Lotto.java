@@ -12,6 +12,7 @@ public class Lotto {
         LottoValidator.validateLottoSize(numbers);
         LottoValidator.validateLottoNumberRange(numbers);
         LottoValidator.validateNonDuplicateNumbers(numbers);
+        LottoValidator.validateAscendingSorted(numbers);
         this.numbers = numbers;
     }
 

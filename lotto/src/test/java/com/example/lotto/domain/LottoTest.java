@@ -66,6 +66,17 @@ class LottoTest {
             assertThatThrownBy(() -> new Lotto(numbers))
                 .isInstanceOf(IllegalArgumentException.class);
         }
+
+        @DisplayName("로또 번호들이 오름차순 정렬되어있지 않다면 예외가 발생한다.")
+        @Test
+        void failWithNonAscendingSorted() {
+            //given
+            List<Integer> numbers = List.of(1, 2, 3, 4, 7, 5);
+
+            //when then
+            assertThatThrownBy(() -> new Lotto(numbers))
+                .isInstanceOf(IllegalArgumentException.class);
+        }
     }
 
 }
