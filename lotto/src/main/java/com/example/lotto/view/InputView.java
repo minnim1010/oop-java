@@ -3,10 +3,10 @@ package com.example.lotto.view;
 import com.example.converter.BasicConverter;
 import com.example.io.CommandLineInput;
 import com.example.io.CommandLineOutput;
-import com.example.lotto.domain.Lotto;
-import com.example.lotto.vo.BonusBall;
-import com.example.lotto.vo.LottoCount;
-import com.example.lotto.vo.PurchaseAmount;
+import com.example.lotto.model.Lotto;
+import com.example.lotto.model.LottoCount;
+import com.example.lotto.model.PurchaseAmount;
+import com.example.lotto.model.WinningLottoTicket;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,18 +30,14 @@ public class InputView {
         return new PurchaseAmount(purchaseAmount);
     }
 
-    public Lotto readWinningLotto() {
+    public WinningLottoTicket readWinningLottoTicket() {
         CommandLineOutput.output(INPUT_WINNING_LOTTO_NUMBERS);
         List<Integer> lottoNumbers = BasicConverter.convertStringToIntegerList(input(), ",");
 
-        return new Lotto(lottoNumbers);
-    }
-
-    public BonusBall readBonusBall() {
         CommandLineOutput.output(INPUT_BONUS_BALL);
         int bonusBall = BasicConverter.convertStringToInt(input());
 
-        return new BonusBall(bonusBall);
+        return new WinningLottoTicket(new Lotto(lottoNumbers), bonusBall);
     }
 
     public LottoCount readManualLottoCount() {

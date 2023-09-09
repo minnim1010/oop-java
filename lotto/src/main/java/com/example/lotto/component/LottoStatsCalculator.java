@@ -1,9 +1,6 @@
 package com.example.lotto.component;
 
-import com.example.lotto.domain.LottoRank;
-import com.example.lotto.vo.PurchaseAmount;
-import com.example.lotto.vo.PurchasedLottos;
-import com.example.lotto.vo.WinningLottoTicket;
+import com.example.lotto.model.*;
 
 import java.util.Arrays;
 

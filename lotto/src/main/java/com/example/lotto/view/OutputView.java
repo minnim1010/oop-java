@@ -1,10 +1,10 @@
 package com.example.lotto.view;
 
 import com.example.io.CommandLineOutput;
-import com.example.lotto.domain.LottoRank;
-import com.example.lotto.vo.LottoCount;
-import com.example.lotto.vo.LottoStatistics;
-import com.example.lotto.vo.PurchasedLottos;
+import com.example.lotto.model.LottoCount;
+import com.example.lotto.model.LottoRank;
+import com.example.lotto.model.LottoStatistics;
+import com.example.lotto.model.PurchasedLottos;
 
 import java.util.Arrays;
 
@@ -15,9 +15,9 @@ public class OutputView {
     public static final String WINNING_STATISTICS = "당첨 통계\n---------";
     public static final String WINNING_PROFIT_RATE = "총 수익률은 %.2f입니다.";
 
-    public void showPurchasedLottoCount(LottoCount manulLottoCnt, LottoCount autoLottoCnt) {
+    public void showPurchasedLottoCount(LottoCount manualLottoCnt, LottoCount autoLottoCnt) {
         CommandLineOutput.output(String.format(
-            PURCHASED_LOTTO_MSG, manulLottoCnt.getLottoCount(), autoLottoCnt.getLottoCount()));
+            PURCHASED_LOTTO_MSG, manualLottoCnt.getLottoCount(), autoLottoCnt.getLottoCount()));
     }
 
     public void showPurchasedLottos(PurchasedLottos purchasedLottos) {

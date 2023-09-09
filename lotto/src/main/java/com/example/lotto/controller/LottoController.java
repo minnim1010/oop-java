@@ -1,11 +1,10 @@
 package com.example.lotto.controller;
 
-import com.example.lotto.domain.Lotto;
+import com.example.lotto.model.*;
 import com.example.lotto.service.LottoService;
 import com.example.lotto.view.ErrorView;
 import com.example.lotto.view.InputView;
 import com.example.lotto.view.OutputView;
-import com.example.lotto.vo.*;
 
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class LottoController {
 
     public PurchasedLottos buyLotto() {
         purchaseAmount = inputView.readPurchaseAmount();
-        LottoCount totalLottoCnt = lottoService.getLottoCount(purchaseAmount);
+        LottoCount totalLottoCnt = LottoCount.of(purchaseAmount);
 
         LottoCount manualLottoCnt = inputView.readManualLottoCount();
         List<Lotto> manualLottos = inputView.readManualLottos(manualLottoCnt);
@@ -55,10 +54,7 @@ public class LottoController {
     }
 
     public WinningLottoTicket getWinningLottoTicket() {
-        Lotto winningLotto = inputView.readWinningLotto();
-        BonusBall bonusBall = inputView.readBonusBall();
-
-        return new WinningLottoTicket(winningLotto, bonusBall);
+        return inputView.readWinningLottoTicket();
     }
 
     public void getLottoStatistics(

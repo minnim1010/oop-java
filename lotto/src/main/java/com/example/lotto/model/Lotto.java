@@ -1,4 +1,4 @@
-package com.example.lotto.domain;
+package com.example.lotto.model;
 
 import com.example.lotto.validator.LottoValidator;
 

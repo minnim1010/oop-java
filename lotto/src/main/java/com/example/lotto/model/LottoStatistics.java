@@ -1,6 +1,5 @@
-package com.example.lotto.vo;
+package com.example.lotto.model;
 
-import com.example.lotto.component.WinningRank;
 import com.example.lotto.validator.CommonValidator;
 
 public class LottoStatistics {

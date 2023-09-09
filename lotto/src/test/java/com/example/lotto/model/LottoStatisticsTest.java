@@ -1,6 +1,5 @@
-package com.example.lotto.vo;
+package com.example.lotto.model;
 
-import com.example.lotto.component.WinningRank;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

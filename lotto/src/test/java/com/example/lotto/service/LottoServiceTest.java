@@ -1,52 +1,18 @@
 package com.example.lotto.service;
 
 import com.example.lotto.constants.LottoConstants;
-import com.example.lotto.domain.Lotto;
-import com.example.lotto.domain.LottoRank;
-import com.example.lotto.vo.*;
+import com.example.lotto.model.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class LottoServiceTest {
 
     private final LottoService lottoService = new LottoService();
-
-    @Nested
-    @DisplayName("구매한 금액으로 산 로또 개수를 계산할 때 ")
-    class getLottoCountConstants {
-        @DisplayName("계산 성공 시 살 수 있는 최대 로또 개수를 반환한다.")
-        @CsvSource(value = {"15000:15", "1000:1", "14400:14"}, delimiter = ':')
-        @ParameterizedTest
-        void successReturnPurchasedLottoCount(int amount, int expected) {
-            //given
-            //when
-            LottoCount lottoCount = lottoService.getLottoCount(
-                new PurchaseAmount(amount));
-
-            //then
-            assertThat(lottoCount.getLottoCount()).isEqualTo(expected);
-        }
-
-        @DisplayName("구매 금액이 1000 미만이라면 예외가 발생한다.")
-        @Test
-        void failWithPurchasedAmountLessOrEqual1000() {
-            //given
-            int amount = 999;
-
-            //when then
-            assertThatThrownBy(() -> lottoService.getLottoCount(
-                new PurchaseAmount(amount)))
-                .isInstanceOf(IllegalArgumentException.class);
-        }
-    }
 
     @Nested
     @DisplayName("자동, 수동 로또를 생성할 때 ")
@@ -89,7 +55,7 @@ class LottoServiceTest {
         void successReturnLottoStatistics() {
             //given
             Lotto winningLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
-            BonusBall bonusBall = new BonusBall(9);
+            int bonusBall = 9;
             WinningLottoTicket winningLottoTicket = new WinningLottoTicket(winningLotto, bonusBall);
             PurchasedLottos lottos = new PurchasedLottos(List.of(
                 new Lotto(List.of(1, 2, 3, 4, 5, 9)),

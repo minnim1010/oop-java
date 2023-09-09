@@ -1,6 +1,4 @@
-package com.example.lotto.component;
-
-import com.example.lotto.domain.LottoRank;
+package com.example.lotto.model;
 
 import java.util.Arrays;
 import java.util.EnumMap;

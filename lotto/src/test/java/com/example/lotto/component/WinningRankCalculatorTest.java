@@ -1,10 +1,6 @@
 package com.example.lotto.component;
 
-import com.example.lotto.domain.Lotto;
-import com.example.lotto.domain.LottoRank;
-import com.example.lotto.vo.BonusBall;
-import com.example.lotto.vo.PurchasedLottos;
-import com.example.lotto.vo.WinningLottoTicket;
+import com.example.lotto.model.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +15,7 @@ class WinningRankCalculatorTest {
     void calculate() {
         //given
         Lotto winningLotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
-        BonusBall bonusBall = new BonusBall(9);
+        int bonusBall = 9;
         WinningLottoTicket winningLottoTicket = new WinningLottoTicket(winningLotto, bonusBall);
         PurchasedLottos lottos = new PurchasedLottos(List.of(
             new Lotto(List.of(1, 2, 3, 4, 5, 9)),

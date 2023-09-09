@@ -1,16 +1,15 @@
-package com.example.lotto.vo;
+package com.example.lotto.model;
 
-import com.example.lotto.domain.Lotto;
 import com.example.lotto.validator.CommonValidator;
 import com.example.lotto.validator.LottoValidator;
 
 public class WinningLottoTicket {
     private final Lotto winningLotto;
-    private final BonusBall bonusBall;
+    private final int bonusBall;
 
-    public WinningLottoTicket(Lotto winningLotto, BonusBall bonusBall) {
+    public WinningLottoTicket(Lotto winningLotto, int bonusBall) {
         CommonValidator.validateNotNull(winningLotto);
-        CommonValidator.validateNotNull(bonusBall);
+        LottoValidator.validateLottoNumberRange(bonusBall);
         LottoValidator.validateWinningLottoNumbersNotContainBonusBall(winningLotto, bonusBall);
 
         this.winningLotto = winningLotto;
@@ -21,7 +20,13 @@ public class WinningLottoTicket {
         return winningLotto;
     }
 
-    public BonusBall getBonusBall() {
+    public int getBonusBall() {
         return bonusBall;
+    }
+
+    public int countMatchNumber(Lotto lotto) {
+        return (int) lotto.getNumbers().stream()
+            .filter(winningLotto::contains)
+            .count();
     }
 }

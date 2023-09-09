@@ -1,4 +1,4 @@
-package com.example.lotto.vo;
+package com.example.lotto.model;
 
 import com.example.lotto.constants.LottoConstants;
 import org.junit.jupiter.api.DisplayName;

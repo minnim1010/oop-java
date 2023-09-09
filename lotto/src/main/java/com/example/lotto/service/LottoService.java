@@ -1,21 +1,13 @@
 package com.example.lotto.service;
 
 import com.example.lotto.component.LottoStatsCalculator;
-import com.example.lotto.constants.LottoConstants;
-import com.example.lotto.domain.AutoLotto;
-import com.example.lotto.domain.Lotto;
-import com.example.lotto.vo.*;
+import com.example.lotto.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LottoService {
     private final LottoStatsCalculator lottoStatsCalculator = new LottoStatsCalculator();
-
-    public LottoCount getLottoCount(PurchaseAmount amount) {
-        int lottoCount = amount.getAmount() / LottoConstants.PRICE;
-        return new LottoCount(lottoCount);
-    }
 
     public PurchasedLottos getLottos(LottoCount totalLottoCount,
                                      LottoCount manualLottoCount,
