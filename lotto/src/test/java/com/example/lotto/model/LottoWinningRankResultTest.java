@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class LottoWinningRankTest {
+class LottoWinningRankResultTest {
 
     @DisplayName("로또 당첨 순위를 계산한 결과를 반환한다.")
     @Test
@@ -24,10 +24,10 @@ class LottoWinningRankTest {
         ));
 
         //when
-        LottoWinningRank result = LottoWinningRank.create(winningLottoTicket, lottos);
+        LottoWinningRankResult result = LottoWinningRankResult.create(winningLottoTicket, lottos);
 
         //then
-        assertThat(result.getRank())
+        assertThat(result.getWinningRankResult())
             .containsEntry(LottoRank.FIRST, 0)
             .containsEntry(LottoRank.SECOND, 1)
             .containsEntry(LottoRank.THIRD, 0)

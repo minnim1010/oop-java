@@ -30,8 +30,8 @@ public class LottoService {
 
     public LottoStatistics calculateStatistics(
         WinningLottoTicket ticket, PurchasedLottos lottos, PurchaseAmount amount) {
-        LottoWinningRank lottoWinningRank = LottoWinningRank.create(ticket, lottos);
+        LottoWinningRankResult lottoWinningRankResult = LottoWinningRankResult.create(ticket, lottos);
 
-        return LottoStatistics.create(lottoWinningRank, amount);
+        return LottoStatistics.create(lottoWinningRankResult, amount);
     }
 }

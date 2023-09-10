@@ -27,15 +27,15 @@ class LottoStatisticsTest {
                 new Lotto(List.of(1, 2, 3, 8, 9, 10)),
                 new Lotto(List.of(3, 4, 5, 6, 7, 8))
             ));
-            LottoWinningRank lottoWinningRank = LottoWinningRank.create(winningLottoTicket, lottos);
+            LottoWinningRankResult lottoWinningRankResult = LottoWinningRankResult.create(winningLottoTicket, lottos);
 
             PurchaseAmount amount = new PurchaseAmount(300_000);
 
             // when
-            LottoStatistics lottoStatistics = LottoStatistics.create(lottoWinningRank, amount);
+            LottoStatistics lottoStatistics = LottoStatistics.create(lottoWinningRankResult, amount);
 
             // then
-            assertThat(lottoStatistics.getLottoWinningRank()).isEqualTo(lottoWinningRank);
+            assertThat(lottoStatistics.getLottoWinningRank()).isEqualTo(lottoWinningRankResult);
             assertThat(lottoStatistics.getReward()).isEqualTo(30_055_000);
             assertThat(lottoStatistics.getProfitRate()).isEqualTo(30055000 / 300000D);
         }
@@ -64,10 +64,10 @@ class LottoStatisticsTest {
                 new Lotto(List.of(1, 2, 3, 8, 9, 10)),
                 new Lotto(List.of(3, 4, 5, 6, 7, 8))
             ));
-            LottoWinningRank lottoWinningRank = LottoWinningRank.create(winningLottoTicket, lottos);
+            LottoWinningRankResult lottoWinningRankResult = LottoWinningRankResult.create(winningLottoTicket, lottos);
 
             // when, then
-            assertThatThrownBy(() -> LottoStatistics.create(lottoWinningRank, null))
+            assertThatThrownBy(() -> LottoStatistics.create(lottoWinningRankResult, null))
                 .isInstanceOf(IllegalArgumentException.class);
         }
     }

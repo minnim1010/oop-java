@@ -70,7 +70,7 @@ class LottoServiceTest {
                 winningLottoTicket, lottos, amount);
 
             //then
-            assertThat(lottoStatistics.getLottoWinningRank().getRank())
+            assertThat(lottoStatistics.getLottoWinningRank().getWinningRankResult())
                 .containsEntry(LottoRank.FIRST, 0)
                 .containsEntry(LottoRank.SECOND, 1)
                 .containsEntry(LottoRank.THIRD, 0)

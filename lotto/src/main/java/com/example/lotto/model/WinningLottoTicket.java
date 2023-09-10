@@ -29,4 +29,22 @@ public class WinningLottoTicket {
             .filter(winningLotto::contains)
             .count();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        WinningLottoTicket that = (WinningLottoTicket) o;
+
+        if (bonusBall != that.bonusBall) return false;
+        return winningLotto.equals(that.winningLotto);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = winningLotto.hashCode();
+        result = 31 * result + bonusBall;
+        return result;
+    }
 }

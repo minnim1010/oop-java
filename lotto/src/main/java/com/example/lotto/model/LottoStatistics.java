@@ -4,29 +4,29 @@ import com.example.lotto.validator.CommonValidator;
 
 import java.util.Arrays;
 
-public class LottoStatistics {
-    private final LottoWinningRank lottoWinningRank;
+public final class LottoStatistics {
+    private final LottoWinningRankResult lottoWinningRankResult;
     private final Long reward;
     private final Double profitRate;
 
-    private LottoStatistics(LottoWinningRank lottoWinningRank, PurchaseAmount purchaseAmount) {
-        CommonValidator.validateNotNull(lottoWinningRank);
+    private LottoStatistics(LottoWinningRankResult lottoWinningRankResult, PurchaseAmount purchaseAmount) {
+        CommonValidator.validateNotNull(lottoWinningRankResult);
         CommonValidator.validateNotNull(purchaseAmount);
 
-        this.lottoWinningRank = lottoWinningRank;
+        this.lottoWinningRankResult = lottoWinningRankResult;
         this.reward = calculateReward();
         this.profitRate = calculateProfitRate(purchaseAmount);
     }
 
     public static LottoStatistics create(
-        LottoWinningRank lottoWinningRank, PurchaseAmount purchaseAmount) {
-        return new LottoStatistics(lottoWinningRank, purchaseAmount);
+        LottoWinningRankResult lottoWinningRankResult, PurchaseAmount purchaseAmount) {
+        return new LottoStatistics(lottoWinningRankResult, purchaseAmount);
     }
 
     public long calculateReward() {
         return Arrays.stream(LottoRank.values())
             .mapToLong(lottoRank ->
-                lottoWinningRank.getCountBy(lottoRank) * lottoRank.getReward())
+                lottoWinningRankResult.getCountBy(lottoRank) * lottoRank.getReward())
             .sum();
     }
 
@@ -34,8 +34,8 @@ public class LottoStatistics {
         return (double) reward / purchaseAmount.getAmount();
     }
 
-    public LottoWinningRank getLottoWinningRank() {
-        return lottoWinningRank;
+    public LottoWinningRankResult getLottoWinningRank() {
+        return lottoWinningRankResult;
     }
 
     public Double getProfitRate() {
@@ -44,5 +44,25 @@ public class LottoStatistics {
 
     public Long getReward() {
         return reward;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        LottoStatistics that = (LottoStatistics) o;
+
+        if (!lottoWinningRankResult.equals(that.lottoWinningRankResult)) return false;
+        if (!reward.equals(that.reward)) return false;
+        return profitRate.equals(that.profitRate);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = lottoWinningRankResult.hashCode();
+        result = 31 * result + reward.hashCode();
+        result = 31 * result + profitRate.hashCode();
+        return result;
     }
 }
