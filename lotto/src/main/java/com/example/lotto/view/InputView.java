@@ -3,10 +3,7 @@ package com.example.lotto.view;
 import com.example.converter.BasicConverter;
 import com.example.io.CommandLineInput;
 import com.example.io.CommandLineOutput;
-import com.example.lotto.model.Lotto;
-import com.example.lotto.model.LottoCount;
-import com.example.lotto.model.PurchaseAmount;
-import com.example.lotto.model.WinningLottoTicket;
+import com.example.lotto.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +44,7 @@ public class InputView {
         return new LottoCount(manualLottoCount);
     }
 
-    public List<Lotto> readManualLottos(LottoCount manualLottoCnt) {
+    public PurchasedLottos readManualLottos(LottoCount manualLottoCnt) {
         CommandLineOutput.output(INPUT_MANUALLY_LOTTO_NUMBERS);
 
         List<Lotto> manualLottos = new ArrayList<>(manualLottoCnt.getLottoCount());
@@ -56,6 +53,6 @@ public class InputView {
             manualLottos.add(new Lotto(lottoNumbers));
         }
 
-        return manualLottos;
+        return new PurchasedLottos(manualLottos);
     }
 }

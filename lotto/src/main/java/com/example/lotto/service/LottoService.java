@@ -1,22 +1,21 @@
 package com.example.lotto.service;
 
-import com.example.lotto.component.LottoStatsCalculator;
 import com.example.lotto.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LottoService {
-    private final LottoStatsCalculator lottoStatsCalculator = new LottoStatsCalculator();
 
     public PurchasedLottos getLottos(LottoCount totalLottoCount,
                                      LottoCount manualLottoCount,
-                                     List<Lotto> manualLottos) {
+                                     PurchasedLottos manualLottos) {
         int totalLottoCnt = totalLottoCount.getLottoCount();
-        List<Lotto> lottos = new ArrayList<>(totalLottoCnt);
+        int autoLottoCnt = totalLottoCnt - manualLottoCount.getLottoCount();
 
-        lottos.addAll(manualLottos);
-        lottos.addAll(getAutoLottos(totalLottoCnt - manualLottoCount.getLottoCount()));
+        List<Lotto> lottos = new ArrayList<>(totalLottoCnt);
+        lottos.addAll(manualLottos.getLottos());
+        lottos.addAll(getAutoLottos(autoLottoCnt));
 
         return new PurchasedLottos(lottos);
     }
@@ -29,16 +28,10 @@ public class LottoService {
         return lottos;
     }
 
-    public LottoStatistics calculateStatistics(WinningLottoTicket winningLottoTicket,
-                                               PurchasedLottos lottos,
-                                               PurchaseAmount amount) {
-        lottoStatsCalculator.init(winningLottoTicket, lottos);
+    public LottoStatistics calculateStatistics(
+        WinningLottoTicket ticket, PurchasedLottos lottos, PurchaseAmount amount) {
+        LottoWinningRank lottoWinningRank = LottoWinningRank.create(ticket, lottos);
 
-        double profitRate = lottoStatsCalculator.calculateProfitRate(
-            lottoStatsCalculator.calculateReward(), amount);
-
-        return new LottoStatistics(
-            lottoStatsCalculator.getCalculatedWinningRank(),
-            profitRate);
+        return LottoStatistics.create(lottoWinningRank, amount);
     }
 }

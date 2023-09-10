@@ -30,7 +30,7 @@ public class OutputView {
 
         Arrays.stream(LottoRank.values())
             .forEach(rank -> CommandLineOutput.output(
-                rank.getMessage() + lottoStatistics.getWinningRank().getCount(rank) + "개"));
+                rank.getMessage() + lottoStatistics.getLottoWinningRank().getCountBy(rank) + "개"));
 
         CommandLineOutput.output(String.format(WINNING_PROFIT_RATE, lottoStatistics.getProfitRate()));
     }

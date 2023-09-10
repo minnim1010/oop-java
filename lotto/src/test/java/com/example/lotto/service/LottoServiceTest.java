@@ -22,11 +22,11 @@ class LottoServiceTest {
         void successReturnCreatedLottos() {
             //given
             LottoCount totalLottoCnt = new LottoCount(103);
-            List<Lotto> manualLottos = List.of(
+            PurchasedLottos manualLottos = new PurchasedLottos(List.of(
                 new Lotto(List.of(1, 2, 3, 4, 5, 6)),
                 new Lotto(List.of(4, 5, 6, 7, 8, 9)),
                 new Lotto(List.of(10, 11, 12, 13, 14, 15))
-            );
+            ));
             LottoCount manualLottoCnt = new LottoCount(3);
 
             //when
@@ -70,7 +70,7 @@ class LottoServiceTest {
                 winningLottoTicket, lottos, amount);
 
             //then
-            assertThat(lottoStatistics.getWinningRank().getRank())
+            assertThat(lottoStatistics.getLottoWinningRank().getRank())
                 .containsEntry(LottoRank.FIRST, 0)
                 .containsEntry(LottoRank.SECOND, 1)
                 .containsEntry(LottoRank.THIRD, 0)
@@ -79,5 +79,4 @@ class LottoServiceTest {
             assertThat(lottoStatistics.getProfitRate()).isEqualTo(30.055);
         }
     }
-
 }

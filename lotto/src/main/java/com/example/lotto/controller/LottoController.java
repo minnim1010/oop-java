@@ -6,8 +6,6 @@ import com.example.lotto.view.ErrorView;
 import com.example.lotto.view.InputView;
 import com.example.lotto.view.OutputView;
 
-import java.util.List;
-
 public class LottoController {
     private final InputView inputView;
     private final OutputView outputView;
@@ -41,7 +39,7 @@ public class LottoController {
         LottoCount totalLottoCnt = LottoCount.of(purchaseAmount);
 
         LottoCount manualLottoCnt = inputView.readManualLottoCount();
-        List<Lotto> manualLottos = inputView.readManualLottos(manualLottoCnt);
+        PurchasedLottos manualLottos = inputView.readManualLottos(manualLottoCnt);
         outputView.showPurchasedLottoCount(
             manualLottoCnt, new LottoCount(
                 totalLottoCnt.getLottoCount() - manualLottoCnt.getLottoCount()));

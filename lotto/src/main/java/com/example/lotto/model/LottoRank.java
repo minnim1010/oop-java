@@ -31,7 +31,7 @@ public enum LottoRank {
         return matchCount;
     }
 
-    public static Optional<LottoRank> findByMatchCountAndBonusBall(int matchCount, boolean hasBonusBall) {
+    public static Optional<LottoRank> findBy(int matchCount, boolean hasBonusBall) {
         return Arrays.stream(LottoRank.values())
             .filter(lottoRank -> lottoRank.matchCount == matchCount
                 && lottoRank.hasBonusBall.contains(hasBonusBall))

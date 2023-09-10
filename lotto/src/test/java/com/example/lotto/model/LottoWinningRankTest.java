@@ -1,6 +1,5 @@
-package com.example.lotto.component;
+package com.example.lotto.model;
 
-import com.example.lotto.model.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +7,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class WinningRankCalculatorTest {
+class LottoWinningRankTest {
 
     @DisplayName("로또 당첨 순위를 계산한 결과를 반환한다.")
     @Test
@@ -25,10 +24,10 @@ class WinningRankCalculatorTest {
         ));
 
         //when
-        WinningRank rank = new WinningRankCalculator().calculate(winningLottoTicket, lottos);
+        LottoWinningRank result = LottoWinningRank.create(winningLottoTicket, lottos);
 
         //then
-        assertThat(rank.getRank())
+        assertThat(result.getRank())
             .containsEntry(LottoRank.FIRST, 0)
             .containsEntry(LottoRank.SECOND, 1)
             .containsEntry(LottoRank.THIRD, 0)

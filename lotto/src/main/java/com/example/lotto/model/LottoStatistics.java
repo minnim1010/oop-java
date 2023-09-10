@@ -2,23 +2,47 @@ package com.example.lotto.model;
 
 import com.example.lotto.validator.CommonValidator;
 
+import java.util.Arrays;
+
 public class LottoStatistics {
-    private final WinningRank winningRank;
-    private final double profitRate;
+    private final LottoWinningRank lottoWinningRank;
+    private final Long reward;
+    private final Double profitRate;
 
-    public LottoStatistics(WinningRank winningRank, double profitRate) {
-        CommonValidator.validateNotNull(winningRank);
-        CommonValidator.validatePositiveNumberOrZero(profitRate);
+    private LottoStatistics(LottoWinningRank lottoWinningRank, PurchaseAmount purchaseAmount) {
+        CommonValidator.validateNotNull(lottoWinningRank);
+        CommonValidator.validateNotNull(purchaseAmount);
 
-        this.winningRank = winningRank;
-        this.profitRate = profitRate;
+        this.lottoWinningRank = lottoWinningRank;
+        this.reward = calculateReward();
+        this.profitRate = calculateProfitRate(purchaseAmount);
     }
 
-    public WinningRank getWinningRank() {
-        return winningRank;
+    public static LottoStatistics create(
+        LottoWinningRank lottoWinningRank, PurchaseAmount purchaseAmount) {
+        return new LottoStatistics(lottoWinningRank, purchaseAmount);
     }
 
-    public double getProfitRate() {
+    public long calculateReward() {
+        return Arrays.stream(LottoRank.values())
+            .mapToLong(lottoRank ->
+                lottoWinningRank.getCountBy(lottoRank) * lottoRank.getReward())
+            .sum();
+    }
+
+    public double calculateProfitRate(PurchaseAmount purchaseAmount) {
+        return (double) reward / purchaseAmount.getAmount();
+    }
+
+    public LottoWinningRank getLottoWinningRank() {
+        return lottoWinningRank;
+    }
+
+    public Double getProfitRate() {
         return profitRate;
+    }
+
+    public Long getReward() {
+        return reward;
     }
 }
