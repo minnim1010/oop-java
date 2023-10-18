@@ -19,9 +19,9 @@ flowchart TD
 # 기능 설계
 
 ### constants
-- [ ] BaseballGame: 숫자 야구 게임 관련 상수들을 정의한 클래스
-- MINIMUM_DIGIT_VALUE = 0
-- MAXIMUM_DIGIT_VALUE = 9
+- [X] BaseballGame: 숫자 야구 게임 관련 상수들을 정의한 클래스
+- MIN_DIGIT = 0
+- MAX_DIGIT = 9
 - BASEBALL_NUMBER_LENGTH = 3
 ### domain
 - [ ] Digit: 0-9까지 숫자만을 갖는 숫자 객체
