@@ -4,6 +4,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -15,13 +18,14 @@ class BaseballResultTest {
         @Test
         void success(){
             //given
-            BaseballResultType ball = BaseballResultType.BALL;
-            BaseballResultType strike = BaseballResultType.STRIKE;
-            BaseballResultType nothing = BaseballResultType.NOTHING;
+            List<BaseballResultType> typeList = new ArrayList<>();
+            typeList.add(BaseballResultType.BALL);
+            typeList.add(BaseballResultType.STRIKE);
+            typeList.add(BaseballResultType.NOTHING);
 
             //when
             BaseballResult baseballResult =
-                BaseballResult.create(new BaseballResultType[]{ball, strike, nothing});
+                BaseballResult.create(typeList);
 
             //then
             assertThat(baseballResult).isNotNull();
@@ -34,14 +38,15 @@ class BaseballResultTest {
         @Test
         void fail_invalidInputLength(){
             //given
-            BaseballResultType ball = BaseballResultType.BALL;
-            BaseballResultType strike = BaseballResultType.STRIKE;
-            BaseballResultType nothing = BaseballResultType.NOTHING;
+            List<BaseballResultType> typeList = new ArrayList<>();
+            typeList.add(BaseballResultType.BALL);
+            typeList.add(BaseballResultType.STRIKE);
+            typeList.add(BaseballResultType.NOTHING);
+            typeList.add(BaseballResultType.NOTHING);
 
             //when then
             assertThatThrownBy(
-                () -> BaseballResult.create(
-                    new BaseballResultType[]{ball, strike, nothing, nothing}))
+                () -> BaseballResult.create(typeList))
                 .isInstanceOf(IllegalStateException.class);
         }
     }

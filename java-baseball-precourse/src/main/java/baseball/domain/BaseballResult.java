@@ -4,27 +4,24 @@ import baseball.constants.BaseballGame;
 
 import java.util.Arrays;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 public class BaseballResult {
     private final EnumMap<BaseballResultType, Integer> result =
         new EnumMap<>(BaseballResultType.class);
 
-    private BaseballResult(BaseballResultType[] resultTypes) {
+    private BaseballResult(List<BaseballResultType> resultTypes) {
         checkLength(resultTypes);
 
         Arrays.stream(BaseballResultType.values())
             .forEach(type -> result.put(type, 0));
 
-        Arrays.stream(resultTypes)
-            .forEach(this::increase);
+        resultTypes.forEach(this::increase);
     }
 
-    private void checkLength(BaseballResultType[] resultTypes){
-        if(resultTypes.length != BaseballGame.BASEBALL_NUMBER_LENGTH){
-            throw new IllegalStateException(
-                String.format("현재 결과값 개수 %d: 결과 값은 3개여야 합니다.", resultTypes.length));
-        }
+    public static BaseballResult create(List<BaseballResultType> resultTypes) {
+        return new BaseballResult(resultTypes);
     }
 
     private void increase(BaseballResultType type) {
@@ -32,8 +29,12 @@ public class BaseballResult {
         result.put(type, increasedNum);
     }
 
-    public static BaseballResult create(BaseballResultType[] resultTypes) {
-        return new BaseballResult(resultTypes);
+    private void checkLength(List<BaseballResultType> resultTypes) {
+        int size = resultTypes.size();
+        if (size != BaseballGame.BASEBALL_NUMBER_LENGTH) {
+            throw new IllegalStateException(
+                String.format("현재 결과값 개수 %d: 결과 값은 3개여야 합니다.", size));
+        }
     }
 
     public Map<BaseballResultType, Integer> getResult() {

@@ -26,7 +26,7 @@ flowchart TD
 ### domain
 - [X] Digit: 0-9까지 숫자만을 갖는 숫자 객체
 - valid(): 해당 숫자가 0-9 사이인지 검사하는 메서드
-- [ ] BaseballNumber: Digit를 세 개 가진 숫자 야구 값 객체
+- [X] BaseballNumber: Digit를 세 개 가진 숫자 야구 값 객체
 - compareTo(BaseballNumber): 사용자가 입력한 숫자 야구와 정답 숫자 야구를 비교하는 메서드
 - match(int number, int position): number와 position로 결과인 BaseballResult를 반환하는 메서드
     - matchNumber(number): 동일한 number가 있는지 판별하는 메서드
@@ -41,9 +41,9 @@ flowchart TD
 
 ### service
 - [X] BaseballGameService: 숫자 야구 게임을 실행할 수 있는 메서드를 가진 인터페이스
-- [ ] BaseBallGameServiceImpl: 숫자 야구 게임을 실행할 수 있는 메서드를 가진 클래스
+- [X] BaseBallGameServiceImpl: 숫자 야구 게임을 실행할 수 있는 메서드를 가진 클래스
   - [X] createAnswer(): 정답 숫자를 생성하는 메서드
-  - [ ] calculateResult(answer, guess): 정답 숫자와 입력된 숫자를 비교하여 결과를 반환하는 클래스
+  - [X] calculateResult(answer, guess): 정답 숫자와 입력된 숫자를 비교하여 결과를 반환하는 클래스
 
 ### controller
 - [ ] BaseballGameController: 숫자 야구 게임을 시작할 수 있는 클래스

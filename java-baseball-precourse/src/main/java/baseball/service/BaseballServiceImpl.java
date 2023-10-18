@@ -3,6 +3,7 @@ package baseball.service;
 import baseball.constants.BaseballGame;
 import baseball.domain.BaseballNumber;
 import baseball.domain.BaseballResult;
+import baseball.domain.BaseballResultType;
 import baseball.domain.Digit;
 import camp.nextstep.edu.missionutils.Randoms;
 
@@ -26,6 +27,7 @@ public class BaseballServiceImpl implements BaseballService {
 
     @Override
     public BaseballResult calculateResult(BaseballNumber answer, BaseballNumber guess) {
-        return null;
+        List<BaseballResultType> resultTypeList = answer.compareTo(guess);
+        return BaseballResult.create(resultTypeList);
     }
 }

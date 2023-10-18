@@ -81,4 +81,37 @@ class BaseballNumberTest {
                 .isInstanceOf(IllegalStateException.class);
         }
     }
+
+    @Nested
+    @DisplayName("숫자 야구 2개를 비교할 시")
+    class compareTo {
+        @DisplayName("올바른 결과를 반환한다.")
+        @Test
+        void success() {
+            //given
+            List<Digit> answerDigits = new ArrayList<>();
+            answerDigits.add(new Digit(1));
+            answerDigits.add(new Digit(2));
+            answerDigits.add(new Digit(3));
+
+            List<Digit> guessDigits = new ArrayList<>();
+            guessDigits.add(new Digit(3));
+            guessDigits.add(new Digit(4));
+            guessDigits.add(new Digit(5));
+
+            BaseballNumber answer = BaseballNumber.create(answerDigits);
+            BaseballNumber guess = BaseballNumber.create(guessDigits);
+
+            //when
+            List<BaseballResultType> result = answer.compareTo(guess);
+
+            //then
+            assertThat(result).isNotNull()
+                .hasSize(3)
+                .containsExactly(
+                    BaseballResultType.NOTHING,
+                    BaseballResultType.NOTHING,
+                    BaseballResultType.BALL);
+        }
+    }
 }

@@ -45,4 +45,27 @@ public class BaseballNumber {
     public List<Digit> getDigits() {
         return Collections.unmodifiableList(digits);
     }
+
+    public List<BaseballResultType> compareTo(BaseballNumber guess) {
+        List<BaseballResultType> result = new ArrayList<>();
+        boolean numberMatch = false;
+        boolean positionMatch = false;
+
+        for (int i = 0; i < BaseballGame.BASEBALL_NUMBER_LENGTH; i++) {
+            Digit answerDigit = digits.get(i);
+            for (int j = 0; j < BaseballGame.BASEBALL_NUMBER_LENGTH; j++) {
+                Digit guessDigit = guess.getDigits().get(j);
+                if (answerDigit.equals(guessDigit)) {
+                    numberMatch = true;
+                    if (i == j) {
+                        positionMatch = true;
+                    }
+                }
+            }
+            BaseballResultType resultType = BaseballResultType.findBy(numberMatch, positionMatch);
+            result.add(resultType);
+        }
+
+        return result;
+    }
 }
