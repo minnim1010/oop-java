@@ -42,8 +42,8 @@ flowchart TD
 ### service
 - [X] BaseballGameService: 숫자 야구 게임을 실행할 수 있는 메서드를 가진 인터페이스
 - [ ] BaseBallGameServiceImpl: 숫자 야구 게임을 실행할 수 있는 메서드를 가진 클래스
-- createAnswer(): 정답 숫자를 생성하는 메서드
-- calculateResult(answer, guess): 정답 숫자와 입력된 숫자를 비교하여 결과를 반환하는 클래스
+  - [X] createAnswer(): 정답 숫자를 생성하는 메서드
+  - [ ] calculateResult(answer, guess): 정답 숫자와 입력된 숫자를 비교하여 결과를 반환하는 클래스
 
 ### controller
 - [ ] BaseballGameController: 숫자 야구 게임을 시작할 수 있는 클래스

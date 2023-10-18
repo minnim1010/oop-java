@@ -5,6 +5,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -17,31 +20,33 @@ class BaseballNumberTest {
         @Test
         void success() {
             //given
-            Digit digit1 = new Digit(1);
-            Digit digit2 = new Digit(2);
-            Digit digit3 = new Digit(3);
+            List<Digit> digitList = new ArrayList<>();
+            digitList.add(new Digit(1));
+            digitList.add(new Digit(2));
+            digitList.add(new Digit(3));
 
             //when
             BaseballNumber baseballNumber =
-                BaseballNumber.create(new Digit[]{digit1, digit2, digit3});
+                BaseballNumber.create(digitList);
 
             //then
             assertThat(baseballNumber).isNotNull();
             assertThat(baseballNumber.getDigits())
                 .hasSize(BaseballGame.BASEBALL_NUMBER_LENGTH)
-                .containsExactly(digit1, digit2, digit3);
+                .containsAll(digitList);
         }
 
         @DisplayName("숫자가 세 개 미만으로 주어진다면 생성할 수 없다.")
         @Test
         void fail_ShortLength(){
             //given
-            Digit digit1 = new Digit(1);
-            Digit digit2 = new Digit(2);
+            List<Digit> digitList = new ArrayList<>();
+            digitList.add(new Digit(1));
+            digitList.add(new Digit(2));
 
             //when then
             assertThatThrownBy(
-                () -> BaseballNumber.create(new Digit[]{digit1, digit2}))
+                () -> BaseballNumber.create(digitList))
                 .isInstanceOf(IllegalStateException.class);
         }
 
@@ -49,14 +54,15 @@ class BaseballNumberTest {
         @Test
         void fail_LongLength(){
             //given
-            Digit digit1 = new Digit(1);
-            Digit digit2 = new Digit(2);
-            Digit digit3 = new Digit(3);
-            Digit digit4 = new Digit(4);
+            List<Digit> digitList = new ArrayList<>();
+            digitList.add(new Digit(1));
+            digitList.add(new Digit(2));
+            digitList.add(new Digit(3));
+            digitList.add(new Digit(4));
 
             //when then
             assertThatThrownBy(
-                () -> BaseballNumber.create(new Digit[]{digit1, digit2, digit3, digit4}))
+                () -> BaseballNumber.create(digitList))
                 .isInstanceOf(IllegalStateException.class);
         }
 
@@ -64,13 +70,14 @@ class BaseballNumberTest {
         @Test
         void test(){
             //given
-            Digit digit1 = new Digit(1);
-            Digit digit2 = new Digit(2);
-            Digit digit3 = new Digit(2);
+            List<Digit> digitList = new ArrayList<>();
+            digitList.add(new Digit(1));
+            digitList.add(new Digit(2));
+            digitList.add(new Digit(2));
 
             //when then
             assertThatThrownBy(
-                () -> BaseballNumber.create(new Digit[]{digit1, digit2, digit3}))
+                () -> BaseballNumber.create(digitList))
                 .isInstanceOf(IllegalStateException.class);
         }
     }

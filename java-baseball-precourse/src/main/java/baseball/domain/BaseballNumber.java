@@ -8,24 +8,24 @@ public class BaseballNumber {
 
     private final List<Digit> digits;
 
-    private BaseballNumber(Digit[] digits) {
+    private BaseballNumber(List<Digit> digits) {
         checkDigitsLength(digits);
         checkUniqueDigits(digits);
-        this.digits = new ArrayList<>();
-        this.digits.addAll(Arrays.asList(digits));
+        this.digits = new ArrayList<>(digits);
     }
 
-    public static BaseballNumber create(Digit[] digits) {
+    public static BaseballNumber create(List<Digit> digits) {
         return new BaseballNumber(digits);
     }
 
-    private void checkDigitsLength(Digit[] digits) {
-        if (digits.length != BaseballGame.BASEBALL_NUMBER_LENGTH)
+    private void checkDigitsLength(List<Digit> digits) {
+        int size = digits.size();
+        if (size != BaseballGame.BASEBALL_NUMBER_LENGTH)
             throw new IllegalStateException(
-                String.format("현재 길이 %d: 숫자 야구는 세 개의 숫자로 구성 되어야 합니다.", digits.length));
+                String.format("현재 길이 %d: 숫자 야구는 세 개의 숫자로 구성 되어야 합니다.", size));
     }
 
-    private void checkUniqueDigits(Digit[] digits) {
+    private void checkUniqueDigits(List<Digit> digits) {
         Set<Integer> exists = new HashSet<>();
 
         for (Digit digit : digits) {
