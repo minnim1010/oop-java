@@ -27,6 +27,7 @@ flowchart TD
 - [X] Digit: 0-9까지 숫자만을 갖는 숫자 객체
 - valid(): 해당 숫자가 0-9 사이인지 검사하는 메서드
 - [ ] BaseballNumber: Digit를 세 개 가진 숫자 야구 값 객체
+- compareTo(BaseballNumber): 사용자가 입력한 숫자 야구와 정답 숫자 야구를 비교하는 메서드
 - match(int number, int position): number와 position로 결과인 BaseballResult를 반환하는 메서드
     - matchNumber(number): 동일한 number가 있는지 판별하는 메서드
     - matchPosition(position, numberPosition): numberPosition과 position이 동일한지 판별하는 메서드
@@ -35,9 +36,8 @@ flowchart TD
 - nothing: false, false
 - ball: true, false
 - strike: true, true
-- [ ] BaseballResult: 숫자 야구 결과를 나타내는 객체
+- [X] BaseballResult: 숫자 야구 결과를 나타내는 객체
 - EnumMap에 결과 타입의 개수를 저장한다.
-- compareTo(BaseballNumber): 사용자가 입력한 숫자 야구와 정답 숫자 야구를 비교하는 메서드
 ### service
 - [ ] BaseballGameService: 숫자 야구 게임을 실행할 수 있는 메서드를 가진 인터페이스
 - [ ] BaseBallGameServiceImpl: 숫자 야구 게임을 실행할 수 있는 메서드를 가진 클래스
