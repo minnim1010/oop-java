@@ -17,12 +17,12 @@ flowchart TD
     G --> |2가 입력된다면| Q(프로그램 종료)
 ```
 # 기능 설계
-
 ### constants
 - [X] BaseballGame: 숫자 야구 게임 관련 상수들을 정의한 클래스
 - MIN_DIGIT = 0
 - MAX_DIGIT = 9
 - BASEBALL_NUMBER_LENGTH = 3
+
 ### domain
 - [X] Digit: 0-9까지 숫자만을 갖는 숫자 객체
 - valid(): 해당 숫자가 0-9 사이인지 검사하는 메서드
@@ -38,6 +38,7 @@ flowchart TD
 - strike: true, true
 - [X] BaseballResult: 숫자 야구 결과를 나타내는 객체
 - EnumMap에 결과 타입의 개수를 저장한다.
+
 ### service
 - [ ] BaseballGameService: 숫자 야구 게임을 실행할 수 있는 메서드를 가진 인터페이스
 - [ ] BaseBallGameServiceImpl: 숫자 야구 게임을 실행할 수 있는 메서드를 가진 클래스
@@ -53,3 +54,5 @@ flowchart TD
         - willRestart(): 게임 재시작 여부 문구를 출력하고 재시작 여부를 반환하는 뷰
       - printIncorrectAnswer(): 정답이 아닐 시 결과를 출력
 
+### util
+- [X] IoUtil: 입력, 출력을 수행하는 클래스
