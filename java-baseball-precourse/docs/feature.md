@@ -24,7 +24,7 @@ flowchart TD
 - MAX_DIGIT = 9
 - BASEBALL_NUMBER_LENGTH = 3
 ### domain
-- [ ] Digit: 0-9까지 숫자만을 갖는 숫자 객체
+- [X] Digit: 0-9까지 숫자만을 갖는 숫자 객체
 - valid(): 해당 숫자가 0-9 사이인지 검사하는 메서드
 - [ ] BaseballNumber: Digit를 세 개 가진 숫자 야구 값 객체
 - match(int number, int position): number와 position로 결과인 BaseballResult를 반환하는 메서드
