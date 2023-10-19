@@ -6,11 +6,17 @@ public class IoUtil {
     private IoUtil() {
     }
 
-    public static String input(){
+    public static String input() {
         return Console.readLine();
+
     }
 
-    public static void output(String msg){
+    public static void output(String msg) {
+        System.out.print(msg);
+    }
+
+    public static void outputNewLine(String msg) {
         System.out.println(msg);
+
     }
 }

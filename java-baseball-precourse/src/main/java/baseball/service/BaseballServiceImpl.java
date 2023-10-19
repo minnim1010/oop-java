@@ -27,7 +27,7 @@ public class BaseballServiceImpl implements BaseballService {
 
     @Override
     public BaseballResult calculateResult(BaseballNumber answer, BaseballNumber guess) {
-        List<BaseballResultType> resultTypeList = answer.compareTo(guess);
+        List<BaseballResultType> resultTypeList = answer.match(guess);
         return BaseballResult.create(resultTypeList);
     }
 }

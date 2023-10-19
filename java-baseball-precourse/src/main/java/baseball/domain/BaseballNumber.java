@@ -46,13 +46,14 @@ public class BaseballNumber {
         return Collections.unmodifiableList(digits);
     }
 
-    public List<BaseballResultType> compareTo(BaseballNumber guess) {
+    public List<BaseballResultType> match(BaseballNumber guess) {
         List<BaseballResultType> result = new ArrayList<>();
-        boolean numberMatch = false;
-        boolean positionMatch = false;
 
         for (int i = 0; i < BaseballGame.BASEBALL_NUMBER_LENGTH; i++) {
             Digit answerDigit = digits.get(i);
+            boolean numberMatch = false;
+            boolean positionMatch = false;
+
             for (int j = 0; j < BaseballGame.BASEBALL_NUMBER_LENGTH; j++) {
                 Digit guessDigit = guess.getDigits().get(j);
                 if (answerDigit.equals(guessDigit)) {
@@ -67,5 +68,10 @@ public class BaseballNumber {
         }
 
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "BaseballNumber" + digits;
     }
 }

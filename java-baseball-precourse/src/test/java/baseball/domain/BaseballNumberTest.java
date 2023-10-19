@@ -4,9 +4,14 @@ import baseball.constants.BaseballGame;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -84,34 +89,46 @@ class BaseballNumberTest {
 
     @Nested
     @DisplayName("숫자 야구 2개를 비교할 시")
-    class compareTo {
+    static class match {
+
+        static Stream<Arguments> getTwoBaseballNumbersAndResult() {
+            return Stream.of(
+                Arguments.of(
+                    BaseballNumber.create(Arrays.asList(new Digit(1), new Digit(2), new Digit(3))),
+                    BaseballNumber.create(Arrays.asList(new Digit(1), new Digit(2), new Digit(3))),
+                    Arrays.asList(BaseballResultType.STRIKE, BaseballResultType.STRIKE, BaseballResultType.STRIKE)),
+                Arguments.of(
+                    BaseballNumber.create(Arrays.asList(new Digit(4), new Digit(2), new Digit(5))),
+                    BaseballNumber.create(Arrays.asList(new Digit(2), new Digit(5), new Digit(4))),
+                    Arrays.asList(BaseballResultType.BALL, BaseballResultType.BALL, BaseballResultType.BALL)),
+                Arguments.of(
+                    BaseballNumber.create(Arrays.asList(new Digit(6), new Digit(8), new Digit(9))),
+                    BaseballNumber.create(Arrays.asList(new Digit(2), new Digit(3), new Digit(9))),
+                    Arrays.asList(BaseballResultType.NOTHING, BaseballResultType.NOTHING, BaseballResultType.STRIKE)),
+                Arguments.of(
+                    BaseballNumber.create(Arrays.asList(new Digit(1), new Digit(2), new Digit(4))),
+                    BaseballNumber.create(Arrays.asList(new Digit(3), new Digit(4), new Digit(2))),
+                    Arrays.asList(BaseballResultType.NOTHING, BaseballResultType.BALL, BaseballResultType.BALL)),
+                Arguments.of(
+                    BaseballNumber.create(Arrays.asList(new Digit(3), new Digit(2), new Digit(1))),
+                    BaseballNumber.create(Arrays.asList(new Digit(1), new Digit(2), new Digit(3))),
+                    Arrays.asList(BaseballResultType.BALL, BaseballResultType.STRIKE, BaseballResultType.BALL))
+            );
+        }
+
+
         @DisplayName("올바른 결과를 반환한다.")
-        @Test
-        void success() {
+        @ParameterizedTest(name = "{0} {1} {2}")
+        @MethodSource("getTwoBaseballNumbersAndResult")
+        void success(BaseballNumber answer, BaseballNumber guess, List<BaseballResultType> expected) {
             //given
-            List<Digit> answerDigits = new ArrayList<>();
-            answerDigits.add(new Digit(1));
-            answerDigits.add(new Digit(2));
-            answerDigits.add(new Digit(3));
-
-            List<Digit> guessDigits = new ArrayList<>();
-            guessDigits.add(new Digit(3));
-            guessDigits.add(new Digit(4));
-            guessDigits.add(new Digit(5));
-
-            BaseballNumber answer = BaseballNumber.create(answerDigits);
-            BaseballNumber guess = BaseballNumber.create(guessDigits);
-
             //when
-            List<BaseballResultType> result = answer.compareTo(guess);
+            List<BaseballResultType> result = answer.match(guess);
 
             //then
             assertThat(result).isNotNull()
                 .hasSize(3)
-                .containsExactly(
-                    BaseballResultType.NOTHING,
-                    BaseballResultType.NOTHING,
-                    BaseballResultType.BALL);
+                .containsExactlyElementsOf(expected);
         }
     }
 }

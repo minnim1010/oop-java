@@ -23,15 +23,15 @@ public class BaseballController {
             BaseballResult baseballResult = service.calculateResult(answer, guess);
 
             if (baseballResult.isCorrect()) {
-                IoUtil.output(Message.CORRECT_ANSWER);
-                IoUtil.output(Message.RESTART_GAME);
+                IoUtil.outputNewLine(Message.CORRECT_ANSWER);
+                IoUtil.outputNewLine(Message.RESTART_GAME);
                 String input = IoUtil.input();
                 if (input.equals("2")) {
                     isRunning = false;
                 }
             } else {
                 String resultMessage = getResultMsg(baseballResult);
-                IoUtil.output(resultMessage);
+                IoUtil.outputNewLine(resultMessage);
             }
         }
     }
