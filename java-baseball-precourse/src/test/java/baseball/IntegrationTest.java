@@ -51,8 +51,8 @@ class IntegrationTest extends NsTest {
             );
         }
 
-        @DisplayName("숫자 야구 입력 시 1-9가 아닌 문자를 입력한 경우")
-        @ValueSource(strings = {"012", "", "   ", "\n\n\n", "NULL", "'''"})
+        @DisplayName("숫자 야구 입력 시 1~9가 아닌 문자를 입력한 경우")
+        @ValueSource(strings = {"012", "", "   ", "\n\n\n", "NULL", "'''", "@#$"})
         @ParameterizedTest
         void InvalidBaseballInput(String input) {
             //given
@@ -63,14 +63,13 @@ class IntegrationTest extends NsTest {
             );
         }
 
-        @DisplayName("정답을 맞힌 후 1이나 2가 아닌 문자를 입력한 경우")
+        @DisplayName("게임 진행 여부 입력 시 1이나 2가 아닌 문자를 입력한 경우")
         @Test
-        void InvalidRerunSignalInput() {
+        void InvalidRestartInput() {
             assertRandomNumberInRangeTest(
-                () -> {
+                () ->
                     assertThatThrownBy(() -> runException("246", "135", "3"))
-                        .isInstanceOf(IllegalArgumentException.class);
-                },
+                        .isInstanceOf(IllegalArgumentException.class),
                 1, 3, 5
             );
         }
