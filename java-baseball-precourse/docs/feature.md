@@ -45,7 +45,8 @@ flowchart TD
   - [X] calculateResult(answer, guess): 정답 숫자와 입력된 숫자를 비교하여 결과를 반환하는 클래스
 
 ### controller
-- [ ] BaseballGameController: 숫자 야구 게임을 시작할 수 있는 클래스
+
+- [X] BaseballGameController: 숫자 야구 게임을 시작할 수 있는 클래스
     - run(): 숫자 야구 게임을 시작하는 메서드
     - getBaseballNumber(): 숫자 입력 문구를 출력하고 사용자에게 숫자를 입력 받는 뷰
     - printResult(BaseballResult): BaseballResult에 따라 결과를 출력하는 뷰
