@@ -1,8 +1,9 @@
 package baseball.domain;
 
-import baseball.constants.BaseballGame;
-
 public class Digit {
+
+    public static final int MIN_DIGIT = 0;
+    public static final int MAX_DIGIT = 9;
 
     private final int value;
 
@@ -13,7 +14,7 @@ public class Digit {
     }
 
     private void checkValidRange(int value) {
-        if (value < BaseballGame.MIN_DIGIT || BaseballGame.MAX_DIGIT < value)
+        if (value < MIN_DIGIT || MAX_DIGIT < value)
             throw new IllegalArgumentException("각 숫자는 0 이상 9 이하여야 합니다.");
     }
 

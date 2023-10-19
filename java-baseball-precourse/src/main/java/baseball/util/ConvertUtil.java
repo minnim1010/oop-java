@@ -1,6 +1,5 @@
 package baseball.util;
 
-import baseball.constants.BaseballGame;
 import baseball.domain.BaseballNumber;
 import baseball.domain.Digit;
 
@@ -15,7 +14,7 @@ public class ConvertUtil {
 
     public static BaseballNumber toBaseballNumber(String baseballNumber) {
         String[] split = baseballNumber.split("");
-        if (split.length != BaseballGame.BASEBALL_NUMBER_LENGTH) {
+        if (split.length != BaseballNumber.BASEBALL_NUMBER_LENGTH) {
             throw new IllegalArgumentException("현재 숫자 개수 %s: 세 개 숫자여야 합니다.");
         }
 

@@ -1,6 +1,5 @@
 package baseball.domain;
 
-import baseball.constants.BaseballGame;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -37,7 +36,7 @@ class BaseballNumberTest {
             //then
             assertThat(baseballNumber).isNotNull();
             assertThat(baseballNumber.getDigits())
-                .hasSize(BaseballGame.BASEBALL_NUMBER_LENGTH)
+                .hasSize(BaseballNumber.BASEBALL_NUMBER_LENGTH)
                 .containsAll(digitList);
         }
 

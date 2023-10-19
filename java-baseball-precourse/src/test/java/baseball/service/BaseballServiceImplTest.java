@@ -1,6 +1,5 @@
 package baseball.service;
 
-import baseball.constants.BaseballGame;
 import baseball.domain.BaseballNumber;
 import baseball.domain.BaseballResult;
 import baseball.domain.BaseballResultType;
@@ -31,7 +30,7 @@ class BaseballServiceImplTest {
 
             //then
             assertThat(baseballNumber).isNotNull();
-            assertThat(baseballNumber.getDigits()).hasSize(BaseballGame.BASEBALL_NUMBER_LENGTH);
+            assertThat(baseballNumber.getDigits()).hasSize(BaseballNumber.BASEBALL_NUMBER_LENGTH);
         }
     }
 

@@ -1,7 +1,5 @@
 package baseball.domain;
 
-import baseball.constants.BaseballGame;
-
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
@@ -32,7 +30,7 @@ public class BaseballResult {
 
     private void checkLength(List<BaseballResultType> resultTypes) {
         int size = resultTypes.size();
-        if (size != BaseballGame.BASEBALL_NUMBER_LENGTH) {
+        if (size != BaseballNumber.BASEBALL_NUMBER_LENGTH) {
             throw new IllegalStateException(
                 String.format("현재 결과값 개수 %d: 결과 값은 3개여야 합니다.", size));
         }
@@ -45,6 +43,6 @@ public class BaseballResult {
     public boolean isCorrect() {
         int strikeCnt = countByType.get(BaseballResultType.STRIKE);
 
-        return (strikeCnt == BaseballGame.BASEBALL_NUMBER_LENGTH);
+        return (strikeCnt == BaseballNumber.BASEBALL_NUMBER_LENGTH);
     }
 }

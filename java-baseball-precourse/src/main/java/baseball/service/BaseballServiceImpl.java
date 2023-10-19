@@ -1,6 +1,5 @@
 package baseball.service;
 
-import baseball.constants.BaseballGame;
 import baseball.domain.BaseballNumber;
 import baseball.domain.BaseballResult;
 import baseball.domain.BaseballResultType;
@@ -30,8 +29,8 @@ public class BaseballServiceImpl implements BaseballService {
     private List<Integer> getUniqueNumbers() {
         List<Integer> uniqueNumbers = new ArrayList<>();
 
-        while (uniqueNumbers.size() < BaseballGame.BASEBALL_NUMBER_LENGTH) {
-            int number = Randoms.pickNumberInRange(BaseballGame.MIN_DIGIT, BaseballGame.MAX_DIGIT);
+        while (uniqueNumbers.size() < BaseballNumber.BASEBALL_NUMBER_LENGTH) {
+            int number = Randoms.pickNumberInRange(Digit.MIN_DIGIT, Digit.MAX_DIGIT);
             if (!uniqueNumbers.contains(number)) {
                 uniqueNumbers.add(number);
             }
