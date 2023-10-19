@@ -116,7 +116,6 @@ class BaseballNumberTest {
             );
         }
 
-
         @DisplayName("올바른 결과를 반환한다.")
         @ParameterizedTest(name = "{0} {1} {2}")
         @MethodSource("getTwoBaseballNumbersAndResult")

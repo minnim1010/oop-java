@@ -29,9 +29,11 @@ class BaseballResultTest {
 
             //then
             assertThat(baseballResult).isNotNull();
-            assertThat(baseballResult.getResult().values())
+            assertThat(baseballResult.getResult())
                 .hasSize(3)
-                .containsExactly(1, 1, 1);
+                .containsEntry(BaseballResultType.NOTHING, 1)
+                .containsEntry(BaseballResultType.BALL, 1)
+                .containsEntry(BaseballResultType.STRIKE, 1);
         }
 
         @DisplayName("숫자 야구 게임의 결과값이 세 개가 아니라면 생성할 수 없다.")
