@@ -24,8 +24,7 @@ public class Baseball {
     private void checkLength(List<Number> numbers) {
         int size = numbers.size();
         if (size != LENGTH)
-            throw new IllegalArgumentException(
-                String.format(WRONG_LENGTH_ERROR_MSG, size));
+            throw new IllegalArgumentException(String.format(WRONG_LENGTH_ERROR_MSG, size));
     }
 
     private void checkUniqueNumbers(List<Number> numbers) {
@@ -53,23 +52,26 @@ public class Baseball {
 
         for (int i = 0; i < LENGTH; i++) {
             Number answerNumber = numbers.get(i);
-            boolean numberMatch = false;
-            boolean positionMatch = false;
+            Number guessNumber = guess.getNumbers().get(i);
 
-            for (int j = 0; j < LENGTH; j++) {
-                Number guessNumber = guess.getNumbers().get(j);
-                if (answerNumber.equals(guessNumber)) {
-                    numberMatch = true;
-                    if (i == j) {
-                        positionMatch = true;
-                    }
-                }
-            }
-            BaseballResultType resultType = BaseballResultType.findBy(numberMatch, positionMatch);
+            BaseballResultType resultType = getMatchResult(answerNumber, guessNumber);
+
             result.add(resultType);
         }
 
         return result;
+    }
+
+    private BaseballResultType getMatchResult(Number answerNumber, Number guessNumber) {
+        BaseballResultType resultType = BaseballResultType.NOTHING;
+
+        if (answerNumber.equals(guessNumber)) {
+            resultType = BaseballResultType.STRIKE;
+        } else if (numbers.contains(guessNumber)) {
+            resultType = BaseballResultType.BALL;
+        }
+
+        return resultType;
     }
 
     @Override
