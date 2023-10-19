@@ -67,11 +67,9 @@ class IntegrationTest extends NsTest {
         @Test
         void InvalidRestartInput() {
             assertRandomNumberInRangeTest(
-                () ->
-                    assertThatThrownBy(() -> runException("246", "135", "3"))
-                        .isInstanceOf(IllegalArgumentException.class),
-                1, 3, 5
-            );
+                () -> assertThatThrownBy(
+                    () -> runException("246", "135", "3"))
+                    .isInstanceOf(IllegalArgumentException.class), 1, 3, 5);
         }
     }
 }
