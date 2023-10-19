@@ -1,17 +1,16 @@
 package baseball.domain;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import java.util.List;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.List;
-import java.util.stream.Stream;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class BaseballResultTest {
 
@@ -59,10 +58,10 @@ class BaseballResultTest {
     }
 
     @Nested
-    @DisplayName("숫자 야구 결과의 정답 여부를 반환할 시")
+    @DisplayName("숫자 야구의 정답을 맞혔는지 판별할 시")
     class isCorrect {
 
-        @DisplayName("정답이라면 참을 반환한다.")
+        @DisplayName("3 strike라면 참을 반환한다.")
         @Test
         void successReturnTrue() {
             //given
@@ -77,7 +76,7 @@ class BaseballResultTest {
             assertThat(result).isTrue();
         }
 
-        @DisplayName("정답이 아니라면 거짓을 반환한다.")
+        @DisplayName("3 strike가 아니라면 거짓을 반환한다.")
         @Test
         void successReturnFalse() {
             //given
@@ -94,7 +93,7 @@ class BaseballResultTest {
     }
 
     @Nested
-    @DisplayName("결과 메시지를 생성 시")
+    @DisplayName("결과 메시지 생성 시")
     class getResultMsg {
 
         static Stream<Arguments> getBaseballResultAndResultMsg() {
@@ -106,7 +105,8 @@ class BaseballResultTest {
                         BaseballResultType.BALL, BaseballResultType.BALL, BaseballResultType.BALL)),
                     "3볼"),
                 Arguments.of(BaseballResult.create(List.of(
-                        BaseballResultType.NOTHING, BaseballResultType.NOTHING, BaseballResultType.NOTHING)),
+                        BaseballResultType.NOTHING, BaseballResultType.NOTHING,
+                        BaseballResultType.NOTHING)),
                     "낫싱")
             );
         }
