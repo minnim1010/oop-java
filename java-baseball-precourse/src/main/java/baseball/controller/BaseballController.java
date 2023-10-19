@@ -3,7 +3,6 @@ package baseball.controller;
 import baseball.constants.Message;
 import baseball.domain.Baseball;
 import baseball.domain.BaseballResult;
-import baseball.domain.BaseballResultType;
 import baseball.service.BaseballService;
 import baseball.service.BaseballServiceImpl;
 import baseball.util.ConvertUtil;
@@ -14,24 +13,25 @@ public class BaseballController {
     private final BaseballService service = new BaseballServiceImpl();
 
     public void run() {
-        boolean isRunning = true;
-
-        while (isRunning) {
+        while (true) {
             Baseball answer = service.createAnswerBaseball();
 
-            Baseball guess = getBaseball();
-            BaseballResult baseballResult = service.calculateResult(answer, guess);
+            while (true) {
+                Baseball guess = getBaseball();
 
-            if (baseballResult.isCorrect()) {
-                IoUtil.outputNewLine(Message.CORRECT_ANSWER);
-                IoUtil.outputNewLine(Message.RESTART_GAME);
-                String input = IoUtil.input();
-                if (input.equals("2")) {
-                    isRunning = false;
+                BaseballResult baseballResult = service.calculateResult(answer, guess);
+                IoUtil.outputNewLine(baseballResult.toString());
+
+                if (baseballResult.isCorrect()) {
+                    break;
                 }
-            } else {
-                String resultMessage = getResultMsg(baseballResult);
-                IoUtil.outputNewLine(resultMessage);
+            }
+
+            IoUtil.outputNewLine(Message.CORRECT_ANSWER);
+            IoUtil.outputNewLine(Message.RESTART_GAME);
+            String input = IoUtil.input();
+            if (input.equals("2")) {
+                break;
             }
         }
     }
@@ -41,30 +41,5 @@ public class BaseballController {
         String input = IoUtil.input();
 
         return ConvertUtil.toBaseball(input);
-    }
-
-    private String getResultMsg(BaseballResult baseballResult) {
-        int ballCnt = baseballResult.getResult()
-            .get(BaseballResultType.BALL);
-        int strikeCnt = baseballResult.getResult()
-            .get(BaseballResultType.STRIKE);
-
-        if (ballCnt == 0 && strikeCnt == 0) {
-            return Message.NOTHING;
-        }
-
-        StringBuilder sb = new StringBuilder();
-
-        if (ballCnt != 0) {
-            sb.append(ballCnt)
-                .append(Message.BALL);
-        }
-
-        if (strikeCnt != 0) {
-            sb.append(strikeCnt)
-                .append(Message.STRIKE);
-        }
-
-        return sb.toString();
     }
 }

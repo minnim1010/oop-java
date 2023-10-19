@@ -1,5 +1,7 @@
 package baseball.domain;
 
+import baseball.constants.Message;
+
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
@@ -44,5 +46,32 @@ public class BaseballResult {
         int strikeCnt = countByType.get(BaseballResultType.STRIKE);
 
         return (strikeCnt == Baseball.LENGTH);
+    }
+
+    @Override
+    public String toString() {
+        int ballCnt = countByType.get(BaseballResultType.BALL);
+        int strikeCnt = countByType.get(BaseballResultType.STRIKE);
+
+        if (ballCnt == 0 && strikeCnt == 0) {
+            return Message.NOTHING;
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        if (ballCnt != 0) {
+            sb.append(ballCnt)
+                .append(Message.BALL);
+        }
+
+        if (strikeCnt != 0) {
+            if (!sb.isEmpty()) {
+                sb.append(" ");
+            }
+            sb.append(strikeCnt)
+                .append(Message.STRIKE);
+        }
+
+        return sb.toString();
     }
 }

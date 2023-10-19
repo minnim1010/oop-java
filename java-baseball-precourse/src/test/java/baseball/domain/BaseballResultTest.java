@@ -3,8 +3,12 @@ package baseball.domain;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -86,6 +90,37 @@ class BaseballResultTest {
 
             //then
             assertThat(result).isFalse();
+        }
+    }
+
+    @Nested
+    @DisplayName("결과 메시지를 생성 시")
+    class getResultMsg {
+
+        static Stream<Arguments> getBaseballResultAndResultMsg() {
+            return Stream.of(
+                Arguments.of(BaseballResult.create(List.of(
+                        BaseballResultType.BALL, BaseballResultType.STRIKE, BaseballResultType.STRIKE)),
+                    "1볼 2스트라이크"),
+                Arguments.of(BaseballResult.create(List.of(
+                        BaseballResultType.BALL, BaseballResultType.BALL, BaseballResultType.BALL)),
+                    "3볼"),
+                Arguments.of(BaseballResult.create(List.of(
+                        BaseballResultType.NOTHING, BaseballResultType.NOTHING, BaseballResultType.NOTHING)),
+                    "낫싱")
+            );
+        }
+
+        @DisplayName("올바른 결과 메시지를 반환한다.")
+        @MethodSource("getBaseballResultAndResultMsg")
+        @ParameterizedTest(name = "입력: {0} 결과: {1}")
+        void success(BaseballResult baseballResult, String expected) {
+            //given
+            //when
+            String result = baseballResult.toString();
+
+            //then
+            assertThat(result).isEqualTo(expected);
         }
     }
 }
