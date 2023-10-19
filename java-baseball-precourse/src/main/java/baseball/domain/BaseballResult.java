@@ -40,4 +40,10 @@ public class BaseballResult {
     public Map<BaseballResultType, Integer> getResult() {
         return new EnumMap<>(result);
     }
+
+    public boolean isCorrect() {
+        int strikeCnt = result.get(BaseballResultType.STRIKE);
+
+        return (strikeCnt == BaseballGame.BASEBALL_NUMBER_LENGTH);
+    }
 }
