@@ -11,9 +11,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class BaseballResultTest {
+
     @Nested
     @DisplayName("숫자 야구 게임의 결과 객체 생성 시")
     class create {
+
         @DisplayName("성공한다.")
         @Test
         void success(){
@@ -56,6 +58,7 @@ class BaseballResultTest {
     @Nested
     @DisplayName("숫자 야구 결과의 정답 여부를 반환할 시")
     class isCorrect {
+
         @DisplayName("정답이라면 참을 반환한다.")
         @Test
         void successReturnTrue() {

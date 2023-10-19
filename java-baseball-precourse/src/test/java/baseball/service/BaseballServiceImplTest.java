@@ -21,9 +21,10 @@ class BaseballServiceImplTest {
     @Nested
     @DisplayName("정답 숫자 야구 생성 시")
     class createRandomBaseballNumber {
+
         @DisplayName("생성한다.")
         @Test
-        void success(){
+        void success() {
             //given
             //when
             BaseballNumber baseballNumber = service.createRandomBaseballNumber();
@@ -37,6 +38,7 @@ class BaseballServiceImplTest {
     @Nested
     @DisplayName("숫자 야구 게임의 결과 계산 시")
     class calculateResult {
+
         @DisplayName("성공한다.")
         @Test
         void test() {

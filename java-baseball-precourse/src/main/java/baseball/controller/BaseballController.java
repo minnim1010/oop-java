@@ -44,8 +44,10 @@ public class BaseballController {
     }
 
     private String getResultMsg(BaseballResult baseballResult) {
-        int ballCnt = baseballResult.getResult().get(BaseballResultType.BALL);
-        int strikeCnt = baseballResult.getResult().get(BaseballResultType.STRIKE);
+        int ballCnt = baseballResult.getResult()
+            .get(BaseballResultType.BALL);
+        int strikeCnt = baseballResult.getResult()
+            .get(BaseballResultType.STRIKE);
 
         if (ballCnt == 0 && strikeCnt == 0) {
             return Message.NOTHING;

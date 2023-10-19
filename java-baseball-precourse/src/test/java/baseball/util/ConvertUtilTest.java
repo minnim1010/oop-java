@@ -57,5 +57,4 @@ class ConvertUtilTest {
                 .isInstanceOf(IllegalArgumentException.class);
         }
     }
-
 }

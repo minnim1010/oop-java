@@ -3,6 +3,7 @@ package baseball.domain;
 import java.util.Arrays;
 
 public enum BaseballResultType {
+
     NOTHING(false, false),
     BALL(true, false),
     STRIKE(true, true);
@@ -19,7 +20,7 @@ public enum BaseballResultType {
         return Arrays.stream(BaseballResultType.values())
             .filter(type -> numberMatch == type.numberMatch && positionMatch == type.positionMatch)
             .findFirst()
-            .orElseThrow(() -> new IllegalStateException(
+            .orElseThrow(() -> new IllegalArgumentException(
                 String.format("숫자 매칭 여부 %s, 위치 매칭 여부 %s: 해당 결과 타입을 찾을 수 없습니다.",
                     numberMatch, positionMatch)));
     }

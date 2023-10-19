@@ -6,6 +6,9 @@ import java.util.*;
 
 public class BaseballNumber {
 
+    private static final String WRONG_LENGTH_ERROR_MSG = "현재 길이 %d: 숫자 야구는 세 개의 숫자로 구성 되어야 합니다.";
+    private static final String DUPLICATION_ERROR_MSG = "중복 숫자 %d: 숫자 야구의 숫자들은 서로 달라야 합니다.";
+
     private final List<Digit> digits;
 
     private BaseballNumber(List<Digit> digits) {
@@ -22,22 +25,22 @@ public class BaseballNumber {
         int size = digits.size();
         if (size != BaseballGame.BASEBALL_NUMBER_LENGTH)
             throw new IllegalStateException(
-                String.format("현재 길이 %d: 숫자 야구는 세 개의 숫자로 구성 되어야 합니다.", size));
+                String.format(WRONG_LENGTH_ERROR_MSG, size));
     }
 
     private void checkUniqueDigits(List<Digit> digits) {
         Set<Integer> exists = new HashSet<>();
 
         for (Digit digit : digits) {
-            checkDuplicated(digit, exists);
+            checkDuplicated(exists, digit);
         }
     }
 
-    private void checkDuplicated(Digit digit, Set<Integer> exists) {
+    private void checkDuplicated(Set<Integer> exists, Digit digit) {
         int value = digit.getValue();
         if (exists.contains(value)) {
             throw new IllegalStateException(
-                String.format("중복 숫자 %d: 숫자 야구의 숫자들은 서로 달라야 합니다.", value));
+                String.format(DUPLICATION_ERROR_MSG, value));
         }
         exists.add(value);
     }

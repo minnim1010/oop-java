@@ -12,6 +12,7 @@ class DigitTest {
     @Nested
     @DisplayName("숫자 야구의 숫자 하나 생성 시")
     class create {
+
         @DisplayName("생성에 성공한다.")
         @Test
         void success(){

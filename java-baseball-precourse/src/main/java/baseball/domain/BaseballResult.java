@@ -8,14 +8,15 @@ import java.util.List;
 import java.util.Map;
 
 public class BaseballResult {
-    private final EnumMap<BaseballResultType, Integer> result =
+
+    private final EnumMap<BaseballResultType, Integer> countByType =
         new EnumMap<>(BaseballResultType.class);
 
     private BaseballResult(List<BaseballResultType> resultTypes) {
         checkLength(resultTypes);
 
         Arrays.stream(BaseballResultType.values())
-            .forEach(type -> result.put(type, 0));
+            .forEach(type -> countByType.put(type, 0));
 
         resultTypes.forEach(this::increase);
     }
@@ -25,8 +26,8 @@ public class BaseballResult {
     }
 
     private void increase(BaseballResultType type) {
-        int increasedNum = result.get(type) + 1;
-        result.put(type, increasedNum);
+        int increasedNum = countByType.get(type) + 1;
+        countByType.put(type, increasedNum);
     }
 
     private void checkLength(List<BaseballResultType> resultTypes) {
@@ -38,11 +39,11 @@ public class BaseballResult {
     }
 
     public Map<BaseballResultType, Integer> getResult() {
-        return new EnumMap<>(result);
+        return new EnumMap<>(countByType);
     }
 
     public boolean isCorrect() {
-        int strikeCnt = result.get(BaseballResultType.STRIKE);
+        int strikeCnt = countByType.get(BaseballResultType.STRIKE);
 
         return (strikeCnt == BaseballGame.BASEBALL_NUMBER_LENGTH);
     }
