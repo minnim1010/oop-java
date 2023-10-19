@@ -10,29 +10,51 @@ import baseball.util.IoUtil;
 
 public class BaseballController {
 
+    private static final String RESTART = "1";
+    private static final String EXIT = "2";
+    private static final String WRONG_INPUT_ERROR_MSG = "올바르지 않은 입력입니다. 1 또는 2를 입력해주세요.";
+
     private final BaseballService service = new BaseballServiceImpl();
 
+    private static void printClearMsg() {
+        IoUtil.outputNewLine(Message.CORRECT_ANSWER);
+    }
+
+    private static boolean checkRerun() {
+        IoUtil.outputNewLine(Message.RESTART_GAME);
+        String input = IoUtil.input();
+
+        if (!(input.equals(RESTART) || input.equals(EXIT))) {
+            throw new IllegalArgumentException(WRONG_INPUT_ERROR_MSG);
+        }
+
+        return input.equals(RESTART);
+    }
+
     public void run() {
-        while (true) {
+        boolean willRun = true;
+
+        while (willRun) {
             Baseball answer = service.createAnswerBaseball();
 
-            while (true) {
-                Baseball guess = getBaseball();
+            guessAnswer(answer);
 
-                BaseballResult baseballResult = service.calculateResult(answer, guess);
-                IoUtil.outputNewLine(baseballResult.toString());
+            printClearMsg();
 
-                if (baseballResult.isCorrect()) {
-                    break;
-                }
-            }
+            willRun = checkRerun();
+        }
+    }
 
-            IoUtil.outputNewLine(Message.CORRECT_ANSWER);
-            IoUtil.outputNewLine(Message.RESTART_GAME);
-            String input = IoUtil.input();
-            if (input.equals("2")) {
-                break;
-            }
+    private void guessAnswer(Baseball answer) {
+        boolean guessedAnswer = false;
+
+        while (!guessedAnswer) {
+            Baseball guess = getBaseball();
+
+            BaseballResult baseballResult = service.calculateResult(answer, guess);
+            IoUtil.outputNewLine(baseballResult.toString());
+
+            guessedAnswer = baseballResult.isCorrect();
         }
     }
 
