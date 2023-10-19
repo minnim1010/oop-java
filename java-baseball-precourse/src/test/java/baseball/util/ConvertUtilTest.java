@@ -25,7 +25,7 @@ class ConvertUtilTest {
             return Stream.of(
                 Arguments.of("123", 1, 2, 3),
                 Arguments.of("234", 2, 3, 4),
-                Arguments.of("054", 0, 5, 4),
+                Arguments.of("854", 8, 5, 4),
                 Arguments.of("946", 9, 4, 6)
             );
         }

@@ -17,7 +17,7 @@ class BaseballResultTest {
 
         @DisplayName("성공한다.")
         @Test
-        void success(){
+        void success() {
             //given
             List<BaseballResultType> typeList = List.of(
                 BaseballResultType.BALL,
@@ -39,7 +39,7 @@ class BaseballResultTest {
 
         @DisplayName("숫자 야구 게임의 결과값이 세 개가 아니라면 생성할 수 없다.")
         @Test
-        void fail_invalidInputLength(){
+        void fail_invalidInputLength() {
             //given
             List<BaseballResultType> typeList = List.of(
                 BaseballResultType.BALL,
@@ -50,7 +50,7 @@ class BaseballResultTest {
             //when then
             assertThatThrownBy(
                 () -> BaseballResult.create(typeList))
-                .isInstanceOf(IllegalStateException.class);
+                .isInstanceOf(IllegalArgumentException.class);
         }
     }
 

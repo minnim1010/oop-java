@@ -29,7 +29,7 @@ class BaseballServiceImplTest {
 
             //then
             assertThat(baseballNumber).isNotNull();
-            assertThat(baseballNumber.getDigits()).hasSize(BaseballNumber.BASEBALL_NUMBER_LENGTH);
+            assertThat(baseballNumber.getDigits()).hasSize(BaseballNumber.LENGTH);
         }
     }
 

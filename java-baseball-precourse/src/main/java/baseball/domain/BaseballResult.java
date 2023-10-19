@@ -7,14 +7,15 @@ import java.util.Map;
 
 public class BaseballResult {
 
+    private static final String WRONG_LENGTH_ERROR_MSG = "현재 결과값 개수 %d: 결과 값은 3개여야 합니다.";
+
     private final EnumMap<BaseballResultType, Integer> countByType =
         new EnumMap<>(BaseballResultType.class);
 
     private BaseballResult(List<BaseballResultType> resultTypes) {
         checkLength(resultTypes);
 
-        Arrays.stream(BaseballResultType.values())
-            .forEach(type -> countByType.put(type, 0));
+        Arrays.stream(BaseballResultType.values()).forEach(type -> countByType.put(type, 0));
 
         resultTypes.forEach(this::increase);
     }
@@ -30,9 +31,8 @@ public class BaseballResult {
 
     private void checkLength(List<BaseballResultType> resultTypes) {
         int size = resultTypes.size();
-        if (size != BaseballNumber.BASEBALL_NUMBER_LENGTH) {
-            throw new IllegalStateException(
-                String.format("현재 결과값 개수 %d: 결과 값은 3개여야 합니다.", size));
+        if (size != BaseballNumber.LENGTH) {
+            throw new IllegalArgumentException(String.format(WRONG_LENGTH_ERROR_MSG, size));
         }
     }
 
@@ -43,6 +43,6 @@ public class BaseballResult {
     public boolean isCorrect() {
         int strikeCnt = countByType.get(BaseballResultType.STRIKE);
 
-        return (strikeCnt == BaseballNumber.BASEBALL_NUMBER_LENGTH);
+        return (strikeCnt == BaseballNumber.LENGTH);
     }
 }

@@ -15,9 +15,9 @@ class DigitTest {
 
         @DisplayName("생성에 성공한다.")
         @Test
-        void success(){
+        void success() {
             //given
-            int num = 0;
+            int num = 1;
 
             //when
             Digit digit = new Digit(num);
@@ -27,11 +27,11 @@ class DigitTest {
             assertThat(digit.getValue()).isEqualTo(num);
         }
 
-        @DisplayName("값이 0 미만이라면 생성할 수 없다.")
+        @DisplayName("값이 1 미만이라면 생성할 수 없다.")
         @Test
-        void fail_LowerThanRange(){
+        void fail_LowerThanRange() {
             //given
-            int num = -1;
+            int num = 0;
 
             //when then
             assertThatThrownBy(() -> new Digit(num))
@@ -40,7 +40,7 @@ class DigitTest {
 
         @DisplayName("값이 9 초과라면 생성할 수 없다.")
         @Test
-        void fail_HigherThanRange(){
+        void fail_HigherThanRange() {
             //given
             int num = 10;
 

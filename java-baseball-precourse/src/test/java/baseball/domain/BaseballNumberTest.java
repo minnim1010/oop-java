@@ -32,25 +32,25 @@ class BaseballNumberTest {
             //then
             assertThat(baseballNumber).isNotNull();
             assertThat(baseballNumber.getDigits())
-                .hasSize(BaseballNumber.BASEBALL_NUMBER_LENGTH)
+                .hasSize(BaseballNumber.LENGTH)
                 .containsAll(digitList);
         }
 
         @DisplayName("숫자가 세 개 미만으로 주어진다면 생성할 수 없다.")
         @Test
-        void fail_ShortLength(){
+        void fail_ShortLength() {
             //given
             List<Digit> digitList = List.of(new Digit(1), new Digit(2));
 
             //when then
             assertThatThrownBy(
                 () -> BaseballNumber.create(digitList))
-                .isInstanceOf(IllegalStateException.class);
+                .isInstanceOf(IllegalArgumentException.class);
         }
 
         @DisplayName("숫자가 세 개 초과로 주어진다면 생성할 수 없다.")
         @Test
-        void fail_LongLength(){
+        void fail_LongLength() {
             //given
             List<Digit> digitList = List.of(
                 new Digit(1), new Digit(2), new Digit(3), new Digit(4));
@@ -58,12 +58,12 @@ class BaseballNumberTest {
             //when then
             assertThatThrownBy(
                 () -> BaseballNumber.create(digitList))
-                .isInstanceOf(IllegalStateException.class);
+                .isInstanceOf(IllegalArgumentException.class);
         }
 
         @DisplayName("숫자가 중복된다면 생성할 수 없다.")
         @Test
-        void test(){
+        void test() {
             //given
             List<Digit> digitList = List.of(
                 new Digit(1), new Digit(2), new Digit(2));
@@ -71,7 +71,7 @@ class BaseballNumberTest {
             //when then
             assertThatThrownBy(
                 () -> BaseballNumber.create(digitList))
-                .isInstanceOf(IllegalStateException.class);
+                .isInstanceOf(IllegalArgumentException.class);
         }
     }
 

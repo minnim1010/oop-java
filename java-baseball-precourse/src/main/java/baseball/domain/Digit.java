@@ -2,8 +2,11 @@ package baseball.domain;
 
 public class Digit {
 
-    public static final int MIN_DIGIT = 0;
-    public static final int MAX_DIGIT = 9;
+    public static final int MIN = 1;
+    public static final int MAX = 9;
+
+    private static final String WRONG_RANGE_ERROR_MSG =
+        "각 숫자는 " + MIN + " 이상 " + MAX + " 이하여야 합니다.";
 
     private final int value;
 
@@ -14,8 +17,8 @@ public class Digit {
     }
 
     private void checkValidRange(int value) {
-        if (value < MIN_DIGIT || MAX_DIGIT < value)
-            throw new IllegalArgumentException("각 숫자는 0 이상 9 이하여야 합니다.");
+        if (value < MIN || MAX < value)
+            throw new IllegalArgumentException(WRONG_RANGE_ERROR_MSG);
     }
 
     public int getValue() {

@@ -28,8 +28,8 @@ public class BaseballServiceImpl implements BaseballService {
     private List<Integer> getUniqueNumbers() {
         List<Integer> uniqueNumbers = new ArrayList<>();
 
-        while (uniqueNumbers.size() < BaseballNumber.BASEBALL_NUMBER_LENGTH) {
-            int number = Randoms.pickNumberInRange(Digit.MIN_DIGIT, Digit.MAX_DIGIT);
+        while (uniqueNumbers.size() < BaseballNumber.LENGTH) {
+            int number = Randoms.pickNumberInRange(Digit.MIN, Digit.MAX);
             if (!uniqueNumbers.contains(number)) {
                 uniqueNumbers.add(number);
             }

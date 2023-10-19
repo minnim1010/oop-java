@@ -8,6 +8,9 @@ public enum BaseballResultType {
     BALL(true, false),
     STRIKE(true, true);
 
+    private static final String INVALID_TYPE_ERROR_MSG =
+        "숫자 매칭 여부 %s, 위치 매칭 여부 %s: 해당 결과 타입을 찾을 수 없습니다.";
+
     private final boolean numberMatch;
     private final boolean positionMatch;
 
@@ -17,11 +20,10 @@ public enum BaseballResultType {
     }
 
     public static BaseballResultType findBy(boolean numberMatch, boolean positionMatch) {
-        return Arrays.stream(BaseballResultType.values())
-            .filter(type -> numberMatch == type.numberMatch && positionMatch == type.positionMatch)
+        return Arrays.stream(BaseballResultType.values()).
+            filter(type -> (numberMatch == type.numberMatch) && (positionMatch == type.positionMatch))
             .findFirst()
             .orElseThrow(() -> new IllegalArgumentException(
-                String.format("숫자 매칭 여부 %s, 위치 매칭 여부 %s: 해당 결과 타입을 찾을 수 없습니다.",
-                    numberMatch, positionMatch)));
+                String.format(INVALID_TYPE_ERROR_MSG, numberMatch, positionMatch)));
     }
 }

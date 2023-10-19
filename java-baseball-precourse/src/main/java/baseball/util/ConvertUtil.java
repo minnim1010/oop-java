@@ -13,9 +13,6 @@ public class ConvertUtil {
 
     public static BaseballNumber toBaseballNumber(String baseballNumber) {
         String[] split = baseballNumber.split("");
-        if (split.length != BaseballNumber.BASEBALL_NUMBER_LENGTH) {
-            throw new IllegalArgumentException("현재 숫자 개수 %s: 세 개 숫자여야 합니다.");
-        }
 
         List<Digit> digits = Arrays.stream(split)
             .map(Integer::valueOf)
