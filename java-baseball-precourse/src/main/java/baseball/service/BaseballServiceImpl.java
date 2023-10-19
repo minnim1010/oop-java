@@ -1,45 +1,38 @@
 package baseball.service;
 
-import baseball.domain.BaseballNumber;
+import baseball.domain.Baseball;
 import baseball.domain.BaseballResult;
 import baseball.domain.BaseballResultType;
-import baseball.domain.Digit;
+import baseball.domain.Number;
 import camp.nextstep.edu.missionutils.Randoms;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class BaseballServiceImpl implements BaseballService {
 
     @Override
-    public BaseballNumber createRandomBaseballNumber() {
-        List<Integer> uniqueNumbers = getUniqueNumbers();
-        List<Digit> uniqueDigits = convertToDigits(uniqueNumbers);
-
-        return BaseballNumber.create(uniqueDigits);
+    public Baseball createAnswerBaseball() {
+        List<Number> uniqueNumbers = getUniqueNumbers();
+        return Baseball.create(uniqueNumbers);
     }
 
-    private List<Digit> convertToDigits(List<Integer> uniqueNumbers) {
+    private List<Number> getUniqueNumbers() {
+        Set<Integer> uniqueNumbers = new HashSet<>();
+
+        while (uniqueNumbers.size() < Baseball.LENGTH) {
+            int number = Randoms.pickNumberInRange(Number.MIN, Number.MAX);
+            uniqueNumbers.add(number);
+        }
+
         return uniqueNumbers.stream()
-            .map(Digit::new)
+            .map(Number::new)
             .toList();
     }
 
-    private List<Integer> getUniqueNumbers() {
-        List<Integer> uniqueNumbers = new ArrayList<>();
-
-        while (uniqueNumbers.size() < BaseballNumber.LENGTH) {
-            int number = Randoms.pickNumberInRange(Digit.MIN, Digit.MAX);
-            if (!uniqueNumbers.contains(number)) {
-                uniqueNumbers.add(number);
-            }
-        }
-
-        return uniqueNumbers;
-    }
-
     @Override
-    public BaseballResult calculateResult(BaseballNumber answer, BaseballNumber guess) {
+    public BaseballResult calculateResult(Baseball answer, Baseball guess) {
         List<BaseballResultType> resultTypeList = answer.match(guess);
         return BaseballResult.create(resultTypeList);
     }

@@ -1,6 +1,6 @@
 package baseball.domain;
 
-public class Digit {
+public class Number {
 
     public static final int MIN = 1;
     public static final int MAX = 9;
@@ -10,7 +10,7 @@ public class Digit {
 
     private final int value;
 
-    public Digit(int value) {
+    public Number(int value) {
         checkValidRange(value);
 
         this.value = value;
@@ -30,9 +30,9 @@ public class Digit {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Digit digit = (Digit) o;
+        Number number = (Number) o;
 
-        return value == digit.value;
+        return value == number.value;
     }
 
     @Override

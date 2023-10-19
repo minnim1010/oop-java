@@ -1,11 +1,11 @@
 package baseball.service;
 
-import baseball.domain.BaseballNumber;
+import baseball.domain.Baseball;
 import baseball.domain.BaseballResult;
 
 public interface BaseballService {
 
-    BaseballNumber createRandomBaseballNumber();
+    Baseball createAnswerBaseball();
 
-    BaseballResult calculateResult(BaseballNumber answer, BaseballNumber guess);
+    BaseballResult calculateResult(Baseball answer, Baseball guess);
 }

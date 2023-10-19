@@ -31,7 +31,7 @@ public class BaseballResult {
 
     private void checkLength(List<BaseballResultType> resultTypes) {
         int size = resultTypes.size();
-        if (size != BaseballNumber.LENGTH) {
+        if (size != Baseball.LENGTH) {
             throw new IllegalArgumentException(String.format(WRONG_LENGTH_ERROR_MSG, size));
         }
     }
@@ -43,6 +43,6 @@ public class BaseballResult {
     public boolean isCorrect() {
         int strikeCnt = countByType.get(BaseballResultType.STRIKE);
 
-        return (strikeCnt == BaseballNumber.LENGTH);
+        return (strikeCnt == Baseball.LENGTH);
     }
 }

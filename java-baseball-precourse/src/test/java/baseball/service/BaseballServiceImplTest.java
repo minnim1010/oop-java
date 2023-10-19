@@ -1,9 +1,9 @@
 package baseball.service;
 
-import baseball.domain.BaseballNumber;
+import baseball.domain.Baseball;
 import baseball.domain.BaseballResult;
 import baseball.domain.BaseballResultType;
-import baseball.domain.Digit;
+import baseball.domain.Number;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -18,18 +18,18 @@ class BaseballServiceImplTest {
 
     @Nested
     @DisplayName("정답 숫자 야구 생성 시")
-    class createRandomBaseballNumber {
+    class createRandomBaseball {
 
         @DisplayName("생성한다.")
         @Test
         void success() {
             //given
             //when
-            BaseballNumber baseballNumber = service.createRandomBaseballNumber();
+            Baseball baseball = service.createAnswerBaseball();
 
             //then
-            assertThat(baseballNumber).isNotNull();
-            assertThat(baseballNumber.getDigits()).hasSize(BaseballNumber.LENGTH);
+            assertThat(baseball).isNotNull();
+            assertThat(baseball.getNumbers()).hasSize(Baseball.LENGTH);
         }
     }
 
@@ -41,14 +41,14 @@ class BaseballServiceImplTest {
         @Test
         void test() {
             //given
-            List<Digit> answerDigits = List.of(
-                new Digit(1), new Digit(2), new Digit(3));
+            List<Number> answerNumbers = List.of(
+                new Number(1), new Number(2), new Number(3));
 
-            List<Digit> guessDigits = List.of(
-                new Digit(3), new Digit(4), new Digit(5));
+            List<Number> guessNumbers = List.of(
+                new Number(3), new Number(4), new Number(5));
 
-            BaseballNumber answer = BaseballNumber.create(answerDigits);
-            BaseballNumber guess = BaseballNumber.create(guessDigits);
+            Baseball answer = Baseball.create(answerNumbers);
+            Baseball guess = Baseball.create(guessNumbers);
 
             //when
             BaseballResult result = service.calculateResult(answer, guess);

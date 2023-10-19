@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class BaseballNumberTest {
+class BaseballTest {
 
     @Nested
     @DisplayName("숫자 야구의 게임에 사용되는 세 숫자 생성 시")
@@ -22,29 +22,29 @@ class BaseballNumberTest {
         @Test
         void success() {
             //given
-            List<Digit> digitList = List.of(
-                new Digit(1), new Digit(2), new Digit(3));
+            List<Number> numberList = List.of(
+                new Number(1), new Number(2), new Number(3));
 
             //when
-            BaseballNumber baseballNumber =
-                BaseballNumber.create(digitList);
+            Baseball baseball =
+                Baseball.create(numberList);
 
             //then
-            assertThat(baseballNumber).isNotNull();
-            assertThat(baseballNumber.getDigits())
-                .hasSize(BaseballNumber.LENGTH)
-                .containsAll(digitList);
+            assertThat(baseball).isNotNull();
+            assertThat(baseball.getNumbers())
+                .hasSize(Baseball.LENGTH)
+                .containsAll(numberList);
         }
 
         @DisplayName("숫자가 세 개 미만으로 주어진다면 생성할 수 없다.")
         @Test
         void fail_ShortLength() {
             //given
-            List<Digit> digitList = List.of(new Digit(1), new Digit(2));
+            List<Number> numberList = List.of(new Number(1), new Number(2));
 
             //when then
             assertThatThrownBy(
-                () -> BaseballNumber.create(digitList))
+                () -> Baseball.create(numberList))
                 .isInstanceOf(IllegalArgumentException.class);
         }
 
@@ -52,12 +52,12 @@ class BaseballNumberTest {
         @Test
         void fail_LongLength() {
             //given
-            List<Digit> digitList = List.of(
-                new Digit(1), new Digit(2), new Digit(3), new Digit(4));
+            List<Number> numberList = List.of(
+                new Number(1), new Number(2), new Number(3), new Number(4));
 
             //when then
             assertThatThrownBy(
-                () -> BaseballNumber.create(digitList))
+                () -> Baseball.create(numberList))
                 .isInstanceOf(IllegalArgumentException.class);
         }
 
@@ -65,12 +65,12 @@ class BaseballNumberTest {
         @Test
         void test() {
             //given
-            List<Digit> digitList = List.of(
-                new Digit(1), new Digit(2), new Digit(2));
+            List<Number> numberList = List.of(
+                new Number(1), new Number(2), new Number(2));
 
             //when then
             assertThatThrownBy(
-                () -> BaseballNumber.create(digitList))
+                () -> Baseball.create(numberList))
                 .isInstanceOf(IllegalArgumentException.class);
         }
     }
@@ -79,35 +79,35 @@ class BaseballNumberTest {
     @DisplayName("숫자 야구 2개를 비교할 시")
     class match {
 
-        static Stream<Arguments> getTwoBaseballNumbersAndResult() {
+        static Stream<Arguments> getTwoBaseballsAndResult() {
             return Stream.of(
                 Arguments.of(
-                    BaseballNumber.create(List.of(new Digit(1), new Digit(2), new Digit(3))),
-                    BaseballNumber.create(List.of(new Digit(1), new Digit(2), new Digit(3))),
+                    Baseball.create(List.of(new Number(1), new Number(2), new Number(3))),
+                    Baseball.create(List.of(new Number(1), new Number(2), new Number(3))),
                     List.of(BaseballResultType.STRIKE, BaseballResultType.STRIKE, BaseballResultType.STRIKE)),
                 Arguments.of(
-                    BaseballNumber.create(List.of(new Digit(4), new Digit(2), new Digit(5))),
-                    BaseballNumber.create(List.of(new Digit(2), new Digit(5), new Digit(4))),
+                    Baseball.create(List.of(new Number(4), new Number(2), new Number(5))),
+                    Baseball.create(List.of(new Number(2), new Number(5), new Number(4))),
                     List.of(BaseballResultType.BALL, BaseballResultType.BALL, BaseballResultType.BALL)),
                 Arguments.of(
-                    BaseballNumber.create(List.of(new Digit(6), new Digit(8), new Digit(9))),
-                    BaseballNumber.create(List.of(new Digit(2), new Digit(3), new Digit(9))),
+                    Baseball.create(List.of(new Number(6), new Number(8), new Number(9))),
+                    Baseball.create(List.of(new Number(2), new Number(3), new Number(9))),
                     List.of(BaseballResultType.NOTHING, BaseballResultType.NOTHING, BaseballResultType.STRIKE)),
                 Arguments.of(
-                    BaseballNumber.create(List.of(new Digit(1), new Digit(2), new Digit(4))),
-                    BaseballNumber.create(List.of(new Digit(3), new Digit(4), new Digit(2))),
+                    Baseball.create(List.of(new Number(1), new Number(2), new Number(4))),
+                    Baseball.create(List.of(new Number(3), new Number(4), new Number(2))),
                     List.of(BaseballResultType.NOTHING, BaseballResultType.BALL, BaseballResultType.BALL)),
                 Arguments.of(
-                    BaseballNumber.create(List.of(new Digit(3), new Digit(2), new Digit(1))),
-                    BaseballNumber.create(List.of(new Digit(1), new Digit(2), new Digit(3))),
+                    Baseball.create(List.of(new Number(3), new Number(2), new Number(1))),
+                    Baseball.create(List.of(new Number(1), new Number(2), new Number(3))),
                     List.of(BaseballResultType.BALL, BaseballResultType.STRIKE, BaseballResultType.BALL))
             );
         }
 
         @DisplayName("올바른 결과를 반환한다.")
         @ParameterizedTest(name = "{0} {1} {2}")
-        @MethodSource("getTwoBaseballNumbersAndResult")
-        void success(BaseballNumber answer, BaseballNumber guess, List<BaseballResultType> expected) {
+        @MethodSource("getTwoBaseballsAndResult")
+        void success(Baseball answer, Baseball guess, List<BaseballResultType> expected) {
             //given
             //when
             List<BaseballResultType> result = answer.match(guess);

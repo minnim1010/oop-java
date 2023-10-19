@@ -1,7 +1,7 @@
 package baseball.controller;
 
 import baseball.constants.Message;
-import baseball.domain.BaseballNumber;
+import baseball.domain.Baseball;
 import baseball.domain.BaseballResult;
 import baseball.domain.BaseballResultType;
 import baseball.service.BaseballService;
@@ -17,9 +17,9 @@ public class BaseballController {
         boolean isRunning = true;
 
         while (isRunning) {
-            BaseballNumber answer = service.createRandomBaseballNumber();
+            Baseball answer = service.createAnswerBaseball();
 
-            BaseballNumber guess = getBaseballNumber();
+            Baseball guess = getBaseball();
             BaseballResult baseballResult = service.calculateResult(answer, guess);
 
             if (baseballResult.isCorrect()) {
@@ -36,11 +36,11 @@ public class BaseballController {
         }
     }
 
-    private BaseballNumber getBaseballNumber() {
+    private Baseball getBaseball() {
         IoUtil.output(Message.INPUT_BASEBALL_NUMBER);
         String input = IoUtil.input();
 
-        return ConvertUtil.toBaseballNumber(input);
+        return ConvertUtil.toBaseball(input);
     }
 
     private String getResultMsg(BaseballResult baseballResult) {

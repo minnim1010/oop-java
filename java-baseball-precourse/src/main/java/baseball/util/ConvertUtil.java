@@ -1,7 +1,7 @@
 package baseball.util;
 
-import baseball.domain.BaseballNumber;
-import baseball.domain.Digit;
+import baseball.domain.Baseball;
+import baseball.domain.Number;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,14 +11,14 @@ public class ConvertUtil {
     private ConvertUtil() {
     }
 
-    public static BaseballNumber toBaseballNumber(String baseballNumber) {
-        String[] split = baseballNumber.split("");
+    public static Baseball toBaseball(String baseball) {
+        String[] split = baseball.split("");
 
-        List<Digit> digits = Arrays.stream(split)
+        List<Number> numbers = Arrays.stream(split)
             .map(Integer::valueOf)
-            .map(Digit::new)
+            .map(Number::new)
             .toList();
 
-        return BaseballNumber.create(digits);
+        return Baseball.create(numbers);
     }
 }

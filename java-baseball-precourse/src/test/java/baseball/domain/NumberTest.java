@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class DigitTest {
+class NumberTest {
 
     @Nested
     @DisplayName("숫자 야구의 숫자 하나 생성 시")
@@ -20,11 +20,11 @@ class DigitTest {
             int num = 1;
 
             //when
-            Digit digit = new Digit(num);
+            Number number = new Number(num);
 
             //then
-            assertThat(digit).isNotNull();
-            assertThat(digit.getValue()).isEqualTo(num);
+            assertThat(number).isNotNull();
+            assertThat(number.getValue()).isEqualTo(num);
         }
 
         @DisplayName("값이 1 미만이라면 생성할 수 없다.")
@@ -34,7 +34,7 @@ class DigitTest {
             int num = 0;
 
             //when then
-            assertThatThrownBy(() -> new Digit(num))
+            assertThatThrownBy(() -> new Number(num))
                 .isInstanceOf(IllegalArgumentException.class);
         }
 
@@ -45,7 +45,7 @@ class DigitTest {
             int num = 10;
 
             //when then
-            assertThatThrownBy(() -> new Digit(num))
+            assertThatThrownBy(() -> new Number(num))
                 .isInstanceOf(IllegalArgumentException.class);
         }
     }
