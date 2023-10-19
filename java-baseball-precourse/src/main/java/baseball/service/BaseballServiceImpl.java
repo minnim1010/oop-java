@@ -8,7 +8,6 @@ import camp.nextstep.edu.missionutils.Randoms;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class BaseballServiceImpl implements BaseballService {
 
@@ -23,7 +22,7 @@ public class BaseballServiceImpl implements BaseballService {
     private List<Digit> convertToDigits(List<Integer> uniqueNumbers) {
         return uniqueNumbers.stream()
             .map(Digit::new)
-            .collect(Collectors.toList());
+            .toList();
     }
 
     private List<Integer> getUniqueNumbers() {

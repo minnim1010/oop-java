@@ -5,7 +5,6 @@ import baseball.domain.Digit;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ConvertUtil {
 
@@ -21,7 +20,7 @@ public class ConvertUtil {
         List<Digit> digits = Arrays.stream(split)
             .map(Integer::valueOf)
             .map(Digit::new)
-            .collect(Collectors.toList());
+            .toList();
 
         return BaseballNumber.create(digits);
     }

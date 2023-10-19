@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,10 +19,10 @@ class BaseballResultTest {
         @Test
         void success(){
             //given
-            List<BaseballResultType> typeList = new ArrayList<>();
-            typeList.add(BaseballResultType.BALL);
-            typeList.add(BaseballResultType.STRIKE);
-            typeList.add(BaseballResultType.NOTHING);
+            List<BaseballResultType> typeList = List.of(
+                BaseballResultType.BALL,
+                BaseballResultType.STRIKE,
+                BaseballResultType.NOTHING);
 
             //when
             BaseballResult baseballResult =
@@ -42,11 +41,11 @@ class BaseballResultTest {
         @Test
         void fail_invalidInputLength(){
             //given
-            List<BaseballResultType> typeList = new ArrayList<>();
-            typeList.add(BaseballResultType.BALL);
-            typeList.add(BaseballResultType.STRIKE);
-            typeList.add(BaseballResultType.NOTHING);
-            typeList.add(BaseballResultType.NOTHING);
+            List<BaseballResultType> typeList = List.of(
+                BaseballResultType.BALL,
+                BaseballResultType.STRIKE,
+                BaseballResultType.NOTHING,
+                BaseballResultType.NOTHING);
 
             //when then
             assertThatThrownBy(
@@ -63,11 +62,8 @@ class BaseballResultTest {
         @Test
         void successReturnTrue() {
             //given
-            List<BaseballResultType> typeList = new ArrayList<>();
-            typeList.add(BaseballResultType.STRIKE);
-            typeList.add(BaseballResultType.STRIKE);
-            typeList.add(BaseballResultType.STRIKE);
-
+            List<BaseballResultType> typeList = List.of(
+                BaseballResultType.STRIKE, BaseballResultType.STRIKE, BaseballResultType.STRIKE);
             BaseballResult baseballResult = BaseballResult.create(typeList);
 
             //when
@@ -81,11 +77,8 @@ class BaseballResultTest {
         @Test
         void successReturnFalse() {
             //given
-            List<BaseballResultType> typeList = new ArrayList<>();
-            typeList.add(BaseballResultType.BALL);
-            typeList.add(BaseballResultType.STRIKE);
-            typeList.add(BaseballResultType.STRIKE);
-
+            List<BaseballResultType> typeList = List.of(
+                BaseballResultType.BALL, BaseballResultType.STRIKE, BaseballResultType.STRIKE);
             BaseballResult baseballResult = BaseballResult.create(typeList);
 
             //when

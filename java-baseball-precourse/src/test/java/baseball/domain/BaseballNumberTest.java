@@ -7,8 +7,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -24,10 +22,8 @@ class BaseballNumberTest {
         @Test
         void success() {
             //given
-            List<Digit> digitList = new ArrayList<>();
-            digitList.add(new Digit(1));
-            digitList.add(new Digit(2));
-            digitList.add(new Digit(3));
+            List<Digit> digitList = List.of(
+                new Digit(1), new Digit(2), new Digit(3));
 
             //when
             BaseballNumber baseballNumber =
@@ -44,9 +40,7 @@ class BaseballNumberTest {
         @Test
         void fail_ShortLength(){
             //given
-            List<Digit> digitList = new ArrayList<>();
-            digitList.add(new Digit(1));
-            digitList.add(new Digit(2));
+            List<Digit> digitList = List.of(new Digit(1), new Digit(2));
 
             //when then
             assertThatThrownBy(
@@ -58,11 +52,8 @@ class BaseballNumberTest {
         @Test
         void fail_LongLength(){
             //given
-            List<Digit> digitList = new ArrayList<>();
-            digitList.add(new Digit(1));
-            digitList.add(new Digit(2));
-            digitList.add(new Digit(3));
-            digitList.add(new Digit(4));
+            List<Digit> digitList = List.of(
+                new Digit(1), new Digit(2), new Digit(3), new Digit(4));
 
             //when then
             assertThatThrownBy(
@@ -74,10 +65,8 @@ class BaseballNumberTest {
         @Test
         void test(){
             //given
-            List<Digit> digitList = new ArrayList<>();
-            digitList.add(new Digit(1));
-            digitList.add(new Digit(2));
-            digitList.add(new Digit(2));
+            List<Digit> digitList = List.of(
+                new Digit(1), new Digit(2), new Digit(2));
 
             //when then
             assertThatThrownBy(
@@ -88,30 +77,30 @@ class BaseballNumberTest {
 
     @Nested
     @DisplayName("숫자 야구 2개를 비교할 시")
-    static class match {
+    class match {
 
         static Stream<Arguments> getTwoBaseballNumbersAndResult() {
             return Stream.of(
                 Arguments.of(
-                    BaseballNumber.create(Arrays.asList(new Digit(1), new Digit(2), new Digit(3))),
-                    BaseballNumber.create(Arrays.asList(new Digit(1), new Digit(2), new Digit(3))),
-                    Arrays.asList(BaseballResultType.STRIKE, BaseballResultType.STRIKE, BaseballResultType.STRIKE)),
+                    BaseballNumber.create(List.of(new Digit(1), new Digit(2), new Digit(3))),
+                    BaseballNumber.create(List.of(new Digit(1), new Digit(2), new Digit(3))),
+                    List.of(BaseballResultType.STRIKE, BaseballResultType.STRIKE, BaseballResultType.STRIKE)),
                 Arguments.of(
-                    BaseballNumber.create(Arrays.asList(new Digit(4), new Digit(2), new Digit(5))),
-                    BaseballNumber.create(Arrays.asList(new Digit(2), new Digit(5), new Digit(4))),
-                    Arrays.asList(BaseballResultType.BALL, BaseballResultType.BALL, BaseballResultType.BALL)),
+                    BaseballNumber.create(List.of(new Digit(4), new Digit(2), new Digit(5))),
+                    BaseballNumber.create(List.of(new Digit(2), new Digit(5), new Digit(4))),
+                    List.of(BaseballResultType.BALL, BaseballResultType.BALL, BaseballResultType.BALL)),
                 Arguments.of(
-                    BaseballNumber.create(Arrays.asList(new Digit(6), new Digit(8), new Digit(9))),
-                    BaseballNumber.create(Arrays.asList(new Digit(2), new Digit(3), new Digit(9))),
-                    Arrays.asList(BaseballResultType.NOTHING, BaseballResultType.NOTHING, BaseballResultType.STRIKE)),
+                    BaseballNumber.create(List.of(new Digit(6), new Digit(8), new Digit(9))),
+                    BaseballNumber.create(List.of(new Digit(2), new Digit(3), new Digit(9))),
+                    List.of(BaseballResultType.NOTHING, BaseballResultType.NOTHING, BaseballResultType.STRIKE)),
                 Arguments.of(
-                    BaseballNumber.create(Arrays.asList(new Digit(1), new Digit(2), new Digit(4))),
-                    BaseballNumber.create(Arrays.asList(new Digit(3), new Digit(4), new Digit(2))),
-                    Arrays.asList(BaseballResultType.NOTHING, BaseballResultType.BALL, BaseballResultType.BALL)),
+                    BaseballNumber.create(List.of(new Digit(1), new Digit(2), new Digit(4))),
+                    BaseballNumber.create(List.of(new Digit(3), new Digit(4), new Digit(2))),
+                    List.of(BaseballResultType.NOTHING, BaseballResultType.BALL, BaseballResultType.BALL)),
                 Arguments.of(
-                    BaseballNumber.create(Arrays.asList(new Digit(3), new Digit(2), new Digit(1))),
-                    BaseballNumber.create(Arrays.asList(new Digit(1), new Digit(2), new Digit(3))),
-                    Arrays.asList(BaseballResultType.BALL, BaseballResultType.STRIKE, BaseballResultType.BALL))
+                    BaseballNumber.create(List.of(new Digit(3), new Digit(2), new Digit(1))),
+                    BaseballNumber.create(List.of(new Digit(1), new Digit(2), new Digit(3))),
+                    List.of(BaseballResultType.BALL, BaseballResultType.STRIKE, BaseballResultType.BALL))
             );
         }
 

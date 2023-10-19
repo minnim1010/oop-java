@@ -19,7 +19,7 @@ class ConvertUtilTest {
 
     @Nested
     @DisplayName("String 타입에서 BaseballNumber 타입으로 변경 시")
-    static class toBaseballNumber {
+    class toBaseballNumber {
 
         static Stream<Arguments> getBaseballNumber() {
             return Stream.of(
@@ -49,7 +49,7 @@ class ConvertUtilTest {
 
         @DisplayName("실패한다.")
         @ValueSource(strings = {"ㄴㅇㄱ", "...", "", "   ", "12"})
-        @ParameterizedTest
+        @ParameterizedTest(name = "입력: {0}")
         void fail(String input) {
             //given
             //when then

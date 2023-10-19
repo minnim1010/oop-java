@@ -8,7 +8,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,15 +41,11 @@ class BaseballServiceImplTest {
         @Test
         void test() {
             //given
-            List<Digit> answerDigits = new ArrayList<>();
-            answerDigits.add(new Digit(1));
-            answerDigits.add(new Digit(2));
-            answerDigits.add(new Digit(3));
+            List<Digit> answerDigits = List.of(
+                new Digit(1), new Digit(2), new Digit(3));
 
-            List<Digit> guessDigits = new ArrayList<>();
-            guessDigits.add(new Digit(3));
-            guessDigits.add(new Digit(4));
-            guessDigits.add(new Digit(5));
+            List<Digit> guessDigits = List.of(
+                new Digit(3), new Digit(4), new Digit(5));
 
             BaseballNumber answer = BaseballNumber.create(answerDigits);
             BaseballNumber guess = BaseballNumber.create(guessDigits);
