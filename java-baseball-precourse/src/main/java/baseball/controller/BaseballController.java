@@ -58,7 +58,7 @@ public class BaseballController {
 
     private boolean checkResult(Baseball answer, Baseball guess) {
         BaseballResult baseballResult = service.calculateResult(answer, guess);
-        outputView.outputLine(baseballResult.toString());
+        outputView.outputLine(baseballResult.getResultMessage());
 
         return baseballResult.isCorrect();
     }

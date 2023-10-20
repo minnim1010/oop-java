@@ -39,8 +39,7 @@ public class BaseballResult {
         return (strikeCnt == Baseball.LENGTH);
     }
 
-    @Override
-    public String toString() {
+    public String getResultMessage() {
         int ballCnt = countByType.get(BaseballResultType.BALL);
         int strikeCnt = countByType.get(BaseballResultType.STRIKE);
 

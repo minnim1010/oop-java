@@ -93,7 +93,7 @@ class BaseballResultTest {
 
     @Nested
     @DisplayName("결과 메시지 생성 시")
-    class toString {
+    class getResultMessage {
 
         static Stream<Arguments> getBaseballResultAndResultMsg() {
             return Stream.of(
@@ -114,7 +114,7 @@ class BaseballResultTest {
         void success(BaseballResult baseballResult, String expected) {
             //given
             //when
-            String result = baseballResult.toString();
+            String result = baseballResult.getResultMessage();
 
             //then
             assertThat(result).isEqualTo(expected);
