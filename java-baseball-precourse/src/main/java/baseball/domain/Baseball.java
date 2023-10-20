@@ -71,16 +71,16 @@ public class Baseball {
 
         private static final String WRONG_LENGTH_ERROR_MSG =
             "길이 %d: 숫자 야구의 숫자 길이는 " + LENGTH + "입니다.";
-        private static final String DUPLICATED_ERROR_MSG = "중복 숫자 %d: 숫자 야구의 숫자들은 서로 달라야 합니다.";
+        private static final String DUPLICATED_ERROR_MSG = "중복 숫자 %s: 숫자 야구의 숫자들은 서로 달라야 합니다.";
 
         public static void validateLength(List<BaseballNumber> baseballNumbers) {
             int size = baseballNumbers.size();
-            if (checkValidSize(size)) {
+            if (isValidSize(size)) {
                 throw new IllegalArgumentException(String.format(WRONG_LENGTH_ERROR_MSG, size));
             }
         }
 
-        private static boolean checkValidSize(int size) {
+        private static boolean isValidSize(int size) {
             return size != LENGTH;
         }
 

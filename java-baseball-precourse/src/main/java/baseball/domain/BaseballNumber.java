@@ -5,21 +5,12 @@ public class BaseballNumber {
     public static final int MIN = 1;
     public static final int MAX = 9;
 
-    private static final String WRONG_RANGE_ERROR_MSG =
-        "각 숫자는 " + MIN + " 이상 " + MAX + " 이하여야 합니다.";
-
     private final int value;
 
     public BaseballNumber(int value) {
-        checkValidRange(value);
+        Validator.validateRange(value);
 
         this.value = value;
-    }
-
-    private void checkValidRange(int value) {
-        if (value < MIN || MAX < value) {
-            throw new IllegalArgumentException(WRONG_RANGE_ERROR_MSG);
-        }
     }
 
     public int getValue() {
@@ -48,5 +39,21 @@ public class BaseballNumber {
     @Override
     public String toString() {
         return String.format("%d", value);
+    }
+
+    private static class Validator {
+
+        private static final String WRONG_RANGE_ERROR_MSG =
+            "각 숫자는 " + MIN + " 이상 " + MAX + " 이하여야 합니다.";
+
+        public static void validateRange(int value) {
+            if (isValidRange(value)) {
+                throw new IllegalArgumentException(WRONG_RANGE_ERROR_MSG);
+            }
+        }
+
+        private static boolean isValidRange(int value) {
+            return value < MIN || MAX < value;
+        }
     }
 }
