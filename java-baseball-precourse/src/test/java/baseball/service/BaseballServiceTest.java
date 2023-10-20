@@ -55,7 +55,6 @@ class BaseballServiceTest {
             //then
             assertThat(result).isNotNull();
             assertThat(result.getResult()).isNotNull()
-                .containsEntry(BaseballResultType.NOTHING, 2)
                 .containsEntry(BaseballResultType.BALL, 1)
                 .containsEntry(BaseballResultType.STRIKE, 0);
         }

@@ -25,7 +25,7 @@ class BaseballResultTest {
             List<BaseballResultType> typeList = List.of(
                 BaseballResultType.BALL,
                 BaseballResultType.STRIKE,
-                BaseballResultType.NOTHING);
+                BaseballResultType.BALL);
 
             //when
             BaseballResult baseballResult =
@@ -34,9 +34,8 @@ class BaseballResultTest {
             //then
             assertThat(baseballResult).isNotNull();
             assertThat(baseballResult.getResult())
-                .hasSize(3)
-                .containsEntry(BaseballResultType.NOTHING, 1)
-                .containsEntry(BaseballResultType.BALL, 1)
+                .hasSize(2)
+                .containsEntry(BaseballResultType.BALL, 2)
                 .containsEntry(BaseballResultType.STRIKE, 1);
         }
 
@@ -47,8 +46,8 @@ class BaseballResultTest {
             List<BaseballResultType> typeList = List.of(
                 BaseballResultType.BALL,
                 BaseballResultType.STRIKE,
-                BaseballResultType.NOTHING,
-                BaseballResultType.NOTHING);
+                BaseballResultType.STRIKE,
+                BaseballResultType.STRIKE);
 
             //when then
             assertThatThrownBy(
@@ -94,7 +93,7 @@ class BaseballResultTest {
 
     @Nested
     @DisplayName("결과 메시지 생성 시")
-    class getResultMsg {
+    class toString {
 
         static Stream<Arguments> getBaseballResultAndResultMsg() {
             return Stream.of(
@@ -104,9 +103,7 @@ class BaseballResultTest {
                 Arguments.of(BaseballResult.create(List.of(
                         BaseballResultType.BALL, BaseballResultType.BALL, BaseballResultType.BALL)),
                     "3볼"),
-                Arguments.of(BaseballResult.create(List.of(
-                        BaseballResultType.NOTHING, BaseballResultType.NOTHING,
-                        BaseballResultType.NOTHING)),
+                Arguments.of(BaseballResult.create(List.of()),
                     "낫싱")
             );
         }

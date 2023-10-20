@@ -11,42 +11,17 @@ public class Baseball {
     public static final int LENGTH = 3;
     public static final String REGEX = "^[1-9]{3}$";
 
-    private static final String WRONG_LENGTH_ERROR_MSG = "현재 길이 %d: 숫자 야구는 세 개의 숫자로 구성 되어야 합니다.";
-    private static final String DUPLICATION_ERROR_MSG = "중복 숫자 %d: 숫자 야구의 숫자들은 서로 달라야 합니다.";
-
     private final List<Number> numbers;
 
     private Baseball(List<Number> numbers) {
-        checkLength(numbers);
-        checkUniqueNumbers(numbers);
+        Validator.validateLength(numbers);
+        Validator.validateUniqueNumbers(numbers);
+
         this.numbers = new ArrayList<>(numbers);
     }
 
     public static Baseball create(List<Number> numbers) {
         return new Baseball(numbers);
-    }
-
-    private void checkLength(List<Number> numbers) {
-        int size = numbers.size();
-        if (size != LENGTH) {
-            throw new IllegalArgumentException(String.format(WRONG_LENGTH_ERROR_MSG, size));
-        }
-    }
-
-    private void checkUniqueNumbers(List<Number> numbers) {
-        Set<Integer> exists = new HashSet<>();
-
-        for (Number number : numbers) {
-            checkDuplicated(exists, number);
-        }
-    }
-
-    private void checkDuplicated(Set<Integer> exists, Number number) {
-        int value = number.getValue();
-        if (exists.contains(value)) {
-            throw new IllegalArgumentException(String.format(DUPLICATION_ERROR_MSG, value));
-        }
-        exists.add(value);
     }
 
     public List<Number> getNumbers() {
@@ -61,27 +36,58 @@ public class Baseball {
             Number guessNumber = guess.getNumbers().get(i);
 
             BaseballResultType resultType = getMatchResult(answerNumber, guessNumber);
-
-            result.add(resultType);
+            if (resultType != null) {
+                result.add(resultType);
+            }
         }
 
         return result;
     }
 
     private BaseballResultType getMatchResult(Number answerNumber, Number guessNumber) {
-        BaseballResultType resultType = BaseballResultType.NOTHING;
-
         if (answerNumber.equals(guessNumber)) {
-            resultType = BaseballResultType.STRIKE;
-        } else if (numbers.contains(guessNumber)) {
-            resultType = BaseballResultType.BALL;
+            return BaseballResultType.STRIKE;
         }
 
-        return resultType;
+        if (numbers.contains(guessNumber)) {
+            return BaseballResultType.BALL;
+        }
+
+        return null;
     }
 
     @Override
     public String toString() {
         return "Baseball" + numbers;
+    }
+
+    private static class Validator {
+
+        private static final String WRONG_LENGTH_ERROR_MSG = "현재 길이 %d: 숫자 야구는 세 개의 숫자로 구성 되어야 합니다.";
+        private static final String DUPLICATION_ERROR_MSG = "중복 숫자 %d: 숫자 야구의 숫자들은 서로 달라야 합니다.";
+
+        public static void validateLength(List<Number> numbers) {
+            int size = numbers.size();
+            if (size != LENGTH) {
+                throw new IllegalArgumentException(String.format(WRONG_LENGTH_ERROR_MSG, size));
+            }
+        }
+
+        public static void validateUniqueNumbers(List<Number> numbers) {
+            Set<Integer> exists = new HashSet<>();
+
+            for (Number number : numbers) {
+                int value = number.getValue();
+                checkDuplicated(exists, value);
+
+                exists.add(value);
+            }
+        }
+
+        private static void checkDuplicated(Set<Integer> exists, int number) {
+            if (exists.contains(number)) {
+                throw new IllegalArgumentException(String.format(DUPLICATION_ERROR_MSG, number));
+            }
+        }
     }
 }

@@ -1,7 +1,6 @@
 package baseball.domain;
 
 import baseball.constants.Message;
-
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
@@ -15,9 +14,10 @@ public class BaseballResult {
         new EnumMap<>(BaseballResultType.class);
 
     private BaseballResult(List<BaseballResultType> resultTypes) {
-        checkLength(resultTypes);
+        Validator.validateLength(resultTypes);
 
-        Arrays.stream(BaseballResultType.values()).forEach(type -> countByType.put(type, 0));
+        Arrays.stream(BaseballResultType.values())
+            .forEach(type -> countByType.put(type, 0));
 
         resultTypes.forEach(this::increase);
     }
@@ -29,13 +29,6 @@ public class BaseballResult {
     private void increase(BaseballResultType type) {
         int increasedNum = countByType.get(type) + 1;
         countByType.put(type, increasedNum);
-    }
-
-    private void checkLength(List<BaseballResultType> resultTypes) {
-        int size = resultTypes.size();
-        if (size != Baseball.LENGTH) {
-            throw new IllegalArgumentException(String.format(WRONG_LENGTH_ERROR_MSG, size));
-        }
     }
 
     public Map<BaseballResultType, Integer> getResult() {
@@ -53,25 +46,36 @@ public class BaseballResult {
         int ballCnt = countByType.get(BaseballResultType.BALL);
         int strikeCnt = countByType.get(BaseballResultType.STRIKE);
 
-        if (ballCnt == 0 && strikeCnt == 0) {
+        if (isNothing(ballCnt, strikeCnt)) {
             return Message.NOTHING;
         }
 
         StringBuilder sb = new StringBuilder();
+        appendResult(sb, Message.BALL, ballCnt);
+        appendResult(sb, Message.STRIKE, strikeCnt);
 
-        if (ballCnt != 0) {
-            sb.append(ballCnt)
-                .append(Message.BALL);
+        return sb.toString().trim();
+    }
+
+    private boolean isNothing(int ballCnt, int strikeCnt) {
+        return (ballCnt == 0 && strikeCnt == 0);
+    }
+
+    private void appendResult(StringBuilder sb, String label, int cnt) {
+        if (cnt != 0) {
+            sb.append(cnt)
+                .append(label)
+                .append(" ");
         }
+    }
 
-        if (strikeCnt != 0) {
-            if (!sb.isEmpty()) {
-                sb.append(" ");
+    private static class Validator {
+
+        private static void validateLength(List<BaseballResultType> resultTypes) {
+            int size = resultTypes.size();
+            if (size > Baseball.LENGTH) {
+                throw new IllegalArgumentException(String.format(WRONG_LENGTH_ERROR_MSG, size));
             }
-            sb.append(strikeCnt)
-                .append(Message.STRIKE);
         }
-
-        return sb.toString();
     }
 }
