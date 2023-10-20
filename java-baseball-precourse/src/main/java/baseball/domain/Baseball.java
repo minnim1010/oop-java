@@ -9,7 +9,6 @@ import java.util.Set;
 public class Baseball {
 
     public static final int LENGTH = 3;
-    public static final String REGEX = "^[1-9]{3}$";
 
     private final List<BaseballNumber> baseballNumbers;
 
@@ -32,30 +31,35 @@ public class Baseball {
         List<BaseballResultType> result = new ArrayList<>();
 
         for (int i = 0; i < LENGTH; i++) {
-            BaseballNumber answerBaseballNumber = baseballNumbers.get(i);
-            BaseballNumber guessBaseballNumber = guess.getNumbers().get(i);
-
-            BaseballResultType resultType = getMatchResult(answerBaseballNumber,
-                guessBaseballNumber);
-            if (resultType != null) {
-                result.add(resultType);
-            }
+            BaseballNumber answerNumber = this.baseballNumbers.get(i);
+            BaseballNumber guessNumber = guess.getNumbers().get(i);
+            addMatchResult(result, answerNumber, guessNumber);
         }
 
         return result;
     }
 
-    private BaseballResultType getMatchResult(
-        BaseballNumber answerBaseballNumber, BaseballNumber guessBaseballNumber) {
-        if (answerBaseballNumber.equals(guessBaseballNumber)) {
-            return BaseballResultType.STRIKE;
+    private void addMatchResult(List<BaseballResultType> result, BaseballNumber answerNumber,
+        BaseballNumber guessNumber) {
+        if (addIfStrike(result, answerNumber, guessNumber)) {
+            return;
         }
+        addIfBall(result, guessNumber);
+    }
 
-        if (baseballNumbers.contains(guessBaseballNumber)) {
-            return BaseballResultType.BALL;
+    private boolean addIfStrike(List<BaseballResultType> result, BaseballNumber answerNumber,
+        BaseballNumber guessNumber) {
+        if (answerNumber.equals(guessNumber)) {
+            result.add(BaseballResultType.STRIKE);
+            return true;
         }
+        return false;
+    }
 
-        return null;
+    private void addIfBall(List<BaseballResultType> result, BaseballNumber guessNumber) {
+        if (this.baseballNumbers.contains(guessNumber)) {
+            result.add(BaseballResultType.BALL);
+        }
     }
 
     @Override
@@ -65,31 +69,34 @@ public class Baseball {
 
     private static class Validator {
 
-        private static final String WRONG_LENGTH_ERROR_MSG = "현재 길이 %d: 숫자 야구는 세 개의 숫자로 구성 되어야 합니다.";
-        private static final String DUPLICATION_ERROR_MSG = "중복 숫자 %d: 숫자 야구의 숫자들은 서로 달라야 합니다.";
+        private static final String WRONG_LENGTH_ERROR_MSG =
+            "길이 %d: 숫자 야구의 숫자 길이는 " + LENGTH + "입니다.";
+        private static final String DUPLICATED_ERROR_MSG = "중복 숫자 %d: 숫자 야구의 숫자들은 서로 달라야 합니다.";
 
         public static void validateLength(List<BaseballNumber> baseballNumbers) {
             int size = baseballNumbers.size();
-            if (size != LENGTH) {
+            if (checkValidSize(size)) {
                 throw new IllegalArgumentException(String.format(WRONG_LENGTH_ERROR_MSG, size));
             }
+        }
+
+        private static boolean checkValidSize(int size) {
+            return size != LENGTH;
         }
 
         public static void validateUniqueNumbers(List<BaseballNumber> baseballNumbers) {
             Set<BaseballNumber> exists = new HashSet<>();
 
-            for (BaseballNumber baseballNumber : baseballNumbers) {
-                checkDuplicated(exists, baseballNumber);
-
-                exists.add(baseballNumber);
+            for (BaseballNumber number : baseballNumbers) {
+                checkDuplicateNumber(exists, number);
+                exists.add(number);
             }
         }
 
-        private static void checkDuplicated(Set<BaseballNumber> exists,
-            BaseballNumber baseballNumber) {
-            if (exists.contains(baseballNumber)) {
-                throw new IllegalArgumentException(String.format(DUPLICATION_ERROR_MSG,
-                    baseballNumber));
+        private static void checkDuplicateNumber(Set<BaseballNumber> exists,
+            BaseballNumber number) {
+            if (exists.contains(number)) {
+                throw new IllegalArgumentException(String.format(DUPLICATED_ERROR_MSG, number));
             }
         }
     }
