@@ -75,13 +75,13 @@ public class Baseball {
 
         public static void validateLength(List<BaseballNumber> baseballNumbers) {
             int size = baseballNumbers.size();
-            if (isValidSize(size)) {
+            if (!isValidSize(size)) {
                 throw new IllegalArgumentException(String.format(WRONG_LENGTH_ERROR_MSG, size));
             }
         }
 
         private static boolean isValidSize(int size) {
-            return size != LENGTH;
+            return size == LENGTH;
         }
 
         public static void validateUniqueNumbers(List<BaseballNumber> baseballNumbers) {

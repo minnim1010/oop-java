@@ -47,13 +47,13 @@ public class BaseballNumber {
             "각 숫자는 " + MIN + " 이상 " + MAX + " 이하여야 합니다.";
 
         public static void validateRange(int value) {
-            if (isValidRange(value)) {
+            if (!isValidRange(value)) {
                 throw new IllegalArgumentException(WRONG_RANGE_ERROR_MSG);
             }
         }
 
         private static boolean isValidRange(int value) {
-            return value < MIN || MAX < value;
+            return MIN <= value && value <= MAX;
         }
     }
 }
