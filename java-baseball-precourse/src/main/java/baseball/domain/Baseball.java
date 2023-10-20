@@ -74,17 +74,16 @@ public class Baseball {
         }
 
         public static void validateUniqueNumbers(List<Number> numbers) {
-            Set<Integer> exists = new HashSet<>();
+            Set<Number> exists = new HashSet<>();
 
             for (Number number : numbers) {
-                int value = number.getValue();
-                checkDuplicated(exists, value);
+                checkDuplicated(exists, number);
 
-                exists.add(value);
+                exists.add(number);
             }
         }
 
-        private static void checkDuplicated(Set<Integer> exists, int number) {
+        private static void checkDuplicated(Set<Number> exists, Number number) {
             if (exists.contains(number)) {
                 throw new IllegalArgumentException(String.format(DUPLICATION_ERROR_MSG, number));
             }
