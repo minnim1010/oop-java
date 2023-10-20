@@ -7,10 +7,14 @@ public class BaseballNumber {
 
     private final int value;
 
-    public BaseballNumber(int value) {
+    private BaseballNumber(int value) {
         Validator.validateRange(value);
 
         this.value = value;
+    }
+
+    public static BaseballNumber create(int value) {
+        return new BaseballNumber(value);
     }
 
     public int getValue() {
@@ -53,7 +57,7 @@ public class BaseballNumber {
         }
 
         private static boolean isValidRange(int value) {
-            return MIN <= value && value <= MAX;
+            return (MIN <= value && value <= MAX);
         }
     }
 }

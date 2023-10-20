@@ -23,7 +23,7 @@ class BaseballTest {
         void success() {
             //given
             List<BaseballNumber> baseballNumberList = List.of(
-                new BaseballNumber(1), new BaseballNumber(2), new BaseballNumber(3));
+                BaseballNumber.create(1), BaseballNumber.create(2), BaseballNumber.create(3));
 
             //when
             Baseball baseball =
@@ -40,8 +40,8 @@ class BaseballTest {
         @Test
         void fail_ShortLength() {
             //given
-            List<BaseballNumber> baseballNumberList = List.of(new BaseballNumber(1),
-                new BaseballNumber(2));
+            List<BaseballNumber> baseballNumberList = List.of(BaseballNumber.create(1),
+                BaseballNumber.create(2));
 
             //when then
             assertThatThrownBy(
@@ -54,8 +54,8 @@ class BaseballTest {
         void fail_LongLength() {
             //given
             List<BaseballNumber> baseballNumberList = List.of(
-                new BaseballNumber(1), new BaseballNumber(2), new BaseballNumber(3),
-                new BaseballNumber(4));
+                BaseballNumber.create(1), BaseballNumber.create(2), BaseballNumber.create(3),
+                BaseballNumber.create(4));
 
             //when then
             assertThatThrownBy(
@@ -68,7 +68,7 @@ class BaseballTest {
         void test() {
             //given
             List<BaseballNumber> baseballNumberList = List.of(
-                new BaseballNumber(1), new BaseballNumber(2), new BaseballNumber(2));
+                BaseballNumber.create(1), BaseballNumber.create(2), BaseballNumber.create(2));
 
             //when then
             assertThatThrownBy(
@@ -84,36 +84,36 @@ class BaseballTest {
         static Stream<Arguments> getTwoBaseballsAndResult() {
             return Stream.of(
                 Arguments.of(
-                    Baseball.create(List.of(new BaseballNumber(1), new BaseballNumber(2),
-                        new BaseballNumber(3))),
-                    Baseball.create(List.of(new BaseballNumber(1), new BaseballNumber(2),
-                        new BaseballNumber(3))),
+                    Baseball.create(List.of(BaseballNumber.create(1), BaseballNumber.create(2),
+                        BaseballNumber.create(3))),
+                    Baseball.create(List.of(BaseballNumber.create(1), BaseballNumber.create(2),
+                        BaseballNumber.create(3))),
                     List.of(BaseballResultType.STRIKE, BaseballResultType.STRIKE,
                         BaseballResultType.STRIKE)),
                 Arguments.of(
-                    Baseball.create(List.of(new BaseballNumber(4), new BaseballNumber(2),
-                        new BaseballNumber(5))),
-                    Baseball.create(List.of(new BaseballNumber(2), new BaseballNumber(5),
-                        new BaseballNumber(4))),
+                    Baseball.create(List.of(BaseballNumber.create(4), BaseballNumber.create(2),
+                        BaseballNumber.create(5))),
+                    Baseball.create(List.of(BaseballNumber.create(2), BaseballNumber.create(5),
+                        BaseballNumber.create(4))),
                     List.of(BaseballResultType.BALL, BaseballResultType.BALL,
                         BaseballResultType.BALL)),
                 Arguments.of(
-                    Baseball.create(List.of(new BaseballNumber(6), new BaseballNumber(8),
-                        new BaseballNumber(9))),
-                    Baseball.create(List.of(new BaseballNumber(2), new BaseballNumber(3),
-                        new BaseballNumber(9))),
+                    Baseball.create(List.of(BaseballNumber.create(6), BaseballNumber.create(8),
+                        BaseballNumber.create(9))),
+                    Baseball.create(List.of(BaseballNumber.create(2), BaseballNumber.create(3),
+                        BaseballNumber.create(9))),
                     List.of(BaseballResultType.STRIKE)),
                 Arguments.of(
-                    Baseball.create(List.of(new BaseballNumber(1), new BaseballNumber(2),
-                        new BaseballNumber(4))),
-                    Baseball.create(List.of(new BaseballNumber(3), new BaseballNumber(4),
-                        new BaseballNumber(2))),
+                    Baseball.create(List.of(BaseballNumber.create(1), BaseballNumber.create(2),
+                        BaseballNumber.create(4))),
+                    Baseball.create(List.of(BaseballNumber.create(3), BaseballNumber.create(4),
+                        BaseballNumber.create(2))),
                     List.of(BaseballResultType.BALL, BaseballResultType.BALL)),
                 Arguments.of(
-                    Baseball.create(List.of(new BaseballNumber(3), new BaseballNumber(2),
-                        new BaseballNumber(1))),
-                    Baseball.create(List.of(new BaseballNumber(1), new BaseballNumber(2),
-                        new BaseballNumber(3))),
+                    Baseball.create(List.of(BaseballNumber.create(3), BaseballNumber.create(2),
+                        BaseballNumber.create(1))),
+                    Baseball.create(List.of(BaseballNumber.create(1), BaseballNumber.create(2),
+                        BaseballNumber.create(3))),
                     List.of(BaseballResultType.BALL, BaseballResultType.STRIKE,
                         BaseballResultType.BALL))
             );

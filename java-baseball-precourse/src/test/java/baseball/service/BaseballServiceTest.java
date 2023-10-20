@@ -41,10 +41,10 @@ class BaseballServiceTest {
         void success() {
             //given
             List<BaseballNumber> answerBaseballNumbers = List.of(
-                new BaseballNumber(1), new BaseballNumber(2), new BaseballNumber(3));
+                BaseballNumber.create(1), BaseballNumber.create(2), BaseballNumber.create(3));
 
             List<BaseballNumber> guessBaseballNumbers = List.of(
-                new BaseballNumber(3), new BaseballNumber(4), new BaseballNumber(5));
+                BaseballNumber.create(3), BaseballNumber.create(4), BaseballNumber.create(5));
 
             Baseball answer = Baseball.create(answerBaseballNumbers);
             Baseball guess = Baseball.create(guessBaseballNumbers);

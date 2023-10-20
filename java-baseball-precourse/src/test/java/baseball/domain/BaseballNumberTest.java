@@ -20,7 +20,7 @@ class BaseballNumberTest {
             int num = 1;
 
             //when
-            BaseballNumber baseballNumber = new BaseballNumber(num);
+            BaseballNumber baseballNumber = BaseballNumber.create(num);
 
             //then
             assertThat(baseballNumber).isNotNull();
@@ -34,7 +34,7 @@ class BaseballNumberTest {
             int num = 0;
 
             //when then
-            assertThatThrownBy(() -> new BaseballNumber(num))
+            assertThatThrownBy(() -> BaseballNumber.create(num))
                 .isInstanceOf(IllegalArgumentException.class);
         }
 
@@ -45,7 +45,7 @@ class BaseballNumberTest {
             int num = 10;
 
             //when then
-            assertThatThrownBy(() -> new BaseballNumber(num))
+            assertThatThrownBy(() -> BaseballNumber.create(num))
                 .isInstanceOf(IllegalArgumentException.class);
         }
     }

@@ -26,7 +26,7 @@ public class BaseballServiceImpl implements BaseballService {
         }
 
         return uniqueNumbers.stream()
-            .map(BaseballNumber::new)
+            .map(BaseballNumber::create)
             .toList();
     }
 

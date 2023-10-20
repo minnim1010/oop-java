@@ -15,7 +15,7 @@ public class ConvertUtil {
 
         List<BaseballNumber> baseballNumbers = Arrays.stream(split)
             .map(Integer::valueOf)
-            .map(BaseballNumber::new)
+            .map(BaseballNumber::create)
             .toList();
 
         return Baseball.create(baseballNumbers);
