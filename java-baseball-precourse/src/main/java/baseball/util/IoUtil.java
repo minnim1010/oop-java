@@ -4,6 +4,7 @@ import camp.nextstep.edu.missionutils.Console;
 
 public class IoUtil {
 
+    // 인스턴스화 방지
     private IoUtil() {
         throw new AssertionError();
     }

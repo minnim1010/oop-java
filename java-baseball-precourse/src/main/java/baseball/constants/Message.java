@@ -9,6 +9,7 @@ public class Message {
     public static final String STRIKE = "스트라이크";
     public static final String NOTHING = "낫싱";
 
+    // 인스턴스화 방지
     private Message() {
         throw new AssertionError();
     }

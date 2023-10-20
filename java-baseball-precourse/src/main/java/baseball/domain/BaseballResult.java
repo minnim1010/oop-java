@@ -59,9 +59,9 @@ public class BaseballResult {
         return (ballCnt == 0 && strikeCnt == 0);
     }
 
-    private void appendResult(StringBuilder sb, String label, int cnt) {
-        if (cnt != 0) {
-            sb.append(cnt)
+    private void appendResult(StringBuilder sb, String label, int count) {
+        if (count != 0) {
+            sb.append(count)
                 .append(label)
                 .append(" ");
         }

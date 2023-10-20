@@ -7,6 +7,7 @@ import java.util.List;
 
 public class ConvertUtil {
 
+    // 인스턴스화 방지
     private ConvertUtil() {
         throw new AssertionError();
     }
