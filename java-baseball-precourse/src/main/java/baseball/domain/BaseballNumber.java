@@ -48,7 +48,7 @@ public class BaseballNumber {
     private static class Validator {
 
         private static final String WRONG_RANGE_ERROR_MSG =
-            "각 숫자는 " + MIN + " 이상 " + MAX + " 이하여야 합니다.";
+            "각 숫자는 1 이상 9 이하여야 합니다.";
 
         public static void validateRange(int value) {
             if (!isValidRange(value)) {

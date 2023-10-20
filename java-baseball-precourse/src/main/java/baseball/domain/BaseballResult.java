@@ -70,7 +70,7 @@ public class BaseballResult {
     private static class Validator {
 
         private static final String WRONG_LENGTH_ERROR_MSG =
-            "결과값 %d개: 결과값은 " + Baseball.LENGTH + "개 이하여야 합니다.";
+            "결과값 %d개: 결과값은 3개 이하여야 합니다.";
 
         public static void validateLength(List<BaseballResultType> resultTypes) {
             int length = resultTypes.size();
