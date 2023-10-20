@@ -4,7 +4,6 @@ import baseball.constants.Message;
 import baseball.domain.Baseball;
 import baseball.domain.BaseballResult;
 import baseball.service.BaseballService;
-import baseball.service.BaseballServiceImpl;
 import baseball.util.ConvertUtil;
 import baseball.validator.BaseballGameInputValidator;
 import baseball.view.InputView;
@@ -14,9 +13,16 @@ public class BaseballController {
 
     public static final String RESTART = "1";
 
-    private final BaseballService service = new BaseballServiceImpl();
-    private final InputView inputView = new InputView();
-    private final OutputView outputView = new OutputView();
+    private final BaseballService service;
+    private final InputView inputView;
+    private final OutputView outputView;
+
+    public BaseballController(InputView inputView, OutputView outputView,
+        BaseballService baseballService) {
+        this.inputView = inputView;
+        this.outputView = outputView;
+        this.service = baseballService;
+    }
 
     public void run() {
         boolean play = true;
