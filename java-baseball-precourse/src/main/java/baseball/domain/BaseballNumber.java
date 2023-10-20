@@ -1,6 +1,6 @@
 package baseball.domain;
 
-public class Number {
+public class BaseballNumber {
 
     public static final int MIN = 1;
     public static final int MAX = 9;
@@ -10,15 +10,16 @@ public class Number {
 
     private final int value;
 
-    public Number(int value) {
+    public BaseballNumber(int value) {
         checkValidRange(value);
 
         this.value = value;
     }
 
     private void checkValidRange(int value) {
-        if (value < MIN || MAX < value)
+        if (value < MIN || MAX < value) {
             throw new IllegalArgumentException(WRONG_RANGE_ERROR_MSG);
+        }
     }
 
     public int getValue() {
@@ -27,12 +28,16 @@ public class Number {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
-        Number number = (Number) o;
+        BaseballNumber baseballNumber = (BaseballNumber) o;
 
-        return value == number.value;
+        return value == baseballNumber.value;
     }
 
     @Override

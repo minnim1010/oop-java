@@ -3,9 +3,9 @@ package baseball.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import baseball.domain.Baseball;
+import baseball.domain.BaseballNumber;
 import baseball.domain.BaseballResult;
 import baseball.domain.BaseballResultType;
-import baseball.domain.Number;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -38,16 +38,16 @@ class BaseballServiceTest {
 
         @DisplayName("올바른 계산 결과를 반환한다.")
         @Test
-        void test() {
+        void success() {
             //given
-            List<Number> answerNumbers = List.of(
-                new Number(1), new Number(2), new Number(3));
+            List<BaseballNumber> answerBaseballNumbers = List.of(
+                new BaseballNumber(1), new BaseballNumber(2), new BaseballNumber(3));
 
-            List<Number> guessNumbers = List.of(
-                new Number(3), new Number(4), new Number(5));
+            List<BaseballNumber> guessBaseballNumbers = List.of(
+                new BaseballNumber(3), new BaseballNumber(4), new BaseballNumber(5));
 
-            Baseball answer = Baseball.create(answerNumbers);
-            Baseball guess = Baseball.create(guessNumbers);
+            Baseball answer = Baseball.create(answerBaseballNumbers);
+            Baseball guess = Baseball.create(guessBaseballNumbers);
 
             //when
             BaseballResult result = service.calculateResult(answer, guess);

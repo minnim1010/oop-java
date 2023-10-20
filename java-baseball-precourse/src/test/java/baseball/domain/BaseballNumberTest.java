@@ -1,13 +1,13 @@
 package baseball.domain;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
-class NumberTest {
+class BaseballNumberTest {
 
     @Nested
     @DisplayName("숫자 야구의 숫자 하나 생성 시")
@@ -20,11 +20,11 @@ class NumberTest {
             int num = 1;
 
             //when
-            Number number = new Number(num);
+            BaseballNumber baseballNumber = new BaseballNumber(num);
 
             //then
-            assertThat(number).isNotNull();
-            assertThat(number.getValue()).isEqualTo(num);
+            assertThat(baseballNumber).isNotNull();
+            assertThat(baseballNumber.getValue()).isEqualTo(num);
         }
 
         @DisplayName("값이 1 미만이라면 생성할 수 없다.")
@@ -34,7 +34,7 @@ class NumberTest {
             int num = 0;
 
             //when then
-            assertThatThrownBy(() -> new Number(num))
+            assertThatThrownBy(() -> new BaseballNumber(num))
                 .isInstanceOf(IllegalArgumentException.class);
         }
 
@@ -45,7 +45,7 @@ class NumberTest {
             int num = 10;
 
             //when then
-            assertThatThrownBy(() -> new Number(num))
+            assertThatThrownBy(() -> new BaseballNumber(num))
                 .isInstanceOf(IllegalArgumentException.class);
         }
     }

@@ -37,11 +37,11 @@ flowchart TD
 - [X] Baseball: Number를 세 개 가진 숫자 야구 값 객체
     - LENGTH = 3
     - compareTo(Baseball): 사용자가 입력한 숫자 야구와 정답 숫자 야구를 비교하는 메서드
-    - match(int number, int position): number와 position로 결과인 BaseballResult를 반환하는 메서드
-        - matchNumber(number): 동일한 number가 있는지 판별하는 메서드
-        - matchPosition(position, numberPosition): numberPosition과 position이 동일한지 판별하는 메서드
+    - match(int baseballNumber, int position): number와 position로 결과인 BaseballResult를 반환하는 메서드
+        - matchNumber(baseballNumber): 동일한 number가 있는지 판별하는 메서드
+            - matchPosition(position, numberPosition): numberPosition과 position이 동일한지 판별하는 메서드
 - [X] BaseballResultType: 숫자 야구 결과값 종류를 나타내는 ENUM
-- 이름, number, position
+- 이름, baseballNumber, position
 - nothing: false, false
 - ball: true, false
 - strike: true, true

@@ -1,19 +1,18 @@
 package baseball.util;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import baseball.domain.Baseball;
-import baseball.domain.Number;
+import baseball.domain.BaseballNumber;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ConvertUtilTest {
 
@@ -41,7 +40,7 @@ class ConvertUtilTest {
             //then
             assertThat(baseball).isNotNull();
             assertThat(baseball.getNumbers().stream()
-                .map(Number::getValue)
+                .map(BaseballNumber::getValue)
                 .collect(Collectors.toList()))
                 .hasSize(3)
                 .containsExactly(num1, num2, num3);

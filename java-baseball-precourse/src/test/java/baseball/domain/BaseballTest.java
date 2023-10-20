@@ -22,29 +22,30 @@ class BaseballTest {
         @Test
         void success() {
             //given
-            List<Number> numberList = List.of(
-                new Number(1), new Number(2), new Number(3));
+            List<BaseballNumber> baseballNumberList = List.of(
+                new BaseballNumber(1), new BaseballNumber(2), new BaseballNumber(3));
 
             //when
             Baseball baseball =
-                Baseball.create(numberList);
+                Baseball.create(baseballNumberList);
 
             //then
             assertThat(baseball).isNotNull();
             assertThat(baseball.getNumbers())
                 .hasSize(Baseball.LENGTH)
-                .containsAll(numberList);
+                .containsAll(baseballNumberList);
         }
 
         @DisplayName("숫자가 세 개 미만으로 주어진다면 생성할 수 없다.")
         @Test
         void fail_ShortLength() {
             //given
-            List<Number> numberList = List.of(new Number(1), new Number(2));
+            List<BaseballNumber> baseballNumberList = List.of(new BaseballNumber(1),
+                new BaseballNumber(2));
 
             //when then
             assertThatThrownBy(
-                () -> Baseball.create(numberList))
+                () -> Baseball.create(baseballNumberList))
                 .isInstanceOf(IllegalArgumentException.class);
         }
 
@@ -52,12 +53,13 @@ class BaseballTest {
         @Test
         void fail_LongLength() {
             //given
-            List<Number> numberList = List.of(
-                new Number(1), new Number(2), new Number(3), new Number(4));
+            List<BaseballNumber> baseballNumberList = List.of(
+                new BaseballNumber(1), new BaseballNumber(2), new BaseballNumber(3),
+                new BaseballNumber(4));
 
             //when then
             assertThatThrownBy(
-                () -> Baseball.create(numberList))
+                () -> Baseball.create(baseballNumberList))
                 .isInstanceOf(IllegalArgumentException.class);
         }
 
@@ -65,12 +67,12 @@ class BaseballTest {
         @Test
         void test() {
             //given
-            List<Number> numberList = List.of(
-                new Number(1), new Number(2), new Number(2));
+            List<BaseballNumber> baseballNumberList = List.of(
+                new BaseballNumber(1), new BaseballNumber(2), new BaseballNumber(2));
 
             //when then
             assertThatThrownBy(
-                () -> Baseball.create(numberList))
+                () -> Baseball.create(baseballNumberList))
                 .isInstanceOf(IllegalArgumentException.class);
         }
     }
@@ -82,26 +84,36 @@ class BaseballTest {
         static Stream<Arguments> getTwoBaseballsAndResult() {
             return Stream.of(
                 Arguments.of(
-                    Baseball.create(List.of(new Number(1), new Number(2), new Number(3))),
-                    Baseball.create(List.of(new Number(1), new Number(2), new Number(3))),
+                    Baseball.create(List.of(new BaseballNumber(1), new BaseballNumber(2),
+                        new BaseballNumber(3))),
+                    Baseball.create(List.of(new BaseballNumber(1), new BaseballNumber(2),
+                        new BaseballNumber(3))),
                     List.of(BaseballResultType.STRIKE, BaseballResultType.STRIKE,
                         BaseballResultType.STRIKE)),
                 Arguments.of(
-                    Baseball.create(List.of(new Number(4), new Number(2), new Number(5))),
-                    Baseball.create(List.of(new Number(2), new Number(5), new Number(4))),
+                    Baseball.create(List.of(new BaseballNumber(4), new BaseballNumber(2),
+                        new BaseballNumber(5))),
+                    Baseball.create(List.of(new BaseballNumber(2), new BaseballNumber(5),
+                        new BaseballNumber(4))),
                     List.of(BaseballResultType.BALL, BaseballResultType.BALL,
                         BaseballResultType.BALL)),
                 Arguments.of(
-                    Baseball.create(List.of(new Number(6), new Number(8), new Number(9))),
-                    Baseball.create(List.of(new Number(2), new Number(3), new Number(9))),
+                    Baseball.create(List.of(new BaseballNumber(6), new BaseballNumber(8),
+                        new BaseballNumber(9))),
+                    Baseball.create(List.of(new BaseballNumber(2), new BaseballNumber(3),
+                        new BaseballNumber(9))),
                     List.of(BaseballResultType.STRIKE)),
                 Arguments.of(
-                    Baseball.create(List.of(new Number(1), new Number(2), new Number(4))),
-                    Baseball.create(List.of(new Number(3), new Number(4), new Number(2))),
+                    Baseball.create(List.of(new BaseballNumber(1), new BaseballNumber(2),
+                        new BaseballNumber(4))),
+                    Baseball.create(List.of(new BaseballNumber(3), new BaseballNumber(4),
+                        new BaseballNumber(2))),
                     List.of(BaseballResultType.BALL, BaseballResultType.BALL)),
                 Arguments.of(
-                    Baseball.create(List.of(new Number(3), new Number(2), new Number(1))),
-                    Baseball.create(List.of(new Number(1), new Number(2), new Number(3))),
+                    Baseball.create(List.of(new BaseballNumber(3), new BaseballNumber(2),
+                        new BaseballNumber(1))),
+                    Baseball.create(List.of(new BaseballNumber(1), new BaseballNumber(2),
+                        new BaseballNumber(3))),
                     List.of(BaseballResultType.BALL, BaseballResultType.STRIKE,
                         BaseballResultType.BALL))
             );
