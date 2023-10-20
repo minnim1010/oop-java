@@ -2,9 +2,10 @@ package baseball.validator;
 
 public class InputValidator {
 
-    protected static final String WRONG_INPUT_ERROR_MSG = "올바르지 않은 입력입니다.";
+    private static final String WRONG_INPUT_ERROR_MSG = "올바르지 않은 입력입니다.";
 
-    protected InputValidator() {
+    private InputValidator() {
+        throw new AssertionError();
     }
 
     public static void validateNotBlank(String input) {
@@ -14,6 +15,6 @@ public class InputValidator {
     }
 
     private static boolean isBlank(String input) {
-        return input == null || input.isBlank();
+        return (input == null || input.isBlank());
     }
 }

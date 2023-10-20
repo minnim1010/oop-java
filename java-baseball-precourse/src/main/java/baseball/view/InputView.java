@@ -5,11 +5,8 @@ import baseball.validator.InputValidator;
 
 public class InputView {
 
-    private InputView() {
-    }
-
-    public static String input(String message) {
-        IoUtil.outputLine(message);
+    public String input(String message) {
+        outputMessageByMode(message, true);
 
         String input = IoUtil.input();
         InputValidator.validateNotBlank(input);
@@ -17,20 +14,20 @@ public class InputView {
         return input;
     }
 
-    public static String input(String message, boolean outputLineMode) {
+    private void outputMessageByMode(String message, boolean outputLineMode) {
+        if (outputLineMode) {
+            IoUtil.outputLine(message);
+            return;
+        }
+        IoUtil.output(message);
+    }
+
+    public String input(String message, boolean outputLineMode) {
         outputMessageByMode(message, outputLineMode);
 
         String input = IoUtil.input();
         InputValidator.validateNotBlank(input);
 
         return input;
-    }
-
-    private static void outputMessageByMode(String message, boolean outputLineMode) {
-        if (outputLineMode) {
-            IoUtil.outputLine(message);
-            return;
-        }
-        IoUtil.output(message);
     }
 }

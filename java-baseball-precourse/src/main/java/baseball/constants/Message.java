@@ -10,5 +10,6 @@ public class Message {
     public static final String NOTHING = "낫싱";
 
     private Message() {
+        throw new AssertionError();
     }
 }

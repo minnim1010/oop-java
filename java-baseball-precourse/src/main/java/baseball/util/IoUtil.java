@@ -5,6 +5,7 @@ import camp.nextstep.edu.missionutils.Console;
 public class IoUtil {
 
     private IoUtil() {
+        throw new AssertionError();
     }
 
     public static String input() {

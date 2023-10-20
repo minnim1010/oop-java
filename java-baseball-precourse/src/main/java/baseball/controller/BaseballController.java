@@ -15,6 +15,8 @@ public class BaseballController {
     public static final String RESTART = "1";
 
     private final BaseballService service = new BaseballServiceImpl();
+    private final InputView inputView = new InputView();
+    private final OutputView outputView = new OutputView();
 
     public void run() {
         boolean play = true;
@@ -38,11 +40,11 @@ public class BaseballController {
             isClear = checkResult(answer, guess);
         }
 
-        OutputView.outputLine(Message.GAME_CLEAR);
+        outputView.outputLine(Message.GAME_CLEAR);
     }
 
     private Baseball getGuessBaseball() {
-        String baseballInput = InputView.input(Message.INPUT_BASEBALL_NUMBER, false);
+        String baseballInput = inputView.input(Message.INPUT_BASEBALL_NUMBER, false);
         BaseballGameInputValidator.validateBaseball(baseballInput);
 
         return ConvertUtil.toBaseball(baseballInput);
@@ -50,13 +52,13 @@ public class BaseballController {
 
     private boolean checkResult(Baseball answer, Baseball guess) {
         BaseballResult baseballResult = service.calculateResult(answer, guess);
-        OutputView.outputLine(baseballResult.toString());
+        outputView.outputLine(baseballResult.toString());
 
         return baseballResult.isCorrect();
     }
 
     private boolean askForReplay() {
-        String input = InputView.input(Message.RESTART_GAME);
+        String input = inputView.input(Message.RESTART_GAME);
         BaseballGameInputValidator.validateRestartInput(input);
 
         return input.equals(RESTART);

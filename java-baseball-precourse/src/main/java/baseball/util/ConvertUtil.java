@@ -8,6 +8,7 @@ import java.util.List;
 public class ConvertUtil {
 
     private ConvertUtil() {
+        throw new AssertionError();
     }
 
     public static Baseball toBaseball(String baseball) {
