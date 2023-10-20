@@ -15,7 +15,7 @@ public class IoUtil {
         System.out.print(msg);
     }
 
-    public static void outputNewLine(String msg) {
+    public static void outputLine(String msg) {
         System.out.println(msg);
     }
 }

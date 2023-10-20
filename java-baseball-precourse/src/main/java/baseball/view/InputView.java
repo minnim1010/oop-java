@@ -1,38 +1,36 @@
 package baseball.view;
 
-import baseball.constants.Message;
-import baseball.domain.Baseball;
-import baseball.util.ConvertUtil;
 import baseball.util.IoUtil;
+import baseball.validator.InputValidator;
 
 public class InputView {
-
-    private static final String RESTART = "1";
-    private static final String EXIT = "2";
-    private static final String WRONG_INPUT_ERROR_MSG = "올바르지 않은 입력입니다.";
 
     private InputView() {
     }
 
-    public static Baseball getBaseball() {
-        IoUtil.output(Message.INPUT_BASEBALL_NUMBER);
-        String input = IoUtil.input();
+    public static String input(String message) {
+        IoUtil.outputLine(message);
 
-        return ConvertUtil.toBaseball(input);
+        String input = IoUtil.input();
+        InputValidator.validateNotBlank(input);
+
+        return input;
     }
 
-    public static boolean askForReplay() {
-        IoUtil.outputNewLine(Message.RESTART_GAME);
+    public static String input(String message, boolean outputLineMode) {
+        outputMessageByMode(message, outputLineMode);
+
         String input = IoUtil.input();
+        InputValidator.validateNotBlank(input);
 
-        validInput(input);
-
-        return input.equals(RESTART);
+        return input;
     }
 
-    private static void validInput(String input) {
-        if (!(input.equals(RESTART) || input.equals(EXIT))) {
-            throw new IllegalArgumentException(WRONG_INPUT_ERROR_MSG);
+    private static void outputMessageByMode(String message, boolean outputLineMode) {
+        if (outputLineMode) {
+            IoUtil.outputLine(message);
+            return;
         }
+        IoUtil.output(message);
     }
 }

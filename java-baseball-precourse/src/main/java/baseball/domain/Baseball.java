@@ -1,10 +1,15 @@
 package baseball.domain;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Baseball {
 
     public static final int LENGTH = 3;
+    public static final String REGEX = "^[1-9]{3}$";
 
     private static final String WRONG_LENGTH_ERROR_MSG = "현재 길이 %d: 숫자 야구는 세 개의 숫자로 구성 되어야 합니다.";
     private static final String DUPLICATION_ERROR_MSG = "중복 숫자 %d: 숫자 야구의 숫자들은 서로 달라야 합니다.";
@@ -23,8 +28,9 @@ public class Baseball {
 
     private void checkLength(List<Number> numbers) {
         int size = numbers.size();
-        if (size != LENGTH)
+        if (size != LENGTH) {
             throw new IllegalArgumentException(String.format(WRONG_LENGTH_ERROR_MSG, size));
+        }
     }
 
     private void checkUniqueNumbers(List<Number> numbers) {

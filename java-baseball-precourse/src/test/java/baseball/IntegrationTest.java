@@ -43,8 +43,6 @@ class IntegrationTest extends NsTest {
         @DisplayName("숫자 야구 입력 시 3보다 많은 숫자를 입력한 경우")
         @Test
         void InvalidBaseballRange() {
-            //given
-            //when then
             assertSimpleTest(() ->
                 assertThatThrownBy(() -> runException("1234"))
                     .isInstanceOf(IllegalArgumentException.class)
@@ -52,11 +50,19 @@ class IntegrationTest extends NsTest {
         }
 
         @DisplayName("숫자 야구 입력 시 1~9가 아닌 문자를 입력한 경우")
-        @ValueSource(strings = {"012", "", "   ", "\n\n\n", "NULL", "'''", "@#$"})
+        @ValueSource(strings = {"012", "   ", "\n\n\n", "NULL", "'''", "@#$"})
         @ParameterizedTest
         void InvalidBaseballInput(String input) {
-            //given
-            //when then
+            assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException(input))
+                    .isInstanceOf(IllegalArgumentException.class)
+            );
+        }
+
+        @DisplayName("숫자 야구 입력 시 서로 중복되는 문자를 입력한 경우")
+        @ValueSource(strings = {"111", "112", "344", "616"})
+        @ParameterizedTest
+        void DuplicatedBaseballInput(String input) {
             assertSimpleTest(() ->
                 assertThatThrownBy(() -> runException(input))
                     .isInstanceOf(IllegalArgumentException.class)
@@ -64,11 +70,12 @@ class IntegrationTest extends NsTest {
         }
 
         @DisplayName("게임 진행 여부 입력 시 1이나 2가 아닌 문자를 입력한 경우")
-        @Test
-        void InvalidRestartInput() {
+        @ValueSource(strings = {"3", "0", "@#$", "c", " ", "\n"})
+        @ParameterizedTest
+        void InvalidRestartInput(String input) {
             assertRandomNumberInRangeTest(
                 () -> assertThatThrownBy(
-                    () -> runException("246", "135", "3"))
+                    () -> runException("246", "135", input))
                     .isInstanceOf(IllegalArgumentException.class), 1, 3, 5);
         }
     }
