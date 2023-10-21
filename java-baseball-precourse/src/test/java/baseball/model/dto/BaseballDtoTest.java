@@ -1,10 +1,10 @@
-package baseball.domain.dto;
+package baseball.model.dto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import baseball.domain.Baseball;
-import baseball.domain.BaseballNumber;
+import baseball.model.Baseball;
+import baseball.model.BaseballNumber;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

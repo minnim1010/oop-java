@@ -1,7 +1,7 @@
-package baseball.domain.dto;
+package baseball.model.dto;
 
-import baseball.domain.Baseball;
-import baseball.domain.BaseballNumber;
+import baseball.model.Baseball;
+import baseball.model.BaseballNumber;
 import baseball.validator.InputValidator;
 import java.util.Arrays;
 import java.util.List;

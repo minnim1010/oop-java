@@ -1,10 +1,10 @@
 package baseball.controller;
 
 import baseball.constants.Message;
-import baseball.domain.Baseball;
-import baseball.domain.BaseballResult;
-import baseball.domain.dto.BaseballDto;
-import baseball.domain.dto.GameStatusDto;
+import baseball.model.Baseball;
+import baseball.model.BaseballResult;
+import baseball.model.dto.BaseballDto;
+import baseball.model.dto.GameStatusDto;
 import baseball.service.BaseballService;
 import baseball.view.InputView;
 import baseball.view.OutputView;

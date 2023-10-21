@@ -1,7 +1,7 @@
 package baseball.service;
 
-import baseball.domain.Baseball;
-import baseball.domain.BaseballResult;
+import baseball.model.Baseball;
+import baseball.model.BaseballResult;
 
 public interface BaseballService {
 

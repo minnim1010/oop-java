@@ -3,9 +3,9 @@ package baseball.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import baseball.constants.BaseballResultType;
-import baseball.domain.Baseball;
-import baseball.domain.BaseballNumber;
-import baseball.domain.BaseballResult;
+import baseball.model.Baseball;
+import baseball.model.BaseballNumber;
+import baseball.model.BaseballResult;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

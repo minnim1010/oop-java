@@ -1,8 +1,8 @@
 package baseball.service;
 
-import baseball.domain.Baseball;
-import baseball.domain.BaseballNumber;
-import baseball.domain.BaseballResult;
+import baseball.model.Baseball;
+import baseball.model.BaseballNumber;
+import baseball.model.BaseballResult;
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.HashSet;
 import java.util.List;
