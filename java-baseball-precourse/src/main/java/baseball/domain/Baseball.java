@@ -27,7 +27,7 @@ public class Baseball {
         return Collections.unmodifiableList(baseballNumbers);
     }
 
-    public List<BaseballResultType> match(Baseball guess) {
+    public BaseballResult match(Baseball guess) {
         List<BaseballResultType> result = new ArrayList<>();
 
         for (int i = 0; i < LENGTH; i++) {
@@ -36,11 +36,11 @@ public class Baseball {
             addMatchResult(result, answerNumber, guessNumber);
         }
 
-        return result;
+        return BaseballResult.create(result);
     }
 
     private void addMatchResult(List<BaseballResultType> result, BaseballNumber answerNumber,
-        BaseballNumber guessNumber) {
+                                BaseballNumber guessNumber) {
         if (addIfStrike(result, answerNumber, guessNumber)) {
             return;
         }
@@ -48,7 +48,7 @@ public class Baseball {
     }
 
     private boolean addIfStrike(List<BaseballResultType> result, BaseballNumber answerNumber,
-        BaseballNumber guessNumber) {
+                                BaseballNumber guessNumber) {
         if (answerNumber.equals(guessNumber)) {
             result.add(BaseballResultType.STRIKE);
             return true;
@@ -70,7 +70,7 @@ public class Baseball {
     private static class Validator {
 
         private static final String WRONG_LENGTH_ERROR_MSG =
-            "길이 %d: 숫자 야구의 숫자 길이는 3입니다.";
+                "길이 %d: 숫자 야구의 숫자 길이는 3입니다.";
         private static final String DUPLICATED_ERROR_MSG = "중복 숫자 %s: 숫자 야구의 숫자들은 서로 달라야 합니다.";
 
         public static void validateLength(List<BaseballNumber> baseballNumbers) {
@@ -94,7 +94,7 @@ public class Baseball {
         }
 
         private static void checkDuplicateNumber(Set<BaseballNumber> exists,
-            BaseballNumber number) {
+                                                 BaseballNumber number) {
             if (exists.contains(number)) {
                 throw new IllegalArgumentException(String.format(DUPLICATED_ERROR_MSG, number));
             }

@@ -3,7 +3,6 @@ package baseball.service;
 import baseball.domain.Baseball;
 import baseball.domain.BaseballNumber;
 import baseball.domain.BaseballResult;
-import baseball.domain.BaseballResultType;
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.HashSet;
 import java.util.List;
@@ -26,13 +25,12 @@ public class BaseballServiceImpl implements BaseballService {
         }
 
         return uniqueNumbers.stream()
-            .map(BaseballNumber::create)
-            .toList();
+                .map(BaseballNumber::create)
+                .toList();
     }
 
     @Override
     public BaseballResult calculateResult(Baseball answer, Baseball guess) {
-        List<BaseballResultType> resultTypeList = answer.match(guess);
-        return BaseballResult.create(resultTypeList);
+        return answer.match(guess);
     }
 }

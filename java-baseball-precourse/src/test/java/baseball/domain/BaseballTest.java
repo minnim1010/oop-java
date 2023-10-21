@@ -23,17 +23,17 @@ class BaseballTest {
         void success() {
             //given
             List<BaseballNumber> baseballNumberList = List.of(
-                BaseballNumber.create(1), BaseballNumber.create(2), BaseballNumber.create(3));
+                    BaseballNumber.create(1), BaseballNumber.create(2), BaseballNumber.create(3));
 
             //when
             Baseball baseball =
-                Baseball.create(baseballNumberList);
+                    Baseball.create(baseballNumberList);
 
             //then
             assertThat(baseball).isNotNull();
             assertThat(baseball.getNumbers())
-                .hasSize(Baseball.LENGTH)
-                .containsAll(baseballNumberList);
+                    .hasSize(Baseball.LENGTH)
+                    .containsAll(baseballNumberList);
         }
 
         @DisplayName("숫자가 세 개 미만으로 주어진다면 생성할 수 없다.")
@@ -41,12 +41,12 @@ class BaseballTest {
         void fail_ShortLength() {
             //given
             List<BaseballNumber> baseballNumberList = List.of(BaseballNumber.create(1),
-                BaseballNumber.create(2));
+                    BaseballNumber.create(2));
 
             //when then
             assertThatThrownBy(
-                () -> Baseball.create(baseballNumberList))
-                .isInstanceOf(IllegalArgumentException.class);
+                    () -> Baseball.create(baseballNumberList))
+                    .isInstanceOf(IllegalArgumentException.class);
         }
 
         @DisplayName("숫자가 세 개 초과로 주어진다면 생성할 수 없다.")
@@ -54,13 +54,13 @@ class BaseballTest {
         void fail_LongLength() {
             //given
             List<BaseballNumber> baseballNumberList = List.of(
-                BaseballNumber.create(1), BaseballNumber.create(2), BaseballNumber.create(3),
-                BaseballNumber.create(4));
+                    BaseballNumber.create(1), BaseballNumber.create(2), BaseballNumber.create(3),
+                    BaseballNumber.create(4));
 
             //when then
             assertThatThrownBy(
-                () -> Baseball.create(baseballNumberList))
-                .isInstanceOf(IllegalArgumentException.class);
+                    () -> Baseball.create(baseballNumberList))
+                    .isInstanceOf(IllegalArgumentException.class);
         }
 
         @DisplayName("숫자가 중복된다면 생성할 수 없다.")
@@ -68,12 +68,12 @@ class BaseballTest {
         void test() {
             //given
             List<BaseballNumber> baseballNumberList = List.of(
-                BaseballNumber.create(1), BaseballNumber.create(2), BaseballNumber.create(2));
+                    BaseballNumber.create(1), BaseballNumber.create(2), BaseballNumber.create(2));
 
             //when then
             assertThatThrownBy(
-                () -> Baseball.create(baseballNumberList))
-                .isInstanceOf(IllegalArgumentException.class);
+                    () -> Baseball.create(baseballNumberList))
+                    .isInstanceOf(IllegalArgumentException.class);
         }
     }
 
@@ -83,53 +83,47 @@ class BaseballTest {
 
         static Stream<Arguments> getTwoBaseballsAndResult() {
             return Stream.of(
-                Arguments.of(
-                    Baseball.create(List.of(BaseballNumber.create(1), BaseballNumber.create(2),
-                        BaseballNumber.create(3))),
-                    Baseball.create(List.of(BaseballNumber.create(1), BaseballNumber.create(2),
-                        BaseballNumber.create(3))),
-                    List.of(BaseballResultType.STRIKE, BaseballResultType.STRIKE,
-                        BaseballResultType.STRIKE)),
-                Arguments.of(
-                    Baseball.create(List.of(BaseballNumber.create(4), BaseballNumber.create(2),
-                        BaseballNumber.create(5))),
-                    Baseball.create(List.of(BaseballNumber.create(2), BaseballNumber.create(5),
-                        BaseballNumber.create(4))),
-                    List.of(BaseballResultType.BALL, BaseballResultType.BALL,
-                        BaseballResultType.BALL)),
-                Arguments.of(
-                    Baseball.create(List.of(BaseballNumber.create(6), BaseballNumber.create(8),
-                        BaseballNumber.create(9))),
-                    Baseball.create(List.of(BaseballNumber.create(2), BaseballNumber.create(3),
-                        BaseballNumber.create(9))),
-                    List.of(BaseballResultType.STRIKE)),
-                Arguments.of(
-                    Baseball.create(List.of(BaseballNumber.create(1), BaseballNumber.create(2),
-                        BaseballNumber.create(4))),
-                    Baseball.create(List.of(BaseballNumber.create(3), BaseballNumber.create(4),
-                        BaseballNumber.create(2))),
-                    List.of(BaseballResultType.BALL, BaseballResultType.BALL)),
-                Arguments.of(
-                    Baseball.create(List.of(BaseballNumber.create(3), BaseballNumber.create(2),
-                        BaseballNumber.create(1))),
-                    Baseball.create(List.of(BaseballNumber.create(1), BaseballNumber.create(2),
-                        BaseballNumber.create(3))),
-                    List.of(BaseballResultType.BALL, BaseballResultType.STRIKE,
-                        BaseballResultType.BALL))
+                    Arguments.of(
+                            Baseball.create(List.of(BaseballNumber.create(1), BaseballNumber.create(2),
+                                    BaseballNumber.create(3))),
+                            Baseball.create(List.of(BaseballNumber.create(1), BaseballNumber.create(2),
+                                    BaseballNumber.create(3))), 0, 3),
+                    Arguments.of(
+                            Baseball.create(List.of(BaseballNumber.create(4), BaseballNumber.create(2),
+                                    BaseballNumber.create(5))),
+                            Baseball.create(List.of(BaseballNumber.create(2), BaseballNumber.create(5),
+                                    BaseballNumber.create(4))), 3, 0),
+                    Arguments.of(
+                            Baseball.create(List.of(BaseballNumber.create(6), BaseballNumber.create(8),
+                                    BaseballNumber.create(9))),
+                            Baseball.create(List.of(BaseballNumber.create(2), BaseballNumber.create(3),
+                                    BaseballNumber.create(9))), 0, 1),
+                    Arguments.of(
+                            Baseball.create(List.of(BaseballNumber.create(1), BaseballNumber.create(2),
+                                    BaseballNumber.create(4))),
+                            Baseball.create(List.of(BaseballNumber.create(3), BaseballNumber.create(4),
+                                    BaseballNumber.create(2))), 2, 0),
+                    Arguments.of(
+                            Baseball.create(List.of(BaseballNumber.create(3), BaseballNumber.create(2),
+                                    BaseballNumber.create(1))),
+                            Baseball.create(List.of(BaseballNumber.create(1), BaseballNumber.create(2),
+                                    BaseballNumber.create(3))), 2, 1)
             );
         }
 
         @DisplayName("올바른 결과를 반환한다.")
-        @ParameterizedTest(name = "{0} {1} {2}")
+        @ParameterizedTest(name = "{0} {1} ball: {2} strike: {3}")
         @MethodSource("getTwoBaseballsAndResult")
-        void success(Baseball answer, Baseball guess, List<BaseballResultType> expected) {
+        void success(Baseball answer, Baseball guess, int ballCount, int strikeCount) {
             //given
             //when
-            List<BaseballResultType> result = answer.match(guess);
+            BaseballResult result = answer.match(guess);
 
             //then
-            assertThat(result).isNotNull()
-                .containsExactlyElementsOf(expected);
+            assertThat(result).isNotNull();
+            assertThat(result.getResult())
+                    .containsEntry(BaseballResultType.BALL, ballCount)
+                    .containsEntry(BaseballResultType.STRIKE, strikeCount);
         }
     }
 }
