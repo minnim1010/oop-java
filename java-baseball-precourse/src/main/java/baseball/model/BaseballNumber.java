@@ -1,5 +1,7 @@
 package baseball.model;
 
+import baseball.validator.BaseballNumberValidator;
+
 public class BaseballNumber {
 
     public static final int MIN = 1;
@@ -8,7 +10,7 @@ public class BaseballNumber {
     private final int number;
 
     private BaseballNumber(int number) {
-        Validator.validateRange(number);
+        BaseballNumberValidator.validateRange(number);
 
         this.number = number;
     }
@@ -43,21 +45,5 @@ public class BaseballNumber {
     @Override
     public String toString() {
         return String.format("%d", number);
-    }
-
-    private static class Validator {
-
-        private static final String WRONG_RANGE_ERROR_MSG =
-                "각 숫자는 1 이상 9 이하여야 합니다.";
-
-        public static void validateRange(int value) {
-            if (!isValidRange(value)) {
-                throw new IllegalArgumentException(WRONG_RANGE_ERROR_MSG);
-            }
-        }
-
-        private static boolean isValidRange(int value) {
-            return (MIN <= value && value <= MAX);
-        }
     }
 }
