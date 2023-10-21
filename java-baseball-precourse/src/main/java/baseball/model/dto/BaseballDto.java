@@ -7,19 +7,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class BaseballDto {
+public record BaseballDto(String baseball) {
 
-    private final String baseball;
-
-    public BaseballDto(String baseball) {
+    public BaseballDto {
         InputValidator.validateNotBlank(baseball);
         Validator.validateBaseball(baseball);
-
-        this.baseball = baseball;
-    }
-
-    public String getBaseball() {
-        return this.baseball;
     }
 
     public Baseball toBaseball() {

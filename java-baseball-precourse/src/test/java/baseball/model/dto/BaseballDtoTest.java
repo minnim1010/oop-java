@@ -28,7 +28,7 @@ class BaseballDtoTest {
 
             //then
             assertThat(baseballDto).isNotNull();
-            assertThat(baseballDto.getBaseball()).isEqualTo(input);
+            assertThat(baseballDto.baseball()).isEqualTo(input);
         }
 
         @DisplayName("길이가 3이 아니라면 예외가 발생한다.")

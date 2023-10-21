@@ -4,19 +4,11 @@ import baseball.constants.GameStatus;
 import baseball.validator.InputValidator;
 import java.util.regex.Pattern;
 
-public class GameStatusDto {
+public record GameStatusDto(String status) {
 
-    private final String status;
-
-    public GameStatusDto(String status) {
+    public GameStatusDto {
         InputValidator.validateNotBlank(status);
         Validator.validateRestartInput(status);
-
-        this.status = status;
-    }
-
-    public String getStatus() {
-        return this.status;
     }
 
     public boolean isRestart() {

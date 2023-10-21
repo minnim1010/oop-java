@@ -25,7 +25,7 @@ class GameStatusDtoTest {
             GameStatusDto gameStatusDto = new GameStatusDto(input);
 
             //then
-            assertThat(gameStatusDto.getStatus()).isEqualTo(input);
+            assertThat(gameStatusDto.status()).isEqualTo(input);
         }
 
         @DisplayName("1,2가 아닌 경우 예외가 발생한다.")
