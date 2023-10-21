@@ -2,10 +2,10 @@ package baseball.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import baseball.constants.BaseballResultType;
 import baseball.domain.Baseball;
 import baseball.domain.BaseballNumber;
 import baseball.domain.BaseballResult;
-import baseball.domain.BaseballResultType;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -41,10 +41,10 @@ class BaseballServiceTest {
         void success() {
             //given
             List<BaseballNumber> answerBaseballNumbers = List.of(
-                BaseballNumber.create(1), BaseballNumber.create(2), BaseballNumber.create(3));
+                    BaseballNumber.create(1), BaseballNumber.create(2), BaseballNumber.create(3));
 
             List<BaseballNumber> guessBaseballNumbers = List.of(
-                BaseballNumber.create(3), BaseballNumber.create(4), BaseballNumber.create(5));
+                    BaseballNumber.create(3), BaseballNumber.create(4), BaseballNumber.create(5));
 
             Baseball answer = Baseball.create(answerBaseballNumbers);
             Baseball guess = Baseball.create(guessBaseballNumbers);
@@ -55,8 +55,8 @@ class BaseballServiceTest {
             //then
             assertThat(result).isNotNull();
             assertThat(result.getResult()).isNotNull()
-                .containsEntry(BaseballResultType.BALL, 1)
-                .containsEntry(BaseballResultType.STRIKE, 0);
+                    .containsEntry(BaseballResultType.BALL, 1)
+                    .containsEntry(BaseballResultType.STRIKE, 0);
         }
     }
 }

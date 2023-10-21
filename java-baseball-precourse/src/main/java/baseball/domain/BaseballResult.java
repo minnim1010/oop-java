@@ -1,5 +1,6 @@
 package baseball.domain;
 
+import baseball.constants.BaseballResultType;
 import baseball.constants.Message;
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -55,6 +56,7 @@ public class BaseballResult {
 
     private String createResultMessage(int ballCnt, int strikeCnt) {
         StringBuilder sb = new StringBuilder();
+
         appendResult(sb, Message.BALL, ballCnt);
         appendResult(sb, Message.STRIKE, strikeCnt);
 
