@@ -3,39 +3,37 @@ package baseball.controller;
 import baseball.constants.Message;
 import baseball.domain.Baseball;
 import baseball.domain.BaseballResult;
+import baseball.domain.dto.BaseballDto;
+import baseball.domain.dto.GameStatusDto;
 import baseball.service.BaseballService;
-import baseball.util.ConvertUtil;
-import baseball.validator.BaseballGameInputValidator;
 import baseball.view.InputView;
 import baseball.view.OutputView;
 
 public class BaseballController {
 
-    public static final String RESTART = "1";
-
-    private final BaseballService service;
     private final InputView inputView;
     private final OutputView outputView;
+    private final BaseballService baseballService;
 
     public BaseballController(InputView inputView, OutputView outputView,
-        BaseballService baseballService) {
+                              BaseballService baseballService) {
         this.inputView = inputView;
         this.outputView = outputView;
-        this.service = baseballService;
+        this.baseballService = baseballService;
     }
 
     public void run() {
-        boolean play = true;
+        boolean start = true;
 
-        while (play) {
+        while (start) {
             Baseball answer = getAnswerBaseball();
             playGame(answer);
-            play = askForReplay();
+            start = askForRestart();
         }
     }
 
     private Baseball getAnswerBaseball() {
-        return service.createAnswerBaseball();
+        return baseballService.createAnswerBaseball();
     }
 
     private void playGame(Baseball answer) {
@@ -51,22 +49,22 @@ public class BaseballController {
 
     private Baseball getGuessBaseball() {
         String baseballInput = inputView.input(Message.INPUT_BASEBALL_NUMBER, false);
-        BaseballGameInputValidator.validateBaseball(baseballInput);
+        BaseballDto baseballDto = new BaseballDto(baseballInput);
 
-        return ConvertUtil.toBaseball(baseballInput);
+        return baseballDto.toBaseball();
     }
 
     private boolean checkResult(Baseball answer, Baseball guess) {
-        BaseballResult baseballResult = service.calculateResult(answer, guess);
+        BaseballResult baseballResult = baseballService.calculateResult(answer, guess);
         outputView.outputLine(baseballResult.getResultMessage());
 
         return baseballResult.isCorrect();
     }
 
-    private boolean askForReplay() {
-        String input = inputView.input(Message.RESTART_GAME);
-        BaseballGameInputValidator.validateRestartInput(input);
+    private boolean askForRestart() {
+        String gameStatusInput = inputView.input(Message.RESTART_GAME);
+        GameStatusDto gameStatusDto = new GameStatusDto(gameStatusInput);
 
-        return input.equals(RESTART);
+        return gameStatusDto.isRestart();
     }
 }

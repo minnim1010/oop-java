@@ -24,7 +24,7 @@ class BaseballNumberTest {
 
             //then
             assertThat(baseballNumber).isNotNull();
-            assertThat(baseballNumber.getValue()).isEqualTo(num);
+            assertThat(baseballNumber.getNumber()).isEqualTo(num);
         }
 
         @DisplayName("값이 1 미만이라면 생성할 수 없다.")
@@ -35,7 +35,7 @@ class BaseballNumberTest {
 
             //when then
             assertThatThrownBy(() -> BaseballNumber.create(num))
-                .isInstanceOf(IllegalArgumentException.class);
+                    .isInstanceOf(IllegalArgumentException.class);
         }
 
         @DisplayName("값이 9 초과라면 생성할 수 없다.")
@@ -46,7 +46,7 @@ class BaseballNumberTest {
 
             //when then
             assertThatThrownBy(() -> BaseballNumber.create(num))
-                .isInstanceOf(IllegalArgumentException.class);
+                    .isInstanceOf(IllegalArgumentException.class);
         }
     }
 }
